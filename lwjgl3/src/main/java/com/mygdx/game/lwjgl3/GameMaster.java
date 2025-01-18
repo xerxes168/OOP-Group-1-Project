@@ -11,7 +11,7 @@ public class GameMaster extends ApplicationAdapter {
 	
 	private Texture bucketImage;
 	private SpriteBatch batch;
-	//hello test test
+	//hello test test TEST
 	
 	@Override
 	public void create ()
