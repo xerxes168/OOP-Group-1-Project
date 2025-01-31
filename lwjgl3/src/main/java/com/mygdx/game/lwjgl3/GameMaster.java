@@ -5,30 +5,30 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 
 public class GameMaster extends ApplicationAdapter {
 	
-	private Texture bucketImage;
 	private SpriteBatch batch;
+	private Character player1;
+	private EntityManager entityManager;
 	
 	@Override
-	public void create ()
-	{
-		bucketImage = new Texture(Gdx.files.internal("character.png"));
-		batch = new SpriteBatch();	
+	public void create () {
+		entityManager = new EntityManager();
+		batch = new SpriteBatch();
+		
+		
+		player1 = new Character();
+		entityManager.addEntities(player1);
 	}
 
 	@Override
 	public void render()
 	{
-		ScreenUtils.clear(0, 0, 0.2f, 1);
-		
-		batch.begin();
+		ScreenUtils.clear(0, 0, 0.2f, 1);	
 
-			batch.draw(bucketImage, 150, 150, 50, 50);
-			
-		batch.end();
+		entityManager.draw(batch);
+		entityManager.movement();
 
 			
 	}
@@ -36,7 +36,7 @@ public class GameMaster extends ApplicationAdapter {
 	@Override
 	public void dispose() {
 		batch.dispose();
-		bucketImage.dispose();
+
 		
 	}
 }
