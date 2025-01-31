@@ -11,12 +11,11 @@ public class GameMaster extends ApplicationAdapter {
 	
 	private Texture bucketImage;
 	private SpriteBatch batch;
-	//hello test test TEST
 	
 	@Override
 	public void create ()
 	{
-		bucketImage = new Texture(Gdx.files.internal("testbuck.png"));
+		bucketImage = new Texture(Gdx.files.internal("character.png"));
 		batch = new SpriteBatch();	
 	}
 
