@@ -9,7 +9,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Character extends Entity implements iMovable, iCollidable {
 	private float currentxPos;
 	private float currentyPos;
-	private boolean inScreen;
+	
+    private static final float CHARACTER_SIZE = 50;
+    private static final float SPEED = 200;
+    private static final float SCREEN_WIDTH = 640; // NEED TO CHANGE
+    private static final float SCREEN_HEIGHT = 480; // NEED TO CHANGE
 	
 	Character() {
 		super();
@@ -26,37 +30,29 @@ public class Character extends Entity implements iMovable, iCollidable {
 	public void draw(SpriteBatch batch) {
 		batch.begin();
 
-		batch.draw(this.getTex(),this.getX(),this.getY(), 50, 50);
+		batch.draw(this.getTex(),this.getX(),this.getY(), CHARACTER_SIZE, CHARACTER_SIZE);
 		
 		batch.end();
 	}
 	
 	@Override
 	public void movement() {
-		if(inScreen == true) {
-			currentyPos = super.getY();
-			if (Gdx.input.isKeyPressed(Keys.UP)) currentyPos += 200 * Gdx.graphics.getDeltaTime();
-			if (Gdx.input.isKeyPressed(Keys.DOWN)) currentyPos -= 200 * Gdx.graphics.getDeltaTime();
-			super.setY(currentyPos);
-			
-			currentxPos = super.getX();
-			if (Gdx.input.isKeyPressed(Keys.LEFT)) currentxPos -= 200 * Gdx.graphics.getDeltaTime();
-			if (Gdx.input.isKeyPressed(Keys.RIGHT)) currentxPos += 200 * Gdx.graphics.getDeltaTime();
-			super.setX(currentxPos);
-		}
-		
-		if (super.getX() >= 560) {
-			inScreen = false;
-		} else {
-			inScreen = true;
-		}
-		
-		if (super.getY() < 0) {
-			inScreen = false;
-		} else {
-			inScreen = true;
-		}
+		float deltaTime = Gdx.graphics.getDeltaTime();
+        
+        currentyPos = super.getY();
+        if (Gdx.input.isKeyPressed(Keys.UP)) currentyPos += SPEED * deltaTime;
+        if (Gdx.input.isKeyPressed(Keys.DOWN)) currentyPos -= SPEED * deltaTime;
+        
+        currentxPos = super.getX();
+        if (Gdx.input.isKeyPressed(Keys.LEFT)) currentxPos -= SPEED * deltaTime;
+        if (Gdx.input.isKeyPressed(Keys.RIGHT)) currentxPos += SPEED * deltaTime;
 	
+        // Prevent character from leaving the screen bounds
+        currentxPos = Math.max(0, Math.min(currentxPos, SCREEN_WIDTH - CHARACTER_SIZE));
+        currentyPos = Math.max(0, Math.min(currentyPos, SCREEN_HEIGHT - CHARACTER_SIZE));
+        
+        super.setX(currentxPos);
+        super.setY(currentyPos);	
 		
 	}
 	
@@ -64,7 +60,7 @@ public class Character extends Entity implements iMovable, iCollidable {
 	public void collision() {
 		// To be written
 		
-		// Collision with Boundaries of screen
+		// Collision with other objects
 	}
 
 	
