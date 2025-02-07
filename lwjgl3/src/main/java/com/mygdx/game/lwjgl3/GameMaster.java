@@ -10,16 +10,16 @@ public class GameMaster extends ApplicationAdapter {
 	
 	private SpriteBatch batch;
 	private Character player1;
-	private EntityManager entityManager;
+	//private EntityManager entityManager;
 	
 	@Override
 	public void create () {
-		entityManager = new EntityManager();
+		//entityManager = new EntityManager();
 		batch = new SpriteBatch();
 		
 		
-		player1 = new Character();
-		entityManager.addEntities(player1);
+		//player1 = new Character();
+		//entityManager.addEntities(player1);
 	}
 
 	@Override
@@ -27,8 +27,8 @@ public class GameMaster extends ApplicationAdapter {
 	{
 		ScreenUtils.clear(0, 0, 0.2f, 1);	
 
-		entityManager.draw(batch);
-		entityManager.movement();
+		//entityManager.draw(batch);
+		//entityManager.movement();
 
 			
 	}
