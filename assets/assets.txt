@@ -1,2 +1,4 @@
+car.png
+character.png
 libgdx.png
 testbuck.png
