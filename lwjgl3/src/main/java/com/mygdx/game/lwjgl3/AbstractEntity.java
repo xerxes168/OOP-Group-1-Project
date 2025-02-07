@@ -1,4 +1,4 @@
-package com.mygdx.game.lwjgl3;
+	package com.mygdx.game.lwjgl3;
 
 public class AbstractEntity {
 
