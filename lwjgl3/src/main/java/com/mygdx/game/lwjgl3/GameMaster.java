@@ -17,6 +17,8 @@ public class GameMaster extends ApplicationAdapter {
 		entityManager = new EntityManager();
 		batch = new SpriteBatch();
 		
+		//tesst
+		
 		
 		player1 = new Character();
 		entityManager.addEntities(player1);
