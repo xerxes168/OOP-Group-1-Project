@@ -11,7 +11,8 @@ public class GameMaster extends ApplicationAdapter {
 	private SpriteBatch batch;
 	private Character player1;
 	private EntityManager entityManager;
-	
+	private EntityManager test;
+	//hello
 	@Override
 	public void create () {
 		entityManager = new EntityManager();
