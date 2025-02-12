@@ -10,6 +10,7 @@ public class GameMaster extends ApplicationAdapter {
 	
 	private SpriteBatch batch;
 	private Character player1;
+	private Object1 object1;
 	private EntityManager entityManager;
 	
 	@Override
@@ -17,11 +18,13 @@ public class GameMaster extends ApplicationAdapter {
 		entityManager = new EntityManager();
 		batch = new SpriteBatch();
 		
-		//tesst
+		//test
 		
 		
 		player1 = new Character();
+		object1 = new Object1();
 		entityManager.addEntities(player1);
+		entityManager.addEntities(object1);
 	}
 
 	@Override
@@ -31,6 +34,9 @@ public class GameMaster extends ApplicationAdapter {
 
 		entityManager.draw(batch);
 		entityManager.movement();
+		if(player1.isCollided(object1)) {
+			player1.onCollision(object1);
+		}
 
 			
 	}

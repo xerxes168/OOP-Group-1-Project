@@ -3,25 +3,29 @@ package com.mygdx.game.lwjgl3;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 public abstract class Entity {
 	private float xPosition;
 	private float yPosition;
 	private float speed;
 	private Texture tex;
+	private Rectangle rectangle;
 	
 	Entity() {
 		xPosition = 280;
 		yPosition = 0; 
 		speed = 1;
 		tex = new Texture(Gdx.files.internal("testbuck.png"));
+		this.rectangle = new Rectangle(xPosition, yPosition, tex.getWidth(), tex.getHeight());
 	}
 	
 	Entity(float x, float y, float speed, String imgName) {
-		xPosition = x;
-		yPosition = y; 
+		this.xPosition = x;
+		this.yPosition = y; 
 		this.speed = speed;
-		tex = new Texture(Gdx.files.internal(imgName));
+		this.tex = new Texture(Gdx.files.internal(imgName));
+		this.rectangle = new Rectangle(x, y, tex.getWidth(), tex.getHeight());
 	}
 	
 	public float getX() {
@@ -55,6 +59,14 @@ public abstract class Entity {
 	
 	public void setTex(String imgName) {
 		tex = new Texture(Gdx.files.internal(imgName));
+	}
+	
+	public void setRectangle() {
+		rectangle.setPosition(xPosition, yPosition);
+	}
+	
+	public Rectangle getRectangle() {
+		return rectangle;
 	}
 	
     public void draw(SpriteBatch batch) {
