@@ -10,6 +10,8 @@ public abstract class Entity {
 	private float speed;
 	private Texture tex;
 	
+	
+	
 	Entity() {
 		xPosition = 280;
 		yPosition = 0; 
