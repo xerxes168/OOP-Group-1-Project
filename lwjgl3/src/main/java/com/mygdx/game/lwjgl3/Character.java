@@ -28,7 +28,6 @@ public class Character extends Entity implements iMovable, iCollidable {
 		super.setY(y);
 		super.setSpeed(speed);
 		super.setTex(imgName);
-		this.shapeRenderer = new ShapeRenderer();
 	}
 	
 	public void draw(SpriteBatch batch) {
@@ -67,13 +66,9 @@ public class Character extends Entity implements iMovable, iCollidable {
 	
 	@Override
 	public boolean isCollided(iCollidable object) {
-		if(object instanceof Object1) {
-			return this.getRectangle().overlaps(((Object1) object).getRectangle());
+		if(object instanceof Entity) {
+			return this.getRectangle().overlaps(((Entity) object).getRectangle());
 		}
-//		else if (object instanceof Object2) {
-//			
-//		}
-		
 		else {
 			return false;
 		}
@@ -85,8 +80,11 @@ public class Character extends Entity implements iMovable, iCollidable {
 		// To be written
 		
 		// Collision with other objects
-		if(isCollided(object)) {
+		if(object instanceof Object1) {
 			System.out.println("Collided with object 1");
+		}
+		else if(object instanceof Object2) {
+			System.out.println("Collided with object 2");
 		}
 	}
 	

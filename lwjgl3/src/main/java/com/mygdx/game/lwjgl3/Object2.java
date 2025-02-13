@@ -4,24 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class Object1 extends Entity implements iMovable, iCollidable{
+public class Object2 extends Entity implements iMovable, iCollidable{
 	
 	private float currentxPos;
 	private ShapeRenderer shapeRenderer; // Only for debugging purposes
 	private static final float OBJECT_SIZE = 100;
 	private static final float SPEED = 50;
-		
-	Object1(){
-		super(400, 0, 50, "car1.png", OBJECT_SIZE, OBJECT_SIZE);
-		super.setTex("car1.png");
-		this.shapeRenderer = new ShapeRenderer();
-	}
 	
-	Object1(float x, float y, float speed, String imgName, float width, float height){
-		super.setX(x);
-		super.setY(y);
-		super.setSpeed(speed);
-		super.setTex(imgName);
+	Object2(){
+		super(400, 200, 50, "car.png", OBJECT_SIZE, OBJECT_SIZE);
+		super.setTex("car.png");
+		this.shapeRenderer = new ShapeRenderer();
 	}
 	
 	@Override
@@ -40,7 +33,7 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 	@Override
 	public void draw(SpriteBatch batch) {
 		batch.begin();
-			batch.draw(this.getTex(),this.getX(),this.getY(), OBJECT_SIZE, OBJECT_SIZE);		
+			batch.draw(this.getTex(),this.getX(),this.getY(), OBJECT_SIZE, OBJECT_SIZE);
 		batch.end();
 		
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -61,5 +54,7 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 	public void onCollision(iCollidable object) {
 		
 	}
+
 	
+
 }
