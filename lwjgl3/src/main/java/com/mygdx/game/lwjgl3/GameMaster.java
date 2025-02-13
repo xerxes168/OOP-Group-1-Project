@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+
+
 public class GameMaster extends ApplicationAdapter {
 	
 	private SpriteBatch batch;
@@ -14,6 +16,10 @@ public class GameMaster extends ApplicationAdapter {
 	private EntityManager entityManager;
 	private EntityManager test;
 	private ShapeRenderer shapeRenderer;
+	private ScrollingBackground scrollingBackground;
+	
+	private float scrollOffset = 0; // Offset for scrolling effect
+    private float scrollSpeed = 100; // Pixels per second
 	
 	//temporary grid for development
 	private void drawGrid() {
@@ -32,10 +38,10 @@ public class GameMaster extends ApplicationAdapter {
 	    }
 
 	    // Draw horizontal lines
-	    for (int i = 0; i <= 8; i++) {
-	        float y = i * cellHeight;
-	        shapeRenderer.line(0, y, screenWidth, y);
-	    }
+	    for (int i = -1; i <= 8; i++) { // Start from -1 to ensure smooth wrapping
+            float y = i * cellHeight + scrollOffset;
+            shapeRenderer.line(0, y, screenWidth, y);
+        }
 
 	    shapeRenderer.end();
 	}
@@ -46,6 +52,7 @@ public class GameMaster extends ApplicationAdapter {
 		batch = new SpriteBatch();
 	    shapeRenderer = new ShapeRenderer(); // Initialize the shape renderer
 		
+	    //if required to add a background image for scrolling instead scrollingBackground = new ScrollingBackground("background.png", 100); // Adjust speed
 	
 		player1 = new Character();
 		entityManager.addEntities(player1);
@@ -56,17 +63,32 @@ public class GameMaster extends ApplicationAdapter {
 	{
 		ScreenUtils.clear(0, 0, 0.2f, 1);
 		
-		drawGrid(); // Draw the grid
+		float delta = Gdx.graphics.getDeltaTime();
 
-		entityManager.draw(batch);
-		entityManager.movement();
+        // Update grid scroll position
+        scrollOffset -= scrollSpeed * delta;
 
+        // Reset offset when it scrolls past one cell
+        float cellHeight = Gdx.graphics.getHeight() / 8f;
+        if (scrollOffset <= -cellHeight) {
+            scrollOffset = 0;
+        }
+
+        drawGrid(); // Draw scrolling grid
+
+        entityManager.draw(batch); // Draw entities
+        entityManager.movement(); // Handle movement
+		
+	
 			
 	}
 	
 	@Override
 	public void dispose() {
+		
 		batch.dispose();
+		shapeRenderer.dispose();
+		scrollingBackground.dispose();
 
 		
 	}
