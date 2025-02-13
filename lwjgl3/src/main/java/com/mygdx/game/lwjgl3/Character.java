@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 public class Character extends Entity implements iMovable, iCollidable {
 	private float currentxPos;
 	private float currentyPos;
-	private ShapeRenderer shapeRenderer;
+	private ShapeRenderer shapeRenderer; // Only for debugging purposes
 	
     private static final float CHARACTER_SIZE = 50;
     private static final float SPEED = 200;
@@ -18,7 +18,7 @@ public class Character extends Entity implements iMovable, iCollidable {
     private static final float SCREEN_HEIGHT = 480; // NEED TO CHANGE
 	
 	Character() {
-		super();
+		super(280, 0, 1, "character.png", CHARACTER_SIZE, CHARACTER_SIZE);
 		super.setTex("character.png");
 		this.shapeRenderer = new ShapeRenderer();
 	}
@@ -40,6 +40,7 @@ public class Character extends Entity implements iMovable, iCollidable {
 	        shapeRenderer.setColor(1, 0, 0, 1); // Red color
 	        shapeRenderer.rect(this.getX(), this.getY(), CHARACTER_SIZE, CHARACTER_SIZE);
         shapeRenderer.end();
+        setRectangle();
 	}
 	
 	@Override
@@ -59,9 +60,8 @@ public class Character extends Entity implements iMovable, iCollidable {
         currentyPos = Math.max(0, Math.min(currentyPos, SCREEN_HEIGHT - CHARACTER_SIZE));
         
         super.setX(currentxPos);
-        super.setY(currentyPos);	
-        
-        setRectangle();
+        super.setY(currentyPos);
+       
 		
 	}
 	

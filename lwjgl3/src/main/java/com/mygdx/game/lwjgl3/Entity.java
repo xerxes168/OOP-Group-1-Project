@@ -9,6 +9,8 @@ public abstract class Entity {
 	private float xPosition;
 	private float yPosition;
 	private float speed;
+	private float width;
+	private float height;
 	private Texture tex;
 	private Rectangle rectangle;
 	
@@ -16,8 +18,7 @@ public abstract class Entity {
 		xPosition = 280;
 		yPosition = 0; 
 		speed = 1;
-		tex = new Texture(Gdx.files.internal("testbuck.png"));
-		this.rectangle = new Rectangle(xPosition, yPosition, tex.getWidth(), tex.getHeight());
+		this.tex = new Texture(Gdx.files.internal("testbuck.png"));
 	}
 	
 	Entity(float x, float y, float speed, String imgName) {
@@ -25,7 +26,14 @@ public abstract class Entity {
 		this.yPosition = y; 
 		this.speed = speed;
 		this.tex = new Texture(Gdx.files.internal(imgName));
-		this.rectangle = new Rectangle(x, y, tex.getWidth(), tex.getHeight());
+	}
+	
+	Entity(float x, float y, float speed, String imgName, float width, float height) {
+		this.xPosition = x;
+		this.yPosition = y; 
+		this.speed = speed;
+		this.tex = new Texture(Gdx.files.internal(imgName));
+		this.rectangle = new Rectangle(xPosition, yPosition, width, height);
 	}
 	
 	public float getX() {
@@ -67,6 +75,22 @@ public abstract class Entity {
 	
 	public Rectangle getRectangle() {
 		return rectangle;
+	}
+	
+	public void setWidth(float newWidth) {
+		width = newWidth;
+;	}
+	
+	public float getWidth() {
+		return width;
+	}
+	
+	public void setHeight(float newHeight) {
+		height = newHeight;
+	}
+	
+	public float getHeight() {
+		return height;
 	}
 	
     public void draw(SpriteBatch batch) {

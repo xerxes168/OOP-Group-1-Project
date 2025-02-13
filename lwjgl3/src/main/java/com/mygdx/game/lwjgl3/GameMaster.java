@@ -23,6 +23,7 @@ public class GameMaster extends ApplicationAdapter {
 		
 		player1 = new Character();
 		object1 = new Object1();
+		//object2 = new Object2();
 		entityManager.addEntities(player1);
 		entityManager.addEntities(object1);
 	}
