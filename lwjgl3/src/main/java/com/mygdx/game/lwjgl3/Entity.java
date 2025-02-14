@@ -69,7 +69,7 @@ public abstract class Entity {
 		tex = new Texture(Gdx.files.internal(imgName));
 	}
 	
-<<<<<<< Updated upstream
+
 	public void setRectangle() {
 		rectangle.setPosition(xPosition, yPosition);
 	}
@@ -94,9 +94,7 @@ public abstract class Entity {
 		return height;
 	}
 
-=======
-	
->>>>>>> Stashed changes
+
     public void draw(SpriteBatch batch) {
     	// Child Class will override
     }
