@@ -33,7 +33,7 @@ public class Terrain extends Entity {
 //			float randomY = MathUtils.random(Gdx.graphics.getHeight()/2, Gdx.graphics.getHeight());
 
 		    batch.begin();
-		    batch.draw(this.getTex(), randomX + offsetX + 2, randomY + offsetY, TERRAIN_OBJECT_SIZE, TERRAIN_OBJECT_SIZE); 
+		    batch.draw(this.getTex(), getX() + offsetX + 2, getY() + offsetY, TERRAIN_OBJECT_SIZE, TERRAIN_OBJECT_SIZE); 
 		    batch.end();
 	}
 	
