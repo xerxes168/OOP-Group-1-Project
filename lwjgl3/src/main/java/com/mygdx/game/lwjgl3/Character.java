@@ -16,7 +16,7 @@ public class Character extends Entity implements iMovable, iCollidable {
     //private static final float SCREEN_HEIGHT = 480; // NEED TO CHANGE
 	
 	Character() {
-		super();
+		super(280, 0, 1, "character.png", CHARACTER_SIZE, CHARACTER_SIZE);
 		super.setTex("character.png");
 	}
 	
@@ -40,6 +40,8 @@ public class Character extends Entity implements iMovable, iCollidable {
 		    batch.begin();
 		    batch.draw(this.getTex(), super.getX() + offsetX + 2, super.getY() + offsetY, CHARACTER_SIZE, CHARACTER_SIZE); 
 		    batch.end();
+		    setRectangle();
+
 	}
 	
 	@Override
@@ -71,10 +73,27 @@ public class Character extends Entity implements iMovable, iCollidable {
 	}
 	
 	@Override
-	public void collision() {
+	public boolean isCollided(iCollidable object) {
+		if(object instanceof Entity) {
+			return this.getRectangle().overlaps(((Entity) object).getRectangle());
+		}
+		else {
+			return false;
+		}
+		
+	}
+	
+	@Override
+	public void onCollision(iCollidable object) {
 		// To be written
 		
 		// Collision with other objects
+		if(object instanceof Object1) {
+			System.out.println("Collided with object 1");
+		}
+		else if(object instanceof Object2) {
+			System.out.println("Collided with object 2");
+		}
 	}
 
 	

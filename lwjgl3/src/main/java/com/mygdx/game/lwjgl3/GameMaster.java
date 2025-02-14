@@ -13,6 +13,8 @@ public class GameMaster extends ApplicationAdapter {
 	
 	private SpriteBatch batch;
 	private Character player1;
+	private Object1 object1;
+	private Object2 object2;
 	private EntityManager entityManager;
 	private EntityManager test;
 	private ShapeRenderer shapeRenderer;
@@ -55,7 +57,11 @@ public class GameMaster extends ApplicationAdapter {
 	    //if required to add a background image for scrolling instead scrollingBackground = new ScrollingBackground("background.png", 100); // Adjust speed
 	
 		player1 = new Character();
+		object1 = new Object1();
+		object2 = new Object2();
 		entityManager.addEntities(player1);
+		entityManager.addEntities(object1);
+		entityManager.addEntities(object2);
 	}
 
 	@Override
@@ -78,6 +84,14 @@ public class GameMaster extends ApplicationAdapter {
 
         entityManager.draw(batch); // Draw entities
         entityManager.movement(); // Handle movement
+        
+        if(player1.isCollided(object1)) {
+			player1.onCollision(object1);
+		}
+		else if(player1.isCollided(object2)) {
+			player1.onCollision(object2);
+		}
+
 		
 	
 			

@@ -3,13 +3,16 @@ package com.mygdx.game.lwjgl3;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 public abstract class Entity {
 	private float xPosition;
 	private float yPosition;
 	private float speed;
+	private float width;
+	private float height;
 	private Texture tex;
-	
+	private Rectangle rectangle;	
 	
 	
 	Entity() {
@@ -24,6 +27,14 @@ public abstract class Entity {
 		yPosition = y; 
 		this.speed = speed;
 		tex = new Texture(Gdx.files.internal(imgName));
+	}
+	
+	Entity(float x, float y, float speed, String imgName, float width, float height) {
+		this.xPosition = x;
+		this.yPosition = y; 
+		this.speed = speed;
+		this.tex = new Texture(Gdx.files.internal(imgName));
+		this.rectangle = new Rectangle(xPosition, yPosition, width, height);
 	}
 	
 	public float getX() {
@@ -59,6 +70,30 @@ public abstract class Entity {
 		tex = new Texture(Gdx.files.internal(imgName));
 	}
 	
+	public void setRectangle() {
+		rectangle.setPosition(xPosition, yPosition);
+	}
+	
+	public Rectangle getRectangle() {
+		return rectangle;
+	}
+	
+	public void setWidth(float newWidth) {
+		width = newWidth;
+;	}
+	
+	public float getWidth() {
+		return width;
+	}
+	
+	public void setHeight(float newHeight) {
+		height = newHeight;
+	}
+	
+	public float getHeight() {
+		return height;
+	}
+
     public void draw(SpriteBatch batch) {
     	// Child Class will override
     }
