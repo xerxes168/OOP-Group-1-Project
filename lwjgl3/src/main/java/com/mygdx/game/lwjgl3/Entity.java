@@ -14,12 +14,11 @@ public abstract class Entity {
 	private Texture tex;
 	private Rectangle rectangle;	
 	
-	
 	Entity() {
 		xPosition = 280;
 		yPosition = 0; 
 		speed = 1;
-		tex = new Texture(Gdx.files.internal("testbuck.png"));
+		tex = new Texture(Gdx.files.internal("car.png"));
 	}
 	
 	Entity(float x, float y, float speed, String imgName) {
@@ -70,6 +69,7 @@ public abstract class Entity {
 		tex = new Texture(Gdx.files.internal(imgName));
 	}
 	
+<<<<<<< Updated upstream
 	public void setRectangle() {
 		rectangle.setPosition(xPosition, yPosition);
 	}
@@ -94,6 +94,9 @@ public abstract class Entity {
 		return height;
 	}
 
+=======
+	
+>>>>>>> Stashed changes
     public void draw(SpriteBatch batch) {
     	// Child Class will override
     }

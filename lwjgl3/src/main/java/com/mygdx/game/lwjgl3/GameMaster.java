@@ -13,8 +13,12 @@ public class GameMaster extends ApplicationAdapter {
 	
 	private SpriteBatch batch;
 	private Character player1;
+<<<<<<< Updated upstream
 	private Object1 object1;
 	private Object2 object2;
+=======
+	private Terrain terrainObj;
+>>>>>>> Stashed changes
 	private EntityManager entityManager;
 	private EntityManager test;
 	private ShapeRenderer shapeRenderer;
@@ -60,8 +64,13 @@ public class GameMaster extends ApplicationAdapter {
 		object1 = new Object1();
 		object2 = new Object2();
 		entityManager.addEntities(player1);
+<<<<<<< Updated upstream
 		entityManager.addEntities(object1);
 		entityManager.addEntities(object2);
+=======
+		terrainObj = new Terrain();
+		entityManager.addEntities(terrainObj);
+>>>>>>> Stashed changes
 	}
 
 	@Override
