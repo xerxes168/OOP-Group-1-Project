@@ -12,10 +12,10 @@ public class Character extends Entity implements iMovable, iCollidable {
 	private float currentyPos;
 	private ShapeRenderer shapeRenderer; // Only for debugging purposes
 	
-    private static final float CHARACTER_SIZE = 50;
+    private static final float CHARACTER_SIZE = Gdx.graphics.getWidth() / 12f;
     private static final float SPEED = 200;
-    private static final float SCREEN_WIDTH = 640; // NEED TO CHANGE
-    private static final float SCREEN_HEIGHT = 480; // NEED TO CHANGE
+    //private static final float SCREEN_WIDTH = 640; // NEED TO CHANGE
+    //private static final float SCREEN_HEIGHT = 480; // NEED TO CHANGE
 	
 	Character() {
 		super(280, 0, 1, "character.png", CHARACTER_SIZE, CHARACTER_SIZE);
@@ -40,10 +40,24 @@ public class Character extends Entity implements iMovable, iCollidable {
 	        shapeRenderer.rect(this.getX(), this.getY(), CHARACTER_SIZE, CHARACTER_SIZE);
         shapeRenderer.end();
         setRectangle();
+    
+		 float screenWidth = Gdx.graphics.getWidth();
+		    float screenHeight = Gdx.graphics.getHeight();
+		    float cellWidth = screenWidth / 8f;
+		    float cellHeight = screenHeight / 8f;
+
+		    // Adjust X position slightly to center the duck
+		    float offsetX = (cellWidth - CHARACTER_SIZE) / 2f;
+		    float offsetY = (cellHeight - CHARACTER_SIZE) / 2f;
+
+		    batch.begin();
+		    batch.draw(this.getTex(), super.getX() + offsetX + 2, super.getY() + offsetY, CHARACTER_SIZE, CHARACTER_SIZE); 
+		    batch.end();
 	}
 	
 	@Override
 	public void movement() {
+
 		float deltaTime = Gdx.graphics.getDeltaTime();
         
         currentyPos = super.getY();
@@ -61,6 +75,30 @@ public class Character extends Entity implements iMovable, iCollidable {
         super.setX(currentxPos);
         super.setY(currentyPos);
        
+		// Get screen dimensions dynamically
+		float screenWidth = Gdx.graphics.getWidth();
+	    float screenHeight = Gdx.graphics.getHeight();
+
+	    float cellWidth = screenWidth / 8f;
+	    float cellHeight = screenHeight / 8f;
+
+	    int gridX = Math.round(super.getX() / cellWidth);
+	    int gridY = Math.round(super.getY() / cellHeight);
+
+	    if (Gdx.input.isKeyJustPressed(Keys.UP)) gridY++;
+	    if (Gdx.input.isKeyJustPressed(Keys.DOWN)) gridY--;
+	    if (Gdx.input.isKeyJustPressed(Keys.LEFT)) gridX--;
+	    if (Gdx.input.isKeyJustPressed(Keys.RIGHT)) gridX++;
+
+	    gridX = Math.max(0, Math.min(gridX, 7));
+	    gridY = Math.max(0, Math.min(gridY, 7));
+
+	    float maxWidth = screenWidth - CHARACTER_SIZE;
+	    float maxHeight = screenHeight - CHARACTER_SIZE;
+
+	    super.setX(Math.min(Math.round(gridX * cellWidth), maxWidth));
+	    super.setY(Math.min(Math.round(gridY * cellHeight), maxHeight));
+
 		
 	}
 	

@@ -14,6 +14,8 @@ public abstract class Entity {
 	private Texture tex;
 	private Rectangle rectangle;
 	
+	
+	
 	Entity() {
 		xPosition = 280;
 		yPosition = 0; 
