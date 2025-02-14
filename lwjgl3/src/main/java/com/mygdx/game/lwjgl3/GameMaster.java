@@ -65,10 +65,17 @@ public class GameMaster extends ApplicationAdapter {
 		object2 = new Object2();
 		terrainObj = new Terrain();
 		entityManager.addEntities(terrainObj);
+<<<<<<< Updated upstream
 		entityManager.addEntities(object2);
 		entityManager.addEntities(player1);
 		entityManager.addEntities(object1);
 	
+=======
+		entityManager.addEntities(player1);
+		entityManager.addEntities(object1);
+		entityManager.addEntities(object2);
+
+>>>>>>> Stashed changes
 
 	}
 

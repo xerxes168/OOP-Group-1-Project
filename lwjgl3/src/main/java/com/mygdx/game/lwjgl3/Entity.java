@@ -102,5 +102,6 @@ public abstract class Entity {
     public void movement() {	
     	// Child Class will override
     }
+
 	
 }
