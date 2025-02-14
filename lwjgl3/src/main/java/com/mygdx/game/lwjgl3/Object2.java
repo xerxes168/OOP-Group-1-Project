@@ -19,14 +19,6 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	
 	@Override
 	public void movement(){
-		float deltaTime = Gdx.graphics.getDeltaTime();
-		currentxPos = super.getX();
-        currentxPos -= SPEED * deltaTime;
-                
-        if(currentxPos <= 0) {
-        	currentxPos += 400;
-        }
-        super.setX(currentxPos);
 
 	}
 	
