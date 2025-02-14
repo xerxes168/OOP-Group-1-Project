@@ -4,9 +4,7 @@ import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-
 public class EntityManager {
-	
 	private List<Entity> entityList;
 	
 	// Default Constructor
