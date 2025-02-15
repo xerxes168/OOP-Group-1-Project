@@ -2,10 +2,13 @@ package com.mygdx.game.lwjgl3;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class PlayScene extends AbstractScene implements Screen {
     
@@ -30,12 +33,30 @@ public class PlayScene extends AbstractScene implements Screen {
 
     public PlayScene(GameMaster game) {
         super(game);
+
+        // camera = new OrthographicCamera();
+        // viewport = new FitViewport(1280, 720, camera);
+        // camera.position.set(640, 360, 0);
+        // camera.update();
     }
 
 
     @Override   // Similar to Create() in GameMaster
     public void show() {
         super.show();
+
+        // ---------------------------------------------------------
+
+        // If you want to further adjust the parent's camera:
+        // camera.position.set(1280, 720, 0); 
+        // camera.update();
+
+        // If the parent’s constructor made an 800x600 FitViewport, that’s typically fine. 
+        // But if you want a different resolution, you’d recreate it here.
+        // viewport = new FitViewport(1280, 720, camera);
+
+        // ---------------------------------------------------------
+
         entityManager = new EntityManager();
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
@@ -65,6 +86,8 @@ public class PlayScene extends AbstractScene implements Screen {
     @Override // Similar to Render() in GameMaster
     protected void draw(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
+
+        camera.update();
 
         // Grid scrolling
         updateGridScroll(delta);
@@ -104,6 +127,8 @@ public class PlayScene extends AbstractScene implements Screen {
         float screenHeight = Gdx.graphics.getHeight();
         float cellWidth    = screenWidth  / 8f;
         float cellHeight   = screenHeight / 8f;
+
+        
 
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);

@@ -5,24 +5,25 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class MenuScene extends AbstractScene implements Screen {
 
-    private static final int VIRTUAL_WIDTH = 800;
-    private static final int VIRTUAL_HEIGHT = 600;
+    private static final int VIRTUAL_WIDTH = 1280;
+    private static final int VIRTUAL_HEIGHT = 720;
 
     // Example button bounds
-    private static final int BUTTON_WIDTH = 150;
-    private static final int BUTTON_HEIGHT = 50;
+    private static final int BUTTON_WIDTH = 200;
+    private static final int BUTTON_HEIGHT = 80;
 
-    // "Play" button top-left corner
-    private static final int PLAY_BTN_X = 300;
-    private static final int PLAY_BTN_Y = 300;
-    // "Settings" button top-left corner
-    private static final int SETTING_BTN_X = 300;
-    private static final int SETTING_BTN_Y = 200;
+    // Play button
+    private static final int PLAY_BTN_X = 550;
+    private static final int PLAY_BTN_Y = 360;
+    // Settings button
+    private static final int SETTING_BTN_X = PLAY_BTN_X;
+    private static final int SETTING_BTN_Y = PLAY_BTN_Y - 150;
 
     private Texture menuTexture;
     private Texture playButtonTexture;
@@ -38,7 +39,9 @@ public class MenuScene extends AbstractScene implements Screen {
 
         // Initialize camera and viewport
         camera = new OrthographicCamera();
-        viewport = new FitViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
+        viewport = new ExtendViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
+
+        // viewport = new FitViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
         camera.position.set(VIRTUAL_WIDTH / 2f, VIRTUAL_HEIGHT / 2f, 0);
         camera.update();
 
