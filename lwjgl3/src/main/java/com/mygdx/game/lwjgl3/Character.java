@@ -68,14 +68,17 @@ public class Character extends Entity implements iMovable, iCollidable {
 	    int gridY = Math.round(super.getY() / cellHeight);
 
 	    if (Gdx.input.isKeyJustPressed(Keys.UP)) {gridY++;
-	    	soundManager.playMoveSound();
+	    	soundManager.playSound("move");
 	    }
 	    if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {gridY--;
-	    	soundManager.playMoveSound();}
+	    	soundManager.playSound("move");
+	    }
 	    if (Gdx.input.isKeyJustPressed(Keys.LEFT)) {gridX--;
-	    	soundManager.playMoveSound();}
+	    	soundManager.playSound("move");
+	    }
 	    if (Gdx.input.isKeyJustPressed(Keys.RIGHT)) {gridX++;
-	    	soundManager.playMoveSound();}
+	    	soundManager.playSound("move");
+	    }
 
 	    gridX = Math.max(0, Math.min(gridX, 11));
 	    gridY = Math.max(0, Math.min(gridY, 11));
@@ -108,9 +111,11 @@ public class Character extends Entity implements iMovable, iCollidable {
 		// Collision with other objects
 		if(object instanceof Object1) {
 			System.out.println("Collided with object 1");
+			soundManager.playSound("collision");
 		}
 		else if(object instanceof Object2) {
 			System.out.println("Collided with object 2");
+			soundManager.playSound("collision");
 		}
 	}
 

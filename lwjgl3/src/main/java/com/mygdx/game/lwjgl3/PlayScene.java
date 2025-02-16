@@ -72,6 +72,7 @@ public class PlayScene extends AbstractScene implements Screen {
         shapeRenderer = new ShapeRenderer();
         soundManager = new SoundManager();
         collisionManager = new CollisionManager();
+        soundManager.playBackgroundMusic();
         
         // ScrollingBackground class
         // scrollingBackground = new ScrollingBackground("background.png", 100);
