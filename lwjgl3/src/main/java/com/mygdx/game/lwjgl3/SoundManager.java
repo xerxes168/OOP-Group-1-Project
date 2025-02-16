@@ -12,46 +12,36 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+
 public class SoundManager {
-	private HashMap<String, Clip> soundMap;  // Stores sound clips for easy access
-    private float masterVolume = 1.0f; // master volume for all sound range from 0.0 to 1.0
-    
-	
-	public SoundManager() {
-		soundMap= new HashMap<>();
-	}
+    private Sound moveSound;
 
-	public void MoveSound(String name) {
-		try {
-			
-			FileHandle fileHandle = Gdx.files.internal("soundmanager/jump-retro-game-jam.wav");
-			
-			
-			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(fileHandle.file());
-			
-			
-			Clip clip = AudioSystem.getClip();
+    public SoundManager() {
+        preloadMoveSound("soundmanager/jump-retro-game-jam.wav");
+    }
 
-            // Open the clip with the audio data
-            clip.open(audioInputStream);
+    // Preload the movement sound
+    private void preloadMoveSound(String filePath) {
+        moveSound = Gdx.audio.newSound(Gdx.files.internal(filePath));
+        System.out.println("Movement sound preloaded.");
+    }
 
-            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            
-            gainControl.setValue(4.0f);
-            
-            // Start playing the sound
-            clip.start();
-            
-		  } catch (Exception e) {
-            e.printStackTrace();
+    // Play the movement sound
+    public void playMoveSound() {
+        if (moveSound != null) {
+            moveSound.play(1.0f);  // 1.0f = full volume
+        } else {
+            System.err.println("Movement sound not found!");
         }
     }
-	
-	
-	
-	
-	
+
+    // Dispose the sound to avoid memory leaks
+    public void dispose() {
+        if (moveSound != null) {
+            moveSound.dispose();
+            System.out.println("Movement sound disposed.");
+        }
+    }
 }
-	
-	
-	

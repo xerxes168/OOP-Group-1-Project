@@ -9,15 +9,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Character extends Entity implements iMovable, iCollidable {
 	private float currentxPos;
 	private float currentyPos;
+	private SoundManager soundManager;
 	
     private static final float CHARACTER_SIZE = Gdx.graphics.getWidth() / 12f;
     private static final float SPEED = 200;
     //private static final float SCREEN_WIDTH = 640; // NEED TO CHANGE
     //private static final float SCREEN_HEIGHT = 480; // NEED TO CHANGE
 	
-	Character() {
+	Character(SoundManager soundManager) {
 		super(280, 0, 1, "character.png", CHARACTER_SIZE, CHARACTER_SIZE);
 		super.setTex("character.png");
+		this.soundManager = soundManager;
 	}
 	
 	Character(String imgName,float x, float y, float speed) {
@@ -56,10 +58,15 @@ public class Character extends Entity implements iMovable, iCollidable {
 	    int gridX = Math.round(super.getX() / cellWidth);
 	    int gridY = Math.round(super.getY() / cellHeight);
 
-	    if (Gdx.input.isKeyJustPressed(Keys.UP)) gridY++;
-	    if (Gdx.input.isKeyJustPressed(Keys.DOWN)) gridY--;
-	    if (Gdx.input.isKeyJustPressed(Keys.LEFT)) gridX--;
-	    if (Gdx.input.isKeyJustPressed(Keys.RIGHT)) gridX++;
+	    if (Gdx.input.isKeyJustPressed(Keys.UP)) {gridY++;
+	    	soundManager.playMoveSound();
+	    }
+	    if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {gridY--;
+	    	soundManager.playMoveSound();}
+	    if (Gdx.input.isKeyJustPressed(Keys.LEFT)) {gridX--;
+	    	soundManager.playMoveSound();}
+	    if (Gdx.input.isKeyJustPressed(Keys.RIGHT)) {gridX++;
+	    	soundManager.playMoveSound();}
 
 	    gridX = Math.max(0, Math.min(gridX, 7));
 	    gridY = Math.max(0, Math.min(gridY, 7));

@@ -24,6 +24,8 @@ public class PlayScene extends AbstractScene implements Screen {
 	private EntityManager entityManager;
 	private EntityManager test;
 	private ShapeRenderer shapeRenderer;
+	
+	private SoundManager soundManager;
 
     // Scrolling Items
 	private ScrollingBackground scrollingBackground;
@@ -60,12 +62,13 @@ public class PlayScene extends AbstractScene implements Screen {
         entityManager = new EntityManager();
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
+        soundManager = new SoundManager();
         
         // ScrollingBackground class
         // scrollingBackground = new ScrollingBackground("background.png", 100);
 
         // Create entities
-        player1 = new Character();
+        player1 = new Character(soundManager);
         object1 = new Object1();
         object2 = new Object2();
         terrainObj = new Terrain();
