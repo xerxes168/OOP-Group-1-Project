@@ -1,5 +1,8 @@
 package com.mygdx.game.lwjgl3;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -9,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.badlogic.gdx.Input.Keys;
 
 public class PlayScene extends AbstractScene implements Screen {
     
@@ -25,6 +27,7 @@ public class PlayScene extends AbstractScene implements Screen {
 	private EntityManager entityManager;
 	private EntityManager test;
 	private ShapeRenderer shapeRenderer;
+	private CollisionManager collisionManager;
 	
 	private SoundManager soundManager;
 
@@ -32,6 +35,7 @@ public class PlayScene extends AbstractScene implements Screen {
 	private ScrollingBackground scrollingBackground;
     private float scrollOffset = 0; // Offset for scrolling effect
     private float scrollSpeed = 50; // Pixels per second
+    private List<Entity> toRemove;
 
 
     public PlayScene(GameMaster game) {
@@ -41,6 +45,7 @@ public class PlayScene extends AbstractScene implements Screen {
         viewport = new FitViewport(1280, 720, camera);
         camera.position.set(640, 360, 0);
         camera.update();
+        toRemove = new ArrayList<>();
         
     }
 
@@ -65,6 +70,7 @@ public class PlayScene extends AbstractScene implements Screen {
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         soundManager = new SoundManager();
+        collisionManager = new CollisionManager();
         
         // ScrollingBackground class
         // scrollingBackground = new ScrollingBackground("background.png", 100);
@@ -102,17 +108,7 @@ public class PlayScene extends AbstractScene implements Screen {
         entityManager.movement();
 
         // Check collisions
-        if (player1.isCollided(object1)) {
-            player1.onCollision(object1);
-        } else if (player1.isCollided(object2)) {
-            player1.onCollision(object2);
-        }
-
-        // Check Esc Key pressed
-        if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-            SceneManager.getInstance().setScene("Menu");
-        }
-
+        collisionManager.checkCollisions(entityManager.entityList);
     }
 
     // Grid scrolling functions
@@ -191,6 +187,7 @@ public class PlayScene extends AbstractScene implements Screen {
         }
       
     }
+    
 
     @Override
     public void dispose() {
