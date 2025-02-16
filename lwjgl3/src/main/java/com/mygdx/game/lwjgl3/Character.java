@@ -5,10 +5,12 @@ import java.awt.RenderingHints.Key;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Character extends Entity implements iMovable, iCollidable {
 	private float currentxPos;
 	private float currentyPos;
+	private ShapeRenderer shapeRenderer; // Only for debugging purposes
 	private SoundManager soundManager;
 	
     private static final float CHARACTER_SIZE = Gdx.graphics.getWidth() / 12f;
@@ -20,6 +22,7 @@ public class Character extends Entity implements iMovable, iCollidable {
 		super(280, 0, 1, "character.png", CHARACTER_SIZE, CHARACTER_SIZE);
 		super.setTex("character.png");
 		this.soundManager = soundManager;
+		this.shapeRenderer = new ShapeRenderer();
 	}
 	
 	Character(String imgName,float x, float y, float speed) {
@@ -42,7 +45,13 @@ public class Character extends Entity implements iMovable, iCollidable {
 		    batch.begin();
 		    batch.draw(this.getTex(), super.getX() + offsetX + 2, super.getY() + offsetY, CHARACTER_SIZE, CHARACTER_SIZE); 
 		    batch.end();
+		    shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+	        shapeRenderer.setColor(1, 0, 0, 1); // Red color
+	        shapeRenderer.rect(this.getX(), this.getY(), CHARACTER_SIZE, CHARACTER_SIZE);
+	        shapeRenderer.end();
+
 		    setRectangle();
+		    
 
 	}
 	
