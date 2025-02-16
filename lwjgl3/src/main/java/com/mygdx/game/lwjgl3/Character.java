@@ -68,11 +68,11 @@ public class Character extends Entity implements iMovable, iCollidable {
 	    if (Gdx.input.isKeyJustPressed(Keys.RIGHT)) {gridX++;
 	    	soundManager.playMoveSound();}
 
-	    gridX = Math.max(0, Math.min(gridX, 7));
-	    gridY = Math.max(0, Math.min(gridY, 7));
+	    gridX = Math.max(0, Math.min(gridX, 11));
+	    gridY = Math.max(0, Math.min(gridY, 11));
 
 	    float maxWidth = screenWidth - CHARACTER_SIZE;
-	    float maxHeight = Gdx.graphics.getHeight() - CHARACTER_SIZE;
+	    float maxHeight = screenHeight - CHARACTER_SIZE;
 	    
 	    
 
