@@ -32,8 +32,8 @@ public class Character extends Entity implements iMovable, iCollidable {
 	public void draw(SpriteBatch batch) {
 		 float screenWidth = Gdx.graphics.getWidth();
 		    float screenHeight = Gdx.graphics.getHeight();
-		    float cellWidth = screenWidth / 8f;
-		    float cellHeight = screenHeight / 8f;
+		    float cellWidth = screenWidth / 12f;
+		    float cellHeight = screenHeight / 12f;
 
 		    // Adjust X position slightly to center the duck
 		    float offsetX = (cellWidth - CHARACTER_SIZE) / 2f;
@@ -52,8 +52,8 @@ public class Character extends Entity implements iMovable, iCollidable {
 		float screenWidth = Gdx.graphics.getWidth();
 	    float screenHeight = Gdx.graphics.getHeight();
 
-	    float cellWidth = screenWidth / 8f;
-	    float cellHeight = screenHeight / 8f;
+	    float cellWidth = screenWidth / 12f;
+	    float cellHeight = screenHeight / 12f;
 
 	    int gridX = Math.round(super.getX() / cellWidth);
 	    int gridY = Math.round(super.getY() / cellHeight);
@@ -72,7 +72,9 @@ public class Character extends Entity implements iMovable, iCollidable {
 	    gridY = Math.max(0, Math.min(gridY, 7));
 
 	    float maxWidth = screenWidth - CHARACTER_SIZE;
-	    float maxHeight = screenHeight - CHARACTER_SIZE;
+	    float maxHeight = Gdx.graphics.getHeight() - CHARACTER_SIZE;
+	    
+	    
 
 	    super.setX(Math.min(Math.round(gridX * cellWidth), maxWidth));
 	    super.setY(Math.min(Math.round(gridY * cellHeight), maxHeight));
@@ -101,6 +103,13 @@ public class Character extends Entity implements iMovable, iCollidable {
 		else if(object instanceof Object2) {
 			System.out.println("Collided with object 2");
 		}
+	}
+
+	public void setPosition(float x, float y) {
+		
+		super.setX(x);  // Use Entity's setX()
+	    super.setY(y);  // Use Entity's setY()
+		
 	}
 
 	
