@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.Input.Keys;
 
 public class PlayScene extends AbstractScene implements Screen {
     
@@ -106,6 +107,12 @@ public class PlayScene extends AbstractScene implements Screen {
         } else if (player1.isCollided(object2)) {
             player1.onCollision(object2);
         }
+
+        // Check Esc Key pressed
+        if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+            SceneManager.getInstance().setScene("Menu");
+        }
+
     }
 
     // Grid scrolling functions
