@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -109,6 +110,10 @@ public class PlayScene extends AbstractScene implements Screen {
 
         // Check collisions
         collisionManager.checkCollisions(entityManager.entityList);
+        
+        if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+            SceneManager.getInstance().setScene("Menu");
+        }
     }
 
     // Grid scrolling functions
