@@ -39,12 +39,13 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	
 	@Override
 	public boolean isCollided(iCollidable object) {
+		
 		return true;
 	}
 	
 	@Override 
 	public void onCollision(iCollidable object) {
-		
+		// for any class specific collision
 	}
 
 	

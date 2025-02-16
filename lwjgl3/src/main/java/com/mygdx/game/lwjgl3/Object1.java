@@ -59,7 +59,7 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 	
 	@Override 
 	public void onCollision(iCollidable object) {
-		
+		// for any class specific collision
 	}
 	
 }
