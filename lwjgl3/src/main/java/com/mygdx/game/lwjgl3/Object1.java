@@ -7,9 +7,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 public class Object1 extends Entity implements iMovable, iCollidable{
 	
 	private float currentxPos;
+	private float currentyPos;
 	private ShapeRenderer shapeRenderer; // Only for debugging purposes
 	private static final float OBJECT_SIZE = 100;
-	private static final float SPEED = 50;
+	private static final float SPEED = 33;
 		
 	Object1(){
 		super(400, 0, 50, "car1.png", OBJECT_SIZE, OBJECT_SIZE);
@@ -34,8 +35,18 @@ public class Object1 extends Entity implements iMovable, iCollidable{
         	currentxPos += 400;
         }
         super.setX(currentxPos);
+        
+        currentyPos = super.getY();
+		currentyPos -= SPEED * deltaTime;
+                
+        if(currentyPos <= 0) {
+        	currentyPos += 300;
+        }
+        super.setY(currentyPos);
 
 	}
+
+	
 	
 	@Override
 	public void draw(SpriteBatch batch) {

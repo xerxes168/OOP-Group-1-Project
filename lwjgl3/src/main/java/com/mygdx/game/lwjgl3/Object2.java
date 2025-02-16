@@ -6,10 +6,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Object2 extends Entity implements iMovable, iCollidable{
 	
-	private float currentxPos;
+	private float currentyPos;
 	private ShapeRenderer shapeRenderer; // Only for debugging purposes
 	private static final float OBJECT_SIZE = 100;
-	private static final float SPEED = 50;
+	private static final float SPEED = 33;
 	
 	Object2(){
 		super(400, 200, 50, "car.png", OBJECT_SIZE, OBJECT_SIZE);
@@ -19,6 +19,15 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	
 	@Override
 	public void movement(){
+		
+		float deltaTime = Gdx.graphics.getDeltaTime();
+		currentyPos = super.getY();
+		currentyPos -= SPEED * deltaTime;
+                
+        if(currentyPos <= 0) {
+        	currentyPos += 300;
+        }
+        super.setY(currentyPos);
 
 	}
 	
