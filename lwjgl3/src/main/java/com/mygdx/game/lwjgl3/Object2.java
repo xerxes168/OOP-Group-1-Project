@@ -1,6 +1,7 @@
 package com.mygdx.game.lwjgl3;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
@@ -11,9 +12,14 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	private static final float OBJECT_SIZE = 100;
 	private static final float SPEED = 33;
 	
-	Object2(){
-		super(400, 200, 50, "car.png", OBJECT_SIZE, OBJECT_SIZE);
-		super.setTex("car.png");
+	public Object2() 
+	{
+		super();
+	}
+	
+	
+	public Object2(float x, float y, float speed, String imgName, float width, float height){
+		super(x, y, speed, imgName, width, height);
 		this.shapeRenderer = new ShapeRenderer();
 	}
 	

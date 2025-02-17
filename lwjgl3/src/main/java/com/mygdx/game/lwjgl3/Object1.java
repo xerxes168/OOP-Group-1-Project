@@ -12,17 +12,14 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 	private static final float OBJECT_SIZE = 100;
 	private static final float SPEED = 33;
 		
-	Object1(){
-		super(400, 0, 50, "car1.png", OBJECT_SIZE, OBJECT_SIZE);
-		super.setTex("car1.png");
-		this.shapeRenderer = new ShapeRenderer();
+	public Object1(){
+		
 	}
 	
-	Object1(float x, float y, float speed, String imgName, float width, float height){
-		super.setX(x);
-		super.setY(y);
-		super.setSpeed(speed);
-		super.setTex(imgName);
+	public Object1(float x, float y, float speed, String imgName, float width, float height){
+		super(x, y, speed, imgName, width, height);
+		this.shapeRenderer = new ShapeRenderer();
+
 	}
 	
 	@Override

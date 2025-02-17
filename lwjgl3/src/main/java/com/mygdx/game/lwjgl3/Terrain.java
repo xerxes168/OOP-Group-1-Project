@@ -4,19 +4,32 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 
-public class Terrain extends Entity {
+public class Terrain extends Entity implements iMovable{
     private static final float TERRAIN_OBJECT_SIZE = Gdx.graphics.getWidth() / 12f;
+    private float currentyPos;
+    private static final float SPEED = 33;
 	
 	Terrain() {
 		super();
 		super.setTex("lily.png");
 	}
 	
-	Terrain(String imgName,float x, float y, float speed) {
-		super.setX(x);
-		super.setY(y);
-		super.setSpeed(speed);
-		super.setTex(imgName);
+	Terrain(float x, float y, float speed, String imgName, float width, float height) {
+		super(x, y, speed, imgName, width, height);
+	}
+	
+	@Override
+	public void movement(){
+		
+		float deltaTime = Gdx.graphics.getDeltaTime();
+		currentyPos = super.getY();
+		currentyPos -= SPEED * deltaTime;
+                
+        if(currentyPos <= 0) {
+        	currentyPos += 300;
+        }
+        super.setY(currentyPos);
+
 	}
 	
 	public void draw(SpriteBatch batch) {

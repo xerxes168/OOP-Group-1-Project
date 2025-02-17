@@ -16,19 +16,18 @@ public class Character extends Entity implements iMovable, iCollidable {
     private static final float SPEED = 200;
     //private static final float SCREEN_WIDTH = 640; // NEED TO CHANGE
     //private static final float SCREEN_HEIGHT = 480; // NEED TO CHANGE
+    
+ // Default constructor with no predefined values
+    public Character() {
+        super(); // Calls the default Entity constructor
+        this.shapeRenderer = new ShapeRenderer();
+    }
 	
-	Character(SoundManager soundManager) {
-		super(280, 0, 1, "character.png", CHARACTER_SIZE, CHARACTER_SIZE);
-		super.setTex("character.png");
+	
+    public Character(float x, float y, float speed, String imgName, float width, float height, SoundManager soundManager) {
+		super(x, y, speed, imgName, width, height);
 		this.soundManager = soundManager;
 		this.shapeRenderer = new ShapeRenderer();
-	}
-	
-	Character(String imgName,float x, float y, float speed) {
-		super.setX(x);
-		super.setY(y);
-		super.setSpeed(speed);
-		super.setTex(imgName);
 	}
 	
 	public void draw(SpriteBatch batch) {

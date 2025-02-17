@@ -15,17 +15,15 @@ public abstract class Entity {
 	private Rectangle rectangle;	
 	
 	Entity() {
-		xPosition = 280;
-		yPosition = 0; 
-		speed = 1;
-		tex = new Texture(Gdx.files.internal("car.png"));
+		
 	}
 	
 	Entity(float x, float y, float speed, String imgName) {
-		xPosition = x;
-		yPosition = y; 
+		this.xPosition = x;
+		this.yPosition = y; 
 		this.speed = speed;
-		tex = new Texture(Gdx.files.internal(imgName));
+		this.tex = new Texture(Gdx.files.internal(imgName));
+		this.rectangle = new Rectangle(xPosition, yPosition, width, height);
 	}
 	
 	Entity(float x, float y, float speed, String imgName, float width, float height) {
@@ -41,7 +39,7 @@ public abstract class Entity {
 	}
 	
 	public void setX(float x) {
-		xPosition = x;
+		this.xPosition = x;
 	}
 
 	public float getY()	{
@@ -49,7 +47,7 @@ public abstract class Entity {
 	}
 
 	public void setY(float y) {
-		yPosition = y;
+		this.yPosition = y;
     }
 	    
 
@@ -58,7 +56,7 @@ public abstract class Entity {
 	}
 
 	public void setSpeed(float newSpeed) {
-		speed = newSpeed;
+		this.speed = newSpeed;
 	}
 	
 	public Texture getTex() {

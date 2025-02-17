@@ -20,10 +20,10 @@ public class PlayScene extends AbstractScene implements Screen {
     private SpriteBatch batch;
 	private Character player1;
 
-	private Object1 object1;
-	private Object2 object2;
+	private Object1 whiteCar;
+	private Object2 blueCar;
 
-	private Terrain terrainObj;
+	private Terrain lilypad;
 
 	private EntityManager entityManager;
 	private EntityManager test;
@@ -37,6 +37,8 @@ public class PlayScene extends AbstractScene implements Screen {
     private float scrollOffset = 0; // Offset for scrolling effect
     private float scrollSpeed = 50; // Pixels per second
     private List<Entity> toRemove;
+    
+    private static final float CHARACTER_SIZE = Gdx.graphics.getWidth() / 12f;
 
 
     public PlayScene(GameMaster game) {
@@ -78,17 +80,19 @@ public class PlayScene extends AbstractScene implements Screen {
         // scrollingBackground = new ScrollingBackground("background.png", 100);
 
         // Create entities
-        player1 = new Character(soundManager);
-        object1 = new Object1();
-        object2 = new Object2();
-        terrainObj = new Terrain();
+        player1 = new Character(500, 0, 1, "character.png", CHARACTER_SIZE, CHARACTER_SIZE, soundManager);
+        whiteCar = new Object1(400, 0, 50, "car1.png", 100, 100);
+        blueCar = new Object2(400, 200, 50, "car.png", 100, 100);
+        lilypad = new Terrain(100, 300, 0, "lily.png", 100, 100);
+        
 
         // Add them to your entity manager
         //entityManager.addEntities(terrainObj); removing lili pad for now
         
 		entityManager.addEntities(player1);
-		entityManager.addEntities(object1);
-		entityManager.addEntities(object2);
+		entityManager.addEntities(whiteCar);
+		entityManager.addEntities(blueCar);
+		entityManager.addEntities(lilypad);
     }
 
 
