@@ -80,17 +80,27 @@ public class PlayScene extends AbstractScene implements Screen {
         // Create entities
         player1 = new Character(500, 0, 1, "character.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getWidth() / 12f, soundManager);
         whiteCar = new Object1(400, 0, 50, "car1.png", 100, 100);
-        blueCar = new Object2(400, 200, 50, "car.png", 100, 100);
-        lilypad = new Terrain(100, 300, 0, "lily.png", 100, 100);
+        //blueCar = new Object2(400, 200, 50, "car.png", 100, 100);
+        //lilypad = new Terrain(100, 300, 0, "lily.png", 100, 100);
+        
+        int numberOfObjects = 3; // Set number of blue car (object 2 static)
+        for (int i = 0; i < numberOfObjects; i++) {
+            float randomX = (float) Math.random() * (Gdx.graphics.getWidth() - 100); // Ensure it stays within bounds
+            float randomY = (float) Math.random() * (Gdx.graphics.getHeight() - 100);
+            Object2 object = new Object2(randomX,randomY,scrollSpeed,"car.png",100,100);
+            object.setX(randomX); // Set random X position
+            object.setY(randomY);
+            entityManager.addEntities(object);
+        }
         
 
         // Add them to your entity manager
-        //entityManager.addEntities(terrainObj); removing lili pad for now
+        
         
 		entityManager.addEntities(player1);
 		entityManager.addEntities(whiteCar);
-		entityManager.addEntities(blueCar);
-		entityManager.addEntities(lilypad);
+		//entityManager.addEntities(blueCar);
+		//entityManager.addEntities(lilypad);
     }
 
 
