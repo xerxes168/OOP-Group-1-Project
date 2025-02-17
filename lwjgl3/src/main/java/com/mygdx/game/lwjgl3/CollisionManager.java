@@ -19,14 +19,9 @@ public class CollisionManager extends Entity implements iCollidable{
 		                ((iCollidable) obj1).onCollision((iCollidable) obj2);
 		                ((iCollidable) obj2).onCollision((iCollidable) obj1);
 		            }
+				}
 			}
-			
-			
-		}
-}
-
-			
-		
+		}	
 	}
 	
 	@Override
