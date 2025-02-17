@@ -30,8 +30,8 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 		currentyPos = super.getY();
 		currentyPos -= SPEED * deltaTime;
                 
-        if(currentyPos <= 0) {
-        	currentyPos += 300;
+        if(currentyPos <= -OBJECT_SIZE) {
+        	currentyPos = Gdx.graphics.getHeight();
         }
         super.setY(currentyPos);
 

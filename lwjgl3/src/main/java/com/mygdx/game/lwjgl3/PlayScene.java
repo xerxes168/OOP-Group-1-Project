@@ -38,7 +38,6 @@ public class PlayScene extends AbstractScene implements Screen {
     private float scrollSpeed = 50; // Pixels per second
     private List<Entity> toRemove;
     
-    private static final float CHARACTER_SIZE = Gdx.graphics.getWidth() / 12f;
 
 
     public PlayScene(GameMaster game, SoundManager soundManager) {
@@ -79,7 +78,7 @@ public class PlayScene extends AbstractScene implements Screen {
         // scrollingBackground = new ScrollingBackground("background.png", 100);
 
         // Create entities
-        player1 = new Character(500, 0, 1, "character.png", CHARACTER_SIZE, CHARACTER_SIZE, soundManager);
+        player1 = new Character(500, 0, 1, "character.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getWidth() / 12f, soundManager);
         whiteCar = new Object1(400, 0, 50, "car1.png", 100, 100);
         blueCar = new Object2(400, 200, 50, "car.png", 100, 100);
         lilypad = new Terrain(100, 300, 0, "lily.png", 100, 100);

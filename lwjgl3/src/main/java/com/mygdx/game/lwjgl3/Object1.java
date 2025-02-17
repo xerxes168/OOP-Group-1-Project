@@ -28,16 +28,16 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 		currentxPos = super.getX();
         currentxPos -= SPEED * deltaTime;
                 
-        if(currentxPos <= 0) {
-        	currentxPos += 400;
+        if(currentxPos <= -OBJECT_SIZE) {
+        	currentxPos = Gdx.graphics.getWidth();;
         }
         super.setX(currentxPos);
         
         currentyPos = super.getY();
 		currentyPos -= SPEED * deltaTime;
                 
-        if(currentyPos <= 0) {
-        	currentyPos += 300;
+		if(currentyPos <= -OBJECT_SIZE) {
+        	currentyPos = Gdx.graphics.getHeight();
         }
         super.setY(currentyPos);
 

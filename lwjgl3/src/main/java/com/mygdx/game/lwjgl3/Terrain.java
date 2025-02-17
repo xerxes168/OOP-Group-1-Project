@@ -25,8 +25,8 @@ public class Terrain extends Entity implements iMovable{
 		currentyPos = super.getY();
 		currentyPos -= SPEED * deltaTime;
                 
-        if(currentyPos <= 0) {
-        	currentyPos += 300;
+		if(currentyPos <= -TERRAIN_OBJECT_SIZE) {
+        	currentyPos = Gdx.graphics.getHeight();
         }
         super.setY(currentyPos);
 
