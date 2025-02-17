@@ -17,6 +17,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
 public class SoundManager {
+    private float masterVolume = 1.0f;
     private HashMap<String, Sound> soundMap;  // For short sound effects
     private Music backgroundMusic;            // For background music
     private long lastCollisionTime = 0;
@@ -67,7 +68,7 @@ public class SoundManager {
         } else {
             Sound sound = soundMap.get(name);
             if (sound != null) {
-                sound.play(1.0f);
+                sound.play(masterVolume);
             } else {
                 System.err.println("Sound '" + name + "' not found!");
             }
@@ -80,9 +81,18 @@ public class SoundManager {
         if (currentTime - lastCollisionTime >= COLLISION_COOLDOWN) {
             Sound collisionSound = soundMap.get("collision");
             if (collisionSound != null) {
-                collisionSound.play(1.0f);
+                collisionSound.play(masterVolume);
                 lastCollisionTime = currentTime;
             }
+        }
+    }
+
+    // Volume change
+    public void setMasterVolume(float volume) {
+        masterVolume = volume;
+
+        if (backgroundMusic != null) {
+            backgroundMusic.setVolume(volume); 
         }
     }
 

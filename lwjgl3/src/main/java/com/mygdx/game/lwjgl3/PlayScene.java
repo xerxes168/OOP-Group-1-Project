@@ -41,9 +41,9 @@ public class PlayScene extends AbstractScene implements Screen {
     private static final float CHARACTER_SIZE = Gdx.graphics.getWidth() / 12f;
 
 
-    public PlayScene(GameMaster game) {
+    public PlayScene(GameMaster game, SoundManager soundManager) {
         super(game);
-        
+        this.soundManager = soundManager;
         camera = new OrthographicCamera();
         viewport = new FitViewport(1280, 720, camera);
         camera.position.set(640, 360, 0);
@@ -72,7 +72,6 @@ public class PlayScene extends AbstractScene implements Screen {
         entityManager = new EntityManager();
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
-        soundManager = new SoundManager();
         collisionManager = new CollisionManager();
         soundManager.playBackgroundMusic();
         

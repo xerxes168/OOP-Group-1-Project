@@ -6,28 +6,39 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class SettingsScene extends AbstractScene implements Screen {
 
+    private FitViewport viewport;
+
+    // Volume Stuff
     private static final float MAX_VOLUME = 1f;
     private static final float MIN_VOLUME = 0f;
     private static final float VOLUME_STEP = 0.1f;
 
-    // Current Volume Level
     private float volume = 1.0f;
 
-    // Buttons
-    private static final int BTN_SIZE     = 80;
-    private static final int BTN_PLUS_X   = 600;
-    private static final int BTN_PLUS_Y   = 350;
-    private static final int BTN_MINUS_X  = 400;
-    private static final int BTN_MINUS_Y  = 350;
-    private static final int BTN_BACK_X  = 50;
-    private static final int BTN_BACK_Y  = 350;
+    private SoundManager soundManager;
 
     // Volume Text
-    private static final int TEXT_X       = 520;
-    private static final int TEXT_Y       = 500;
+    private static final int TEXT_X = 520;
+    private static final int TEXT_Y = 500;
+
+    private BitmapFont font;
+
+    // Buttons
+    private static final int BTN_SIZE = 80;
+    private static final int BTN_SIZE_HALF = 40;
+
+    private static final int BTN_PLUS_X = 600;
+    private static final int BTN_PLUS_Y = 350;
+
+    private static final int BTN_MINUS_X = 400;
+    private static final int BTN_MINUS_Y = 350;
+
+    private static final int BTN_BACK_X = 50;
+    private static final int BTN_BACK_Y = 350;
 
     // Textures
     private Texture backgroundTexture;
@@ -35,11 +46,14 @@ public class SettingsScene extends AbstractScene implements Screen {
     private Texture minusTexture;
     private Texture backButton;
 
-    // For drawing text
-    private BitmapFont font;
 
-    public SettingsScene(GameMaster game) {
+    public SettingsScene(GameMaster game, SoundManager soundManager) {
         super(game);
+
+        this.soundManager = soundManager;
+
+        camera.setToOrtho(false, 1280, 720);
+        viewport = new FitViewport(1280, 720, camera);
 
         // Load textures
         backgroundTexture = new Texture("menu.png");
@@ -47,25 +61,21 @@ public class SettingsScene extends AbstractScene implements Screen {
         minusTexture = new Texture("minus.png");
         backButton = new Texture("backButton.png");
 
-        // For drawing text
         font = new BitmapFont(); 
     }
 
     @Override
     protected void draw(float delta) {
-        // Clear screen color is handled in AbstractScene.clearScreen().
-        // Make sure to set the batch's projection matrix if using a custom camera/viewport:
+
         batch.setProjectionMatrix(camera.combined);
 
-        // Draw the background (assuming you have a 1280x720 viewport, for example)
+        // Draw background and buttons
         batch.draw(backgroundTexture, 0, 0, 1280, 720);
-
-        // Draw buttons
         batch.draw(plusTexture,  BTN_PLUS_X,  BTN_PLUS_Y,  BTN_SIZE, BTN_SIZE);
-        batch.draw(minusTexture, BTN_MINUS_X, BTN_MINUS_Y, BTN_SIZE, BTN_SIZE/2);
+        batch.draw(minusTexture, BTN_MINUS_X, BTN_MINUS_Y, BTN_SIZE, BTN_SIZE_HALF);
         batch.draw(backButton, BTN_BACK_X,  BTN_BACK_Y,  BTN_SIZE, BTN_SIZE);
 
-        // Show the current volume as text
+        // Current Volume Text
         String volumeText = String.format("Volume: %.0f%%", volume * 100);
         font.draw(batch, volumeText, TEXT_X, TEXT_Y);
 
@@ -74,7 +84,7 @@ public class SettingsScene extends AbstractScene implements Screen {
 
     private void handleInput() {
         if (Gdx.input.justTouched()) {
-            // Convert screen coords to world coords
+            // Convert screen coords to our 1280x720 world coords
             Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touchPos);
 
@@ -116,9 +126,14 @@ public class SettingsScene extends AbstractScene implements Screen {
      * Or if you have a global audio manager, you’d pass the updated volume to it here.
      */
     private void applyVolume() {
-        // Example: if you store references to your background music or SFX, do:
-        // backgroundMusic.setVolume(volume);
-        // clickSound.setVolume(volume);
+        soundManager.setMasterVolume(volume);
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        viewport.update(width, height, true); 
+        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+        camera.update();
     }
 
     @Override

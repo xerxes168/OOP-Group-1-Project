@@ -22,6 +22,7 @@ public class GameMaster extends Game {
 	private EntityManager test;
 	private ShapeRenderer shapeRenderer;
 	private ScrollingBackground scrollingBackground;
+	private SoundManager soundManager;
 	
 	private float scrollOffset = 0; // Offset for scrolling effect
     private float scrollSpeed = 100; // Pixels per second
@@ -53,14 +54,16 @@ public class GameMaster extends Game {
 
 	@Override
 	public void create () {
+		
 
-        // Initialize SceneManager
+        // Initialize SceneManager and SoundManager
+		SoundManager soundManager = new SoundManager();
         SceneManager.initialize(this);
 
 		// Add scenes
 		SceneManager.getInstance().addScene("Menu", new MenuScene(this));
-		SceneManager.getInstance().addScene("Play", new PlayScene(this));
-		SceneManager.getInstance().addScene("Setting", new SettingsScene(this));
+		SceneManager.getInstance().addScene("Play", new PlayScene(this, soundManager));
+		SceneManager.getInstance().addScene("Setting", new SettingsScene(this, soundManager));
 
 
         // Start at Menu Screen
