@@ -4,13 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-
+import java.util.Random;
+	
 public class Object2 extends Entity implements iMovable, iCollidable{
 	
 	private float currentyPos;
 	private ShapeRenderer shapeRenderer; // Only for debugging purposes
 	private static final float OBJECT_SIZE = 100;
 	private static final float SPEED = 33;
+	private static final Random random = new Random();
 	
 	public Object2() 
 	{
@@ -32,10 +34,19 @@ public class Object2 extends Entity implements iMovable, iCollidable{
                 
         if(currentyPos <= -OBJECT_SIZE) {
         	currentyPos = Gdx.graphics.getHeight();
+        	respawn();
         }
+       
         super.setY(currentyPos);
 
 	}
+	
+	 private void respawn() {
+	        float screenWidth = Gdx.graphics.getWidth();
+	        float randomX = random.nextFloat() * (screenWidth - OBJECT_SIZE); // Ensure it stays within bounds
+	        super.setX(randomX);
+	        super.setY(Gdx.graphics.getHeight()); // Reset Y to top of the screen
+	    }
 	
 	@Override
 	public void draw(SpriteBatch batch) {
@@ -70,8 +81,13 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	}
 	
 	public void dispose(){
-	       getTex().dispose();
-	       shapeRenderer.dispose();
+		
+		if (getTex() != null) {
+            getTex().dispose();
+        }
+        if (shapeRenderer != null) {
+            shapeRenderer.dispose();
+        }
 	      
 	}
 
