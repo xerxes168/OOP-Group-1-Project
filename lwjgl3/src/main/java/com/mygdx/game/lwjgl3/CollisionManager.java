@@ -43,5 +43,9 @@ public class CollisionManager extends Entity implements iCollidable{
 	public void onCollision(iCollidable object) {
 	    //Overrided by subclasses
 	}
-
+	
+	public void dispose(){
+		
+	      
+	}
 }

@@ -62,6 +62,12 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 		// for any class specific collision
 		System.out.println("Collided with static object!");
 	}
+	
+	public void dispose(){
+	       getTex().dispose();
+	       shapeRenderer.dispose();
+	      
+	}
 
 	
 

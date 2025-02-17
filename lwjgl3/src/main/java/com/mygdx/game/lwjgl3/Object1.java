@@ -79,4 +79,12 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 		System.out.println("Collided with moving object!");
 	}
 	
+	
+    public void dispose(){
+       getTex().dispose();
+       shapeRenderer.dispose();
+      
+    }
+
+	
 }
