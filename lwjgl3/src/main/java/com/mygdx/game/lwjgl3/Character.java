@@ -8,8 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Character extends Entity implements iMovable, iCollidable {
-	private float currentxPos;
-	private float currentyPos;
+	
 	private ShapeRenderer shapeRenderer; // Only for debugging purposes
 	private SoundManager soundManager;
 	
@@ -124,6 +123,11 @@ public class Character extends Entity implements iMovable, iCollidable {
 		super.setX(x);  // Use Entity's setX()
 	    super.setY(y);  // Use Entity's setY()
 		
+	}
+	
+	public void dispose() {
+		shapeRenderer.dispose();
+		soundManager.dispose();
 	}
 
 	
