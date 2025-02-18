@@ -58,7 +58,6 @@ public class Object1 extends Entity implements iMovable, iCollidable{
         setRectangle();
 
 	}
-
 	
 	@Override
 	public boolean isCollided(iCollidable object) {

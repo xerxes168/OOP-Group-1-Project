@@ -2,7 +2,7 @@ package com.mygdx.game.lwjgl3;
 
 import java.util.List;
 
-public class CollisionManager extends Entity implements iCollidable{
+public class CollisionManager extends Entity{
 		
 	CollisionManager(){
 		
@@ -24,20 +24,6 @@ public class CollisionManager extends Entity implements iCollidable{
 		}	
 	}
 	
-	@Override
-	public boolean isCollided(iCollidable object) {
-		if(object instanceof Entity) {
-			return this.getRectangle().overlaps(((Entity) object).getRectangle());
-		}
-		else{
-			return false;
-		}
-	}
-	
-	@Override
-	public void onCollision(iCollidable object) {
-	    //Overrided by subclasses
-	}
 	
 	public void dispose(){
 		
