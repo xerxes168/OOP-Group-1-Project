@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+
 public class SettingsScene extends AbstractScene implements Screen {
 
     private FitViewport viewport;
@@ -54,6 +55,7 @@ public class SettingsScene extends AbstractScene implements Screen {
 
     private static final int BTN_BACK_X = 50;
     private static final int BTN_BACK_Y = 350;
+    
 
     // Textures
     private Texture backgroundTexture;
@@ -101,11 +103,14 @@ public class SettingsScene extends AbstractScene implements Screen {
 
         // Display scroll speed value
         String scrollSpeedText = String.format("Scroll Speed: %.0f", scrollSpeed);
-        font.draw(batch, scrollSpeedText, 520, 400);
+        font.draw(batch, scrollSpeedText, 520, 200);
 
         // Current Volume Text
         String volumeText = String.format("Volume: %.0f%%", volume * 100);
         font.draw(batch, volumeText, TEXT_X, TEXT_Y);
+        
+        font.getData().setScale(2f);  // Increase font size (default is 1.0)
+
 
         handleInput();
     }
