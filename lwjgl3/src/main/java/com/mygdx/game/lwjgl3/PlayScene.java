@@ -35,8 +35,16 @@ public class PlayScene extends AbstractScene implements Screen {
     // Scrolling Items
 	private ScrollingBackground scrollingBackground;
     private float scrollOffset = 0; // Offset for scrolling effect
-    private float scrollSpeed = 50; // Pixels per second
+    private static float scrollSpeed = 50; // Pixels per second
     private List<Entity> toRemove;
+    
+    public static void setScrollSpeed(float speed) {
+        scrollSpeed = speed;
+    }
+
+    public static float getScrollSpeed() {
+        return scrollSpeed;
+    }
     
 
 
@@ -80,7 +88,7 @@ public class PlayScene extends AbstractScene implements Screen {
         // Create entities
         player1 = new Character(500, 0, 1, "character.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getWidth() / 12f, soundManager);
         whiteCar = new Object1(400, 0, scrollSpeed, "car1.png", 100, 100);
-        //blueCar = new Object2(400, 200, 50, "car.png", 100, 100);
+        //blueCar = new Object2(400, 200, scrollSpeed, "car.png", 100, 100);
         lilypad = new Terrain(400, 0, scrollSpeed, "lily.png", 100, 100);
         
         int numberOfObjects = 3; // Set number of blue car (object 2 static)

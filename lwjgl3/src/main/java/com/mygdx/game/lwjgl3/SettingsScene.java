@@ -11,6 +11,21 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 public class SettingsScene extends AbstractScene implements Screen {
 
     private FitViewport viewport;
+    
+    //scrollSpeed Stuff
+    private float scrollSpeed = 50f;  // Default scroll speed
+    private static final float SCROLL_STEP = 10f; // Change rate
+    private static final float MAX_SCROLL = 150f;
+    private static final float MIN_SCROLL = 10f;
+
+    private static final int SCROLL_PLUS_X = 600;
+    private static final int SCROLL_PLUS_Y = 250;
+
+    private static final int SCROLL_MINUS_X = 400;
+    private static final int SCROLL_MINUS_Y = 250;
+
+    private Texture scrollPlusTexture;
+    private Texture scrollMinusTexture;
 
     // Volume Stuff
     private static final float MAX_VOLUME = 1f;
@@ -51,6 +66,7 @@ public class SettingsScene extends AbstractScene implements Screen {
         super(game);
 
         this.soundManager = soundManager;
+        this.scrollSpeed = PlayScene.getScrollSpeed();  // Get the current scroll speed
 
         camera.setToOrtho(false, 1280, 720);
         viewport = new FitViewport(1280, 720, camera);
@@ -60,6 +76,10 @@ public class SettingsScene extends AbstractScene implements Screen {
         plusTexture = new Texture("plus.png");
         minusTexture = new Texture("minus.png");
         backButton = new Texture("backButton.png");
+        
+        // Load textures for scrollspeed
+        scrollPlusTexture = new Texture("plus.png");
+        scrollMinusTexture = new Texture("minus.png");
 
         font = new BitmapFont(); 
     }
@@ -74,6 +94,14 @@ public class SettingsScene extends AbstractScene implements Screen {
         batch.draw(plusTexture,  BTN_PLUS_X,  BTN_PLUS_Y,  BTN_SIZE, BTN_SIZE);
         batch.draw(minusTexture, BTN_MINUS_X, BTN_MINUS_Y, BTN_SIZE, BTN_SIZE_HALF);
         batch.draw(backButton, BTN_BACK_X,  BTN_BACK_Y,  BTN_SIZE, BTN_SIZE);
+        
+        // Draw existing settings
+        batch.draw(scrollPlusTexture, SCROLL_PLUS_X, SCROLL_PLUS_Y, BTN_SIZE, BTN_SIZE);
+        batch.draw(scrollMinusTexture, SCROLL_MINUS_X, SCROLL_MINUS_Y, BTN_SIZE, BTN_SIZE_HALF);
+
+        // Display scroll speed value
+        String scrollSpeedText = String.format("Scroll Speed: %.0f", scrollSpeed);
+        font.draw(batch, scrollSpeedText, 520, 400);
 
         // Current Volume Text
         String volumeText = String.format("Volume: %.0f%%", volume * 100);
@@ -113,6 +141,19 @@ public class SettingsScene extends AbstractScene implements Screen {
             {
                 SceneManager.getInstance().setScene("Menu");
             }
+            
+            //for scroll speed
+            if (x >= SCROLL_PLUS_X && x <= SCROLL_PLUS_X + BTN_SIZE
+                    && y >= SCROLL_PLUS_Y && y <= SCROLL_PLUS_Y + BTN_SIZE) {
+                       scrollSpeed = Math.min(MAX_SCROLL, scrollSpeed + SCROLL_STEP);
+                   }
+
+                   else if (x >= SCROLL_MINUS_X && x <= SCROLL_MINUS_X + BTN_SIZE
+                         && y >= SCROLL_MINUS_Y && y <= SCROLL_MINUS_Y + BTN_SIZE) {
+                       scrollSpeed = Math.max(MIN_SCROLL, scrollSpeed - SCROLL_STEP);
+                   }
+            
+            PlayScene.setScrollSpeed(scrollSpeed); // Apply the new scroll speed
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
