@@ -14,6 +14,10 @@ public class EntityManager {
 		entityList = new ArrayList<>();
 	}
 	
+	public List<Entity> getEntities() {
+	    return entityList;
+	}
+	
 	void addEntities(Entity entityName) {
 		entityList.add(entityName);
 		System.out.println("" + entityList);

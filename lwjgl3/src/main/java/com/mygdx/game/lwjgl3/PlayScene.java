@@ -31,7 +31,7 @@ public class PlayScene extends AbstractScene implements Screen {
 	private CollisionManager collisionManager;
 	
 	private SoundManager soundManager;
-
+	
     // Scrolling Items
 	private ScrollingBackground scrollingBackground;
     private float scrollOffset = 0; // Offset for scrolling effect
@@ -81,7 +81,7 @@ public class PlayScene extends AbstractScene implements Screen {
         player1 = new Character(500, 0, 1, "character.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getWidth() / 12f, soundManager);
         whiteCar = new Object1(400, 0, scrollSpeed, "car1.png", 100, 100);
         //blueCar = new Object2(400, 200, 50, "car.png", 100, 100);
-        //lilypad = new Terrain(100, 300, 0, "lily.png", 100, 100);
+        lilypad = new Terrain(400, 0, scrollSpeed, "lily.png", 100, 100);
         
         int numberOfObjects = 3; // Set number of blue car (object 2 static)
         for (int i = 0; i < numberOfObjects; i++) {
@@ -93,6 +93,52 @@ public class PlayScene extends AbstractScene implements Screen {
             entityManager.addEntities(object);
         }
         
+        // Lily spawning without overlap
+        int numberOfLily = 5; // Number of lily pads to create
+        int maxAttempts = 100; // Maximum attempts to find a non-overlapping position
+
+        for (int j = 0; j < numberOfLily; j++) {
+            int attempts = 0;
+            boolean overlaps;
+            Terrain lilypad = null;
+            
+            do {
+                overlaps = false;
+                // Generate random positions (adjust values as needed)
+                float randomX = (float) Math.random() * (Gdx.graphics.getWidth() - 100);
+                float randomY = (float) Math.random() * (Gdx.graphics.getHeight() - 100);
+                
+                // Create a new Terrain instance at the random position
+                lilypad = new Terrain(randomX, randomY, scrollSpeed, "lily.png", 100, 100);
+                
+
+				// Check if this new lily overlaps with any already added Terrain objects
+                for (Entity entity : entityManager.getEntities()) {
+                    if (entity instanceof Terrain) {
+                        Terrain existing = (Terrain) entity;
+                        if (lilypad.isOverlapping(existing)) {
+                            overlaps = true;
+                            break;
+                        }
+                    }
+                }
+                attempts++;
+            } while (overlaps && attempts < maxAttempts);
+            
+            // Add the lily to your entity manager
+            entityManager.addEntities(lilypad);
+        }
+        
+//        int numberoflily = 5; // Set number of lily (Terrain static)
+//        for (int j = 0; j < numberoflily; j++) {
+//            float randomX = (float) Math.random() * (Gdx.graphics.getWidth() - 100); // Ensure it stays within bounds
+//            float randomY = (float) Math.random() * (Gdx.graphics.getHeight() - 100);
+//            Terrain lilypad = new Terrain(randomX,randomY,scrollSpeed,"lily.png",100,100);
+//            lilypad.setX(randomX); // Set random X position
+//            lilypad.setY(randomY);
+//            entityManager.addEntities(lilypad);
+//        }
+        
 
         // Add them to your entity manager
         
@@ -100,7 +146,7 @@ public class PlayScene extends AbstractScene implements Screen {
 		entityManager.addEntities(player1);
 		entityManager.addEntities(whiteCar);
 		//entityManager.addEntities(blueCar);
-		//entityManager.addEntities(lilypad);
+		entityManager.addEntities(lilypad);
     }
 
 

@@ -49,7 +49,7 @@ public abstract class Entity {
 	public void setY(float y) {
 		this.yPosition = y;
     }
-	    
+	
 
 	public float getSpeed()	{
 		return speed;
