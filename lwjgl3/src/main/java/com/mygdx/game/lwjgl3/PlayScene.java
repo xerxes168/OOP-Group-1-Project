@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -26,7 +27,6 @@ public class PlayScene extends AbstractScene implements Screen {
 	private Terrain lilypad;
 
 	private EntityManager entityManager;
-	private EntityManager test;
 	private ShapeRenderer shapeRenderer;
 	private CollisionManager collisionManager;
 	
@@ -35,9 +35,8 @@ public class PlayScene extends AbstractScene implements Screen {
     // Scrolling Items
 	private ScrollingBackground scrollingBackground;
     private float scrollOffset = 0; // Offset for scrolling effect
-    private static float scrollSpeed = 50; // Pixels per second
-    private List<Entity> toRemove;
-    
+    private static float scrollSpeed = 50; // Pixels per second 
+        
     public static void setScrollSpeed(float speed) {
         scrollSpeed = speed;
     }
@@ -55,8 +54,6 @@ public class PlayScene extends AbstractScene implements Screen {
         viewport = new FitViewport(1280, 720, camera);
         camera.position.set(640, 360, 0);
         camera.update();
-        toRemove = new ArrayList<>();
-        
     }
 
 
@@ -92,10 +89,12 @@ public class PlayScene extends AbstractScene implements Screen {
         lilypad = new Terrain(400, 0, scrollSpeed, "lily.png", 100, 100);
         
         int numberOfObjects = 3; // Set number of blue car (object 2 static)
+        
         for (int i = 0; i < numberOfObjects; i++) {
+        	
             float randomX = (float) Math.random() * (Gdx.graphics.getWidth() - 100); // Ensure it stays within bounds
             float randomY = (float) Math.random() * (Gdx.graphics.getHeight() - 100);
-            Object2 object = new Object2(randomX,randomY,scrollSpeed,"car.png",100,100);
+            Object2 object = new Object2(randomX,randomY,scrollSpeed,"car.png",50,50);
             object.setX(randomX); // Set random X position
             object.setY(randomY);
             entityManager.addEntities(object);
@@ -181,6 +180,7 @@ public class PlayScene extends AbstractScene implements Screen {
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
             SceneManager.getInstance().setScene("Menu");
         }
+        
     }
 
     // Grid scrolling functions

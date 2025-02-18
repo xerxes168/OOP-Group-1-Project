@@ -17,7 +17,7 @@ public class GameMaster extends Game {
 	private Object2 object2;
 
 	private Terrain terrainObj;
-
+    
 	private EntityManager entityManager;
 	private EntityManager test;
 	private ShapeRenderer shapeRenderer;
@@ -64,6 +64,7 @@ public class GameMaster extends Game {
 		SceneManager.getInstance().addScene("Menu", new MenuScene(this));
 		SceneManager.getInstance().addScene("Play", new PlayScene(this, soundManager));
 		SceneManager.getInstance().addScene("Setting", new SettingsScene(this, soundManager));
+		SceneManager.getInstance().addScene("GameOver", new GameOverScene(this));
 
 
         // Start at Menu Screen

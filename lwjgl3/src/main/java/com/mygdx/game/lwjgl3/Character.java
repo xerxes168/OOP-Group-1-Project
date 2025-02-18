@@ -2,6 +2,7 @@ package com.mygdx.game.lwjgl3;
 
 import java.awt.RenderingHints.Key;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,6 +12,7 @@ public class Character extends Entity implements iMovable, iCollidable {
 	
 	private ShapeRenderer shapeRenderer; // Only for debugging purposes
 	private SoundManager soundManager;
+	private Game game;
 	
     private static final float CHARACTER_SIZE = Gdx.graphics.getWidth() / 12f;
     private static final float SPEED = 200;
@@ -110,10 +112,12 @@ public class Character extends Entity implements iMovable, iCollidable {
 		if(object instanceof Object1) {
 			System.out.println("Collided with object 1");
 			soundManager.playSound("collision");
+			SceneManager.getInstance().setScene("GameOver");
 		}
 		else if(object instanceof Object2) {
 			System.out.println("Collided with object 2");
 			soundManager.playSound("collision");
+			SceneManager.getInstance().setScene("GameOver");
 		}
 	}
 

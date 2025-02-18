@@ -10,7 +10,7 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	
 	private float currentyPos;
 	private ShapeRenderer shapeRenderer; // Only for debugging purposes
-	private static final float OBJECT_SIZE = 100;
+	private static final float OBJECT_SIZE = 50;
 	private static final float SPEED = 33;
 	private static final Random random = new Random();
 	
