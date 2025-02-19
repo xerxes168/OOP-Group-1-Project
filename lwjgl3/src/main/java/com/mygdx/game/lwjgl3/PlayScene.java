@@ -86,59 +86,21 @@ public class PlayScene extends AbstractScene implements Screen {
             object.setY(randomY);
             entityManager.addEntities(object);
         }
-        
-        // Lily spawning without overlap
-        int numberOfLily = 5; // Number of lily pads to create
-        int maxAttempts = 100; // Maximum attempts to find a non-overlapping position
 
-        for (int j = 0; j < numberOfLily; j++) {
-            int attempts = 0;
-            boolean overlaps;
-            Terrain lilypad = null;
-            
-            do {
-                overlaps = false;
-                // Generate random positions, adjust if need
-                float randomX = (float) Math.random() * (Gdx.graphics.getWidth() - 100);
-                float randomY = (float) Math.random() * (Gdx.graphics.getHeight() - 100);
-                
-                // Create a new Terrain instance at the random position
-                lilypad = new Terrain(randomX, randomY, scrollSpeed, "lily.png", 100, 100);
-                
 
-				// Check if this new lily overlaps with any already added Terrain objects
-                for (Entity entity : entityManager.getEntities()) {
-                    if (entity instanceof Terrain) {
-                        Terrain existing = (Terrain) entity;
-                        if (lilypad.isOverlapping(existing)) {
-                            overlaps = true;
-                            break;
-                        }
-                    }
-                }
-                attempts++;
-            } while (overlaps && attempts < maxAttempts);
             
-            // Add the lily to your entity manager
-            entityManager.addEntities(lilypad);
+        // Create the lily
+        List<Terrain> terrains = Terrain.spawnTerrains(10, scrollSpeed);
+        for (Terrain terrain : terrains) {
+            entityManager.addEntities(terrain);
         }
-        
-//        int numberoflily = 5; // Set number of lily (Terrain static)
-//        for (int j = 0; j < numberoflily; j++) {
-//            float randomX = (float) Math.random() * (Gdx.graphics.getWidth() - 100); // Ensure it stays within bounds
-//            float randomY = (float) Math.random() * (Gdx.graphics.getHeight() - 100);
-//            Terrain lilypad = new Terrain(randomX,randomY,scrollSpeed,"lily.png",100,100);
-//            lilypad.setX(randomX); // Set random X position
-//            lilypad.setY(randomY);
-//            entityManager.addEntities(lilypad);
-//        }
-        
+
 
         // Add them to entity manager
 		entityManager.addEntities(player1);
 		entityManager.addEntities(whiteCar);
 		//entityManager.addEntities(blueCar);
-		entityManager.addEntities(lilypad);
+		//entityManager.addEntities(lilypad);
     }
 
 
