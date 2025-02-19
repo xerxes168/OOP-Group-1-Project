@@ -28,13 +28,6 @@ public class Terrain extends Entity implements iMovable, iCollidable{
         currentyPos = y;		
 	}
 	
-	public boolean isOverlapping(Terrain other) {
-	    return this.getX() < other.getX() + other.getWidth() &&
-	           this.getX() + this.getWidth() > other.getX() &&
-	           this.getY() < other.getY() + other.getHeight() &&
-	           this.getY() + this.getHeight() > other.getY();
-	}
-	
 
     // Lily spawning without overlap
 	   public static ArrayList<Terrain> spawnTerrains(int numberOfLily, float scrollSpeed) {
