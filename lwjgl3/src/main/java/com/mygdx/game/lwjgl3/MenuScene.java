@@ -14,7 +14,7 @@ public class MenuScene extends AbstractScene implements Screen {
     private static final int VIRTUAL_WIDTH = 1280;
     private static final int VIRTUAL_HEIGHT = 720;
 
-    // Example button bounds
+    // Button bounds
     private static final int BUTTON_WIDTH = 200;
     private static final int BUTTON_HEIGHT = 80;
 

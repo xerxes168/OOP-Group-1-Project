@@ -44,7 +44,7 @@ public class GameOverScene extends AbstractScene implements Screen{
 	        camera.update();
 
 	        menuTexture = new Texture("menu.png");
-	        playButtonTexture = new Texture("play.png");
+	        playButtonTexture = new Texture("restart.png");
 	        quitButtonTexture = new Texture("quit.png");
 	        
 	    }

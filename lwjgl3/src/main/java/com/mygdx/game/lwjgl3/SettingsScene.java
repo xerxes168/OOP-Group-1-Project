@@ -44,6 +44,7 @@ public class SettingsScene extends AbstractScene implements Screen {
     private BitmapFont font;
 
     // Buttons
+    private static final int BTN_SIZE_DBL = 200;
     private static final int BTN_SIZE = 80;
     private static final int BTN_SIZE_HALF = 40;
 
@@ -54,7 +55,7 @@ public class SettingsScene extends AbstractScene implements Screen {
     private static final int BTN_MINUS_Y = 350;
 
     private static final int BTN_BACK_X = 50;
-    private static final int BTN_BACK_Y = 350;
+    private static final int BTN_BACK_Y = 600;
     
 
     // Textures
@@ -95,7 +96,7 @@ public class SettingsScene extends AbstractScene implements Screen {
         batch.draw(backgroundTexture, 0, 0, 1280, 720);
         batch.draw(plusTexture,  BTN_PLUS_X,  BTN_PLUS_Y,  BTN_SIZE, BTN_SIZE);
         batch.draw(minusTexture, BTN_MINUS_X, BTN_MINUS_Y, BTN_SIZE, BTN_SIZE_HALF);
-        batch.draw(backButton, BTN_BACK_X,  BTN_BACK_Y,  BTN_SIZE, BTN_SIZE);
+        batch.draw(backButton, BTN_BACK_X,  BTN_BACK_Y,  BTN_SIZE_DBL, BTN_SIZE);
         
         // Draw existing settings
         batch.draw(scrollPlusTexture, SCROLL_PLUS_X, SCROLL_PLUS_Y, BTN_SIZE, BTN_SIZE);
@@ -108,8 +109,9 @@ public class SettingsScene extends AbstractScene implements Screen {
         // Current Volume Text
         String volumeText = String.format("Volume: %.0f%%", volume * 100);
         font.draw(batch, volumeText, TEXT_X, TEXT_Y);
-        
-        font.getData().setScale(2f);  // Increase font size (default is 1.0)
+
+        // Increase Font Size
+        font.getData().setScale(2f);  
 
 
         handleInput();
@@ -117,7 +119,7 @@ public class SettingsScene extends AbstractScene implements Screen {
 
     private void handleInput() {
         if (Gdx.input.justTouched()) {
-            // Convert screen coords to our 1280x720 world coords
+            
             Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touchPos);
 
@@ -141,7 +143,7 @@ public class SettingsScene extends AbstractScene implements Screen {
             }
 
             // Check click on Back Button
-            else if (x >= BTN_BACK_X && x <= (BTN_BACK_X + BTN_SIZE)
+            else if (x >= BTN_BACK_X && x <= (BTN_BACK_X + BTN_SIZE_DBL)
                   && y >= BTN_BACK_Y && y <= (BTN_BACK_Y + BTN_SIZE))
             {
                 SceneManager.getInstance().setScene("Menu");
@@ -166,11 +168,6 @@ public class SettingsScene extends AbstractScene implements Screen {
         }
     }
 
-    /**
-     * This method applies the volume change to your audio engine.
-     * If you’re using LibGDX’s Music or Sound instances, you’d call setVolume(...) on each.
-     * Or if you have a global audio manager, you’d pass the updated volume to it here.
-     */
     private void applyVolume() {
         soundManager.setMasterVolume(volume);
     }
