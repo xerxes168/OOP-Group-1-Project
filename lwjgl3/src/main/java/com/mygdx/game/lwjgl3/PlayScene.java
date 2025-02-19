@@ -46,7 +46,6 @@ public class PlayScene extends AbstractScene implements Screen {
     }
     
 
-
     public PlayScene(GameMaster game, SoundManager soundManager) {
         super(game);
         this.soundManager = soundManager;
@@ -60,18 +59,6 @@ public class PlayScene extends AbstractScene implements Screen {
     @Override   // Similar to Create() in GameMaster
     public void show() {
         super.show();
-
-        // ---------------------------------------------------------
-
-        // If you want to further adjust the parent's camera:
-        // camera.position.set(1280, 720, 0); 
-        // camera.update();
-
-        // If the parent’s constructor made an 800x600 FitViewport, that’s typically fine. 
-        // But if you want a different resolution, you’d recreate it here.
-        // viewport = new FitViewport(1280, 720, camera);
-
-        // ---------------------------------------------------------
 
         entityManager = new EntityManager();
         batch = new SpriteBatch();
@@ -111,7 +98,7 @@ public class PlayScene extends AbstractScene implements Screen {
             
             do {
                 overlaps = false;
-                // Generate random positions (adjust values as needed)
+                // Generate random positions, adjust if need
                 float randomX = (float) Math.random() * (Gdx.graphics.getWidth() - 100);
                 float randomY = (float) Math.random() * (Gdx.graphics.getHeight() - 100);
                 
@@ -147,9 +134,7 @@ public class PlayScene extends AbstractScene implements Screen {
 //        }
         
 
-        // Add them to your entity manager
-        
-        
+        // Add them to entity manager
 		entityManager.addEntities(player1);
 		entityManager.addEntities(whiteCar);
 		//entityManager.addEntities(blueCar);
@@ -184,7 +169,7 @@ public class PlayScene extends AbstractScene implements Screen {
     }
 
     // Grid scrolling functions
-    // Reposition the grid’s scrolling offset based on scrollSpeed and delta time
+    // Adjust grid scrolling based on scrollSpeed and delta time
     private void updateGridScroll(float delta) {
     	
     	//float screenHeight = Gdx.graphics.getHeight();
@@ -202,16 +187,14 @@ public class PlayScene extends AbstractScene implements Screen {
         
     }
 
-    // Draw an 8x8 grid that scrolls upward
+    // Draw grid that scrolls upward
     private void drawGrid() {
         //float screenWidth  = Gdx.graphics.getWidth();
         //float screenHeight = Gdx.graphics.getHeight();
         float screenWidth  = viewport.getWorldWidth();  // Get from viewport
         float screenHeight = viewport.getWorldHeight(); // Get from viewport
         float cellWidth    = screenWidth  / 12f;
-        float cellHeight   = screenHeight / 12f;
-
-        
+        float cellHeight   = screenHeight / 12f;        
 
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -223,7 +206,7 @@ public class PlayScene extends AbstractScene implements Screen {
             shapeRenderer.line(x, 0, x, screenHeight);
         }
 
-        // Draw horizontal lines (scrolling)
+        // Draw horizontal lines that scrolls
         for (int i = -1; i <= 12; i++) {
             float y = i * cellHeight + scrollOffset;
             shapeRenderer.line(0, y, screenWidth, y);
@@ -245,8 +228,7 @@ public class PlayScene extends AbstractScene implements Screen {
         
         viewport.update(width, height, true); // Updates viewport and centers camera
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-        camera.update();
-        
+        camera.update();       
         
        
         float cellHeight = viewport.getWorldHeight()/12f;

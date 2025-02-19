@@ -74,13 +74,13 @@ public class GameOverScene extends AbstractScene implements Screen{
 	            float x = touchPos.x;
 	            float y = touchPos.y;
 
-	            // Check if user clicked on "Play" button
+	            // Check click on Restart Button
 	            if (x >= PLAY_BTN_X && x <= (PLAY_BTN_X + BUTTON_WIDTH)
 	                    && y >= PLAY_BTN_Y && y <= (PLAY_BTN_Y + BUTTON_HEIGHT)) {
 	            	SceneManager.getInstance().setScene("Play");
 	             }
 
-	            // Check if user clicked on "Settings" button
+	            // Check click on Settings Button
 	            else if (x >= QUIT_BTN_X && x <= (QUIT_BTN_X + BUTTON_WIDTH)
 	                    && y >= QUIT_BTN_Y && y <= (QUIT_BTN_Y + BUTTON_HEIGHT)) {
 	                System.exit(0);

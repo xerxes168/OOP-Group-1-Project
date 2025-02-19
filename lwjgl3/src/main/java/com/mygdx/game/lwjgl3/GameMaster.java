@@ -10,22 +10,22 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameMaster extends Game {
 	
-	private SpriteBatch batch;
-	private Character player1;
+	// private SpriteBatch batch;
+	// private Character player1;
 
-	private Object1 object1;
-	private Object2 object2;
+	// private Object1 object1;
+	// private Object2 object2;
 
-	private Terrain terrainObj;
+	// private Terrain terrainObj;
     
-	private EntityManager entityManager;
-	private EntityManager test;
-	private ShapeRenderer shapeRenderer;
-	private ScrollingBackground scrollingBackground;
+	// private EntityManager entityManager;
+	// private EntityManager test;
+	// private ShapeRenderer shapeRenderer;
+	// private ScrollingBackground scrollingBackground;
 	private SoundManager soundManager;
 	
-	private float scrollOffset = 0; // Offset for scrolling effect
-    private float scrollSpeed = 100; // Pixels per second
+	// private float scrollOffset = 0; // Offset for scrolling effect
+    // private float scrollSpeed = 100; // Pixels per second
 		
 	// temporary grid for development
 	// private void drawGrid() {
@@ -66,7 +66,6 @@ public class GameMaster extends Game {
 		SceneManager.getInstance().addScene("Setting", new SettingsScene(this, soundManager));
 		SceneManager.getInstance().addScene("GameOver", new GameOverScene(this));
 
-
         // Start at Menu Screen
         SceneManager.getInstance().setScene("Menu");
 
@@ -96,7 +95,7 @@ public class GameMaster extends Game {
 	{
 		ScreenUtils.clear(0, 0, 0.2f, 1);
 		
-		float delta = Gdx.graphics.getDeltaTime();
+		// float delta = Gdx.graphics.getDeltaTime();
 
         // // Update grid scroll position
         // scrollOffset -= scrollSpeed * delta;

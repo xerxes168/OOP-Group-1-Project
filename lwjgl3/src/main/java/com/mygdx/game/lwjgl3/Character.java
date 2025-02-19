@@ -16,8 +16,6 @@ public class Character extends Entity implements iMovable, iCollidable {
 	
     private static final float CHARACTER_SIZE = Gdx.graphics.getWidth() / 12f;
     private static final float SPEED = 200;
-    //private static final float SCREEN_WIDTH = 640; // NEED TO CHANGE
-    //private static final float SCREEN_HEIGHT = 480; // NEED TO CHANGE
     
  // Default constructor with no predefined values
     public Character() {
@@ -106,7 +104,7 @@ public class Character extends Entity implements iMovable, iCollidable {
 	
 	@Override
 	public void onCollision(iCollidable object) {
-		// To be written
+		// To be improved
 		
 		// Collision with other objects
 		if(object instanceof Object1) {
@@ -123,8 +121,8 @@ public class Character extends Entity implements iMovable, iCollidable {
 
 	public void setPosition(float x, float y) {
 		
-		super.setX(x);  // Use Entity's setX()
-	    super.setY(y);  // Use Entity's setY()
+		super.setX(x);  // Use Entity setX()
+	    super.setY(y);  // Use Entity setY()
 		
 	}
 	
