@@ -4,15 +4,14 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Terrain extends Entity implements iMovable, iCollidable{
     private static final int GRID_COLS = 12;
     private static final int GRID_ROWS = 12;
     private static final float CELL_WIDTH = Gdx.graphics.getWidth() / 12f;
-    private static final float TERRAIN_SIZE = Gdx.graphics.getHeight() / 12f;
-    private static final float CELL_HEIGHT = Gdx.graphics.getWidth() / 12f;
+    private static final float CELL_HEIGHT = Gdx.graphics.getHeight() / 12f;
+    private static final float TERRAIN_SIZE = Gdx.graphics.getWidth() / 12f;
 	private float currentxPos;
 	private float currentyPos;
     private static final float SPEED = 33;
