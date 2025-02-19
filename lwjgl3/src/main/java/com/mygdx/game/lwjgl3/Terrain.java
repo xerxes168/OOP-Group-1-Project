@@ -11,8 +11,8 @@ public class Terrain extends Entity implements iMovable, iCollidable{
     private static final int GRID_ROWS = 12;
     private static final float CELL_WIDTH = Gdx.graphics.getWidth() / 12f;
     private static final float CELL_HEIGHT = Gdx.graphics.getHeight() / 12f;
-    private static final float TERRAIN_WIDTH = CELL_WIDTH * 0.9f;
-    private static final float TERRAIN_HEIGHT = CELL_HEIGHT * 0.9f;
+    private static final float TERRAIN_WIDTH = CELL_WIDTH;
+    private static final float TERRAIN_HEIGHT = CELL_HEIGHT;
 	private float currentxPos;
 	private float currentyPos;
     private static final float SPEED = 33;
@@ -72,21 +72,27 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 	    // Check if the lily has moved off the bottom of the screen.
 	    if (currentyPos <= -TERRAIN_HEIGHT) {
 	        // Reset y to the top of the screen.
+	    	reset();
+	    } else {
+            // Otherwise, just update the y position.
+            super.setY(currentyPos);
+        }
+    }
+	
+	  private void reset() {
+	        // Reset y to the top.
 	        currentyPos = Gdx.graphics.getHeight();
-	        
-	        // Select a random grid column.
+
+	        // Choose a random column.
 	        int col = MathUtils.random(0, GRID_COLS - 1);
-	        
+
 	        // Calculate the centered x position for that column.
 	        currentxPos = col * CELL_WIDTH + (CELL_WIDTH / 2f) - (TERRAIN_WIDTH / 2f);
-	        
-	        // Update the x position.
+
+	        // Update the entity's position.
 	        super.setX(currentxPos);
+	        super.setY(currentyPos);
 	    }
-	    
-	    // Update the y position.
-	    super.setY(currentyPos);
-	}
 	
 	public void draw(SpriteBatch batch) {
 	    batch.begin();

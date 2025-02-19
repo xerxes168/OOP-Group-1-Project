@@ -23,7 +23,6 @@ public class PlayScene extends AbstractScene implements Screen {
 
 	private Object1 whiteCar;
 	private Object2 blueCar;
-
 	private Terrain lilypad;
 
 	private EntityManager entityManager;

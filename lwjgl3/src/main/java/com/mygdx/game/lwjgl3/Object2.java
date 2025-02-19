@@ -4,16 +4,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 
 import java.util.ArrayList;
 import java.util.Random;
 	
 public class Object2 extends Entity implements iMovable, iCollidable{
-	
 	private float currentyPos;
+	private float currentxPos;
 	private ShapeRenderer shapeRenderer; // Only for debugging purposes
-	private static final float OBJECT_SIZE = 50;
-	private static final float SPEED = 33;
+    private static final int GRID_COLS = 12;
+    private static final int GRID_ROWS = 12;
+    private static final float CELL_WIDTH = Gdx.graphics.getWidth() / 12f;
+    private static final float CELL_HEIGHT = Gdx.graphics.getHeight() / 12f;
+    private static final float OBJECT_WIDTH = CELL_WIDTH;
+    private static final float OBJECT_HEIGHT = CELL_HEIGHT;
 	private static final Random random = new Random();
 	
 	public Object2() 
@@ -25,60 +30,83 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	public Object2(float x, float y, float speed, String imgName, float width, float height){
 		super(x, y, speed, imgName, width, height);
 		this.shapeRenderer = new ShapeRenderer();
+        currentxPos = x;
+        currentyPos = y;	
 	}
 	
     public static ArrayList<Object2> spawnObjects(int numberOfObjects, float scrollSpeed) {
-    	ArrayList<Object2> objects = new ArrayList<>();
-        for (int i = 0; i < numberOfObjects; i++) {
-            // Generate random positions ensuring the object stays within bounds
-            float randomX = (float) Math.random() * (Gdx.graphics.getWidth() - 100);
-            float randomY = (float) Math.random() * (Gdx.graphics.getHeight() - 100);
+    	ArrayList<Object2> objects = new ArrayList<Object2>();
+        boolean[][] usedCells = new boolean[GRID_COLS][GRID_ROWS];
+
+        for (int j = 0; j < numberOfObjects; j++) {
+            int attempts = 0;
+            int col, row;
+            // Try to find an unused cell (up to 100 attempts)
+            do {
+                col = MathUtils.random(0, GRID_COLS - 1);
+                row = MathUtils.random(0, GRID_ROWS - 1);
+                attempts++;
+            } while (usedCells[col][row] && attempts < 100);
             
-            // Create the object using the parameterized constructor
-            Object2 object = new Object2(randomX, randomY, scrollSpeed, "car.png", 50, 50);
-            // Optionally set positions explicitly if needed
-            object.setX(randomX);
-            object.setY(randomY);
+            // If we exceed attempts, break out of the loop.
+            if (attempts >= 100) {
+                break;
+            }
             
-            objects.add(object);
+            usedCells[col][row] = true; // Mark this cell as used
+            
+            // Calculate the center position for the cell, then adjust so the Terrain is centered.
+            float posX = col * CELL_WIDTH + (CELL_WIDTH / 2f) - (OBJECT_WIDTH / 2f);
+            float posY = row * CELL_HEIGHT + (CELL_HEIGHT / 2f) - (OBJECT_HEIGHT / 2f);
+            
+            objects.add(new Object2(posX, posY, scrollSpeed, "car.png", OBJECT_WIDTH, OBJECT_HEIGHT));
         }
         return objects;
     }
-    
 	
 	@Override
 	public void movement(){
-		
-		float deltaTime = Gdx.graphics.getDeltaTime();
-		currentyPos = super.getY();
+	    float deltaTime = Gdx.graphics.getDeltaTime();
+	    
+	    // Update the y position by subtracting the movement amount.
+	    currentyPos = super.getY();
 		float dynamicSpeed = PlayScene.getScrollSpeed();
 		currentyPos -= dynamicSpeed * deltaTime;
-                
-        if(currentyPos <= -OBJECT_SIZE) {
-        	currentyPos = Gdx.graphics.getHeight();
-        	respawn();
+	    // Check if the lily has moved off the bottom of the screens.
+	    if (currentyPos <= -OBJECT_HEIGHT) {
+	        // Reset y to the top of the screen.
+	    	reset();
+	    } else {
+            // Otherwise, just update the y position.
+            super.setY(currentyPos);
         }
-       
-        super.setY(currentyPos);
+    }
 
-	}
-	
-	 private void respawn() {
-	        float screenWidth = Gdx.graphics.getWidth();
-	        float randomX = random.nextFloat() * (screenWidth - OBJECT_SIZE); // Ensure it stays within bounds
-	        super.setX(randomX);
-	        super.setY(Gdx.graphics.getHeight()); // Reset Y to top of the screen
-	    }
+    private void reset() {
+        // Reset y to the top.
+        currentyPos = Gdx.graphics.getHeight();
+
+        // Choose a random column.
+        int col = MathUtils.random(0, GRID_COLS - 1);
+
+        // Calculate the centered x position for that column.
+        currentxPos = col * CELL_WIDTH + (CELL_WIDTH / 2f) - (OBJECT_WIDTH / 2f);
+
+        // Update the entity's position.
+        super.setX(currentxPos);
+        super.setY(currentyPos);
+    }
+
 	
 	@Override
 	public void draw(SpriteBatch batch) {
 		batch.begin();
-			batch.draw(this.getTex(),this.getX(),this.getY(), OBJECT_SIZE, OBJECT_SIZE);
+			batch.draw(this.getTex(),this.getX(),this.getY(), OBJECT_WIDTH, OBJECT_HEIGHT);
 		batch.end();
 		
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 	        shapeRenderer.setColor(1, 0, 0, 1); // Red color
-	        shapeRenderer.rect(this.getX(), this.getY(), OBJECT_SIZE, OBJECT_SIZE);
+	        shapeRenderer.rect(this.getX(), this.getY(), OBJECT_WIDTH, OBJECT_HEIGHT);
         shapeRenderer.end();
         setRectangle();
 
