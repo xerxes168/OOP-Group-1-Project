@@ -75,19 +75,22 @@ public class PlayScene extends AbstractScene implements Screen {
         //blueCar = new Object2(400, 200, scrollSpeed, "car.png", 100, 100);
         lilypad = new Terrain(400, 0, scrollSpeed, "lily.png", 100, 100);
         
-        int numberOfObjects = 3; // Set number of blue car (object 2 static)
-        
-        for (int i = 0; i < numberOfObjects; i++) {
-        	
-            float randomX = (float) Math.random() * (Gdx.graphics.getWidth() - 100); // Ensure it stays within bounds
-            float randomY = (float) Math.random() * (Gdx.graphics.getHeight() - 100);
-            Object2 object = new Object2(randomX,randomY,scrollSpeed,"car.png",50,50);
-            object.setX(randomX); // Set random X position
-            object.setY(randomY);
-            entityManager.addEntities(object);
+//        int numberOfObjects = 3; // Set number of blue car (object 2 static)
+//        
+//        for (int i = 0; i < numberOfObjects; i++) {
+//        	
+//            float randomX = (float) Math.random() * (Gdx.graphics.getWidth() - 100); // Ensure it stays within bounds
+//            float randomY = (float) Math.random() * (Gdx.graphics.getHeight() - 100);
+//            Object2 object = new Object2(randomX,randomY,scrollSpeed,"car.png",50,50);
+//            object.setX(randomX); // Set random X position
+//            object.setY(randomY);
+//            entityManager.addEntities(object);
+//        }
+        //create Object 2
+        List<Object2> objects = Object2.spawnObjects(3, scrollSpeed);
+        for (Object2 obj : objects) {
+            entityManager.addEntities(obj);
         }
-
-
             
         // Create the lily
         List<Terrain> terrains = Terrain.spawnTerrains(10, scrollSpeed);

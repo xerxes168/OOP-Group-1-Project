@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
+import java.util.ArrayList;
 import java.util.Random;
 	
 public class Object2 extends Entity implements iMovable, iCollidable{
@@ -24,6 +26,25 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 		super(x, y, speed, imgName, width, height);
 		this.shapeRenderer = new ShapeRenderer();
 	}
+	
+    public static ArrayList<Object2> spawnObjects(int numberOfObjects, float scrollSpeed) {
+    	ArrayList<Object2> objects = new ArrayList<>();
+        for (int i = 0; i < numberOfObjects; i++) {
+            // Generate random positions ensuring the object stays within bounds
+            float randomX = (float) Math.random() * (Gdx.graphics.getWidth() - 100);
+            float randomY = (float) Math.random() * (Gdx.graphics.getHeight() - 100);
+            
+            // Create the object using the parameterized constructor
+            Object2 object = new Object2(randomX, randomY, scrollSpeed, "car.png", 50, 50);
+            // Optionally set positions explicitly if needed
+            object.setX(randomX);
+            object.setY(randomY);
+            
+            objects.add(object);
+        }
+        return objects;
+    }
+    
 	
 	@Override
 	public void movement(){

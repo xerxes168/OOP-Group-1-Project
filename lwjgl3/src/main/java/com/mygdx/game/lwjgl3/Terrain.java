@@ -11,7 +11,8 @@ public class Terrain extends Entity implements iMovable, iCollidable{
     private static final int GRID_ROWS = 12;
     private static final float CELL_WIDTH = Gdx.graphics.getWidth() / 12f;
     private static final float CELL_HEIGHT = Gdx.graphics.getHeight() / 12f;
-    private static final float TERRAIN_SIZE = Gdx.graphics.getWidth() / 12f;
+    private static final float TERRAIN_WIDTH = CELL_WIDTH * 0.9f;
+    private static final float TERRAIN_HEIGHT = CELL_HEIGHT * 0.9f;
 	private float currentxPos;
 	private float currentyPos;
     private static final float SPEED = 33;
@@ -59,10 +60,10 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 	            usedCells[col][row] = true; // Mark this cell as used
 	            
 	            // Calculate the center position for the cell, then adjust so the Terrain is centered.
-	            float posX = col * CELL_WIDTH + (CELL_WIDTH / 2f) - (TERRAIN_SIZE / 2f);
-	            float posY = row * CELL_HEIGHT + (CELL_HEIGHT / 2f) - (TERRAIN_SIZE / 2f);
+	            float posX = col * CELL_WIDTH + (CELL_WIDTH / 2f) - (TERRAIN_WIDTH / 2f);
+	            float posY = row * CELL_HEIGHT + (CELL_HEIGHT / 2f) - (TERRAIN_HEIGHT / 2f);
 	            
-	            terrains.add(new Terrain(posX, posY, scrollSpeed, "lily.png", TERRAIN_SIZE, TERRAIN_SIZE));
+	            terrains.add(new Terrain(posX, posY, scrollSpeed, "lily.png", TERRAIN_WIDTH, TERRAIN_HEIGHT));
 	        }
 	        return terrains;
 	    }
@@ -76,7 +77,7 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 	    currentyPos = super.getY() - SPEED * deltaTime;
 	    
 	    // Check if the lily has moved off the bottom of the screen.
-	    if (currentyPos <= -TERRAIN_SIZE) {
+	    if (currentyPos <= -TERRAIN_HEIGHT) {
 	        // Reset y to the top of the screen.
 	        currentyPos = Gdx.graphics.getHeight();
 	        
@@ -84,7 +85,7 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 	        int col = MathUtils.random(0, GRID_COLS - 1);
 	        
 	        // Calculate the centered x position for that column.
-	        currentxPos = col * CELL_WIDTH + (CELL_WIDTH / 2f) - (TERRAIN_SIZE / 2f);
+	        currentxPos = col * CELL_WIDTH + (CELL_WIDTH / 2f) - (TERRAIN_WIDTH / 2f);
 	        
 	        // Update the x position.
 	        super.setX(currentxPos);
@@ -96,7 +97,7 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 	
 	public void draw(SpriteBatch batch) {
 	    batch.begin();
-	    batch.draw(this.getTex(), getX(), getY(), TERRAIN_SIZE, TERRAIN_SIZE); 
+	    batch.draw(this.getTex(), getX(), getY(), TERRAIN_WIDTH, TERRAIN_HEIGHT); 
 	    batch.end();
 	
 	}
