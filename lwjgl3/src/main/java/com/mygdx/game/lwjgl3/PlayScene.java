@@ -214,9 +214,9 @@ public class PlayScene extends AbstractScene implements Screen {
         if (shapeRenderer != null) {
             shapeRenderer.dispose();
         }
-        // if (entityManager != null) {
-        //     entityManager.dispose();
-        // }
+//         if (entityManager != null) {
+//             entityManager.dispose();
+//         }
         if (scrollingBackground != null) {
             scrollingBackground.dispose();
         }

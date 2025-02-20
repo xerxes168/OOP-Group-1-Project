@@ -110,6 +110,14 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 	public void onCollision(iCollidable object) {
 		
 	}
+	
+	public void dispose(){
+		
+		if (getTex() != null) {
+            getTex().dispose();
+        }
+	      
+	}
 
 
 }
