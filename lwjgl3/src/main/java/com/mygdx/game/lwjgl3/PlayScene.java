@@ -1,6 +1,5 @@
 package com.mygdx.game.lwjgl3;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -8,23 +7,17 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class PlayScene extends AbstractScene implements Screen {
     
     // Entities
     private SpriteBatch batch;
 	private Character player1;
-
 	private Object1 whiteCar;
-	private Object2 blueCar;
-	private Terrain lilypad;
-
+	
 	private EntityManager entityManager;
 	private ShapeRenderer shapeRenderer;
 	private CollisionManager collisionManager;
@@ -65,26 +58,10 @@ public class PlayScene extends AbstractScene implements Screen {
         collisionManager = new CollisionManager();
         soundManager.playBackgroundMusic();
         
-        // ScrollingBackground class
-        // scrollingBackground = new ScrollingBackground("background.png", 100);
-
         // Create entities
         player1 = new Character(500, 0, 1, "character.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getWidth() / 12f, soundManager);
         whiteCar = new Object1(400, 0, scrollSpeed, "car1.png", 100, 100);
-        //blueCar = new Object2(400, 200, scrollSpeed, "car.png", 100, 100);
-        lilypad = new Terrain(400, 0, scrollSpeed, "lily.png", 100, 100);
-        
-//        int numberOfObjects = 3; // Set number of blue car (object 2 static)
-//        
-//        for (int i = 0; i < numberOfObjects; i++) {
-//        	
-//            float randomX = (float) Math.random() * (Gdx.graphics.getWidth() - 100); // Ensure it stays within bounds
-//            float randomY = (float) Math.random() * (Gdx.graphics.getHeight() - 100);
-//            Object2 object = new Object2(randomX,randomY,scrollSpeed,"car.png",50,50);
-//            object.setX(randomX); // Set random X position
-//            object.setY(randomY);
-//            entityManager.addEntities(object);
-//        }
+                
         //create Object 2
         List<Object2> objects = Object2.spawnObjects(3, scrollSpeed);
         for (Object2 obj : objects) {
@@ -101,8 +78,6 @@ public class PlayScene extends AbstractScene implements Screen {
         // Add them to entity manager
 		entityManager.addEntities(player1);
 		entityManager.addEntities(whiteCar);
-		//entityManager.addEntities(blueCar);
-		//entityManager.addEntities(lilypad);
     }
 
 
@@ -115,9 +90,6 @@ public class PlayScene extends AbstractScene implements Screen {
         // Grid scrolling
         updateGridScroll(delta);
         drawGrid(); 
-
-        // Draw Scrolling background
-        // scrollingBackground.draw(batch, delta);
 
         // Draw and update entities
         entityManager.draw(batch);
@@ -136,14 +108,11 @@ public class PlayScene extends AbstractScene implements Screen {
     // Adjust grid scrolling based on scrollSpeed and delta time
     private void updateGridScroll(float delta) {
     	
-    	//float screenHeight = Gdx.graphics.getHeight();
-        //float cellHeight = screenHeight / 8f;  // Adjusted dynamically
         float cellHeight = viewport.getWorldHeight() / 12f; // Adjusted dynamically
 
         scrollOffset -= scrollSpeed * delta;
 
         // For a typical grid of 8 cells
-        //float cellHeight = Gdx.graphics.getHeight() / 8f;
         if (scrollOffset <= -cellHeight) {
             scrollOffset = 0;
         }
@@ -153,8 +122,6 @@ public class PlayScene extends AbstractScene implements Screen {
 
     // Draw grid that scrolls upward
     private void drawGrid() {
-        //float screenWidth  = Gdx.graphics.getWidth();
-        //float screenHeight = Gdx.graphics.getHeight();
         float screenWidth  = viewport.getWorldWidth();  // Get from viewport
         float screenHeight = viewport.getWorldHeight(); // Get from viewport
         float cellWidth    = screenWidth  / 12f;
@@ -181,15 +148,7 @@ public class PlayScene extends AbstractScene implements Screen {
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        
-        //Recalculate grid cell size based on new dimensions
-        /*
-        float screenWidth = width;
-        float screenHeight = height;
-        float cellWidth = screenWidth / 8f;
-        float cellHeight = screenHeight / 8f;
-        */
-        
+                
         viewport.update(width, height, true); // Updates viewport and centers camera
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
         camera.update();       
@@ -214,9 +173,6 @@ public class PlayScene extends AbstractScene implements Screen {
         if (shapeRenderer != null) {
             shapeRenderer.dispose();
         }
-//         if (entityManager != null) {
-//             entityManager.dispose();
-//         }
         if (scrollingBackground != null) {
             scrollingBackground.dispose();
         }

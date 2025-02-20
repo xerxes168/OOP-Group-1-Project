@@ -20,7 +20,6 @@ public class Object2 extends Entity implements iMovable, iCollidable{
     private static final float OBJECT_WIDTH = CELL_WIDTH;
     private static final float OBJECT_HEIGHT = CELL_HEIGHT;
     private static final float SPEED = 33;
-	private static final Random random = new Random();
 	
 	public Object2() 
 	{

@@ -20,7 +20,7 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 	}
 	
 	public Object1(float x, float y, float speed, String imgName, float width, float height){
-		super(x, y, speed, imgName, width, height);
+		super(x, y, speed, imgName, OBJECT_WIDTH, OBJECT_HEIGHT);
 		this.shapeRenderer = new ShapeRenderer();
 
 	}
