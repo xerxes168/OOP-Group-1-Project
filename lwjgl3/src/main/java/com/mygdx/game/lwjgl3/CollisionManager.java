@@ -2,7 +2,7 @@ package com.mygdx.game.lwjgl3;
 
 import java.util.List;
 
-public class CollisionManager extends Entity{
+public class CollisionManager{
 		
 	CollisionManager(){
 		
