@@ -58,7 +58,7 @@ public class GameMaster extends Game {
 
         // Initialize SceneManager and SoundManager
 		SoundManager soundManager = new SoundManager();
-        SceneManager.initialize(this);
+		SceneManager.initialize(this);
 
 		// Add scenes
 		SceneManager.getInstance().addScene("Menu", new MenuScene(this));

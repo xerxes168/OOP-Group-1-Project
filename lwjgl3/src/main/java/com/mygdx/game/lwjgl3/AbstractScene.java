@@ -38,8 +38,6 @@ public abstract class AbstractScene extends ScreenAdapter {
         batch.end();
     }
 
-    protected abstract void draw(float delta);
-
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
@@ -49,6 +47,8 @@ public abstract class AbstractScene extends ScreenAdapter {
     public void dispose() {
         batch.dispose();
     }
+
+    protected abstract void draw(float delta);
 
     protected void clearScreen() {
         Gdx.gl.glClearColor(0, 0, 0, 1);
