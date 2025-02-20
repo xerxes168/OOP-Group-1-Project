@@ -13,8 +13,11 @@ public class Character extends Entity implements iMovable, iCollidable {
 	private ShapeRenderer shapeRenderer; // Only for debugging purposes
 	private SoundManager soundManager;
 	private Game game;
+    private static final float CELL_WIDTH = Gdx.graphics.getWidth() / 12f;
+    private static final float CELL_HEIGHT = Gdx.graphics.getHeight() / 12f;
 	
-    private static final float CHARACTER_SIZE = Gdx.graphics.getWidth() / 12f;
+    private static final float CHARACTER_WIDTH = Gdx.graphics.getWidth() / 12f;
+    private static final float CHARACTER_HEIGHT = Gdx.graphics.getWidth() / 12f;
     private static final float SPEED = 200;
     
  // Default constructor with no predefined values
@@ -31,21 +34,17 @@ public class Character extends Entity implements iMovable, iCollidable {
 	}
 	
 	public void draw(SpriteBatch batch) {
-		 float screenWidth = Gdx.graphics.getWidth();
-		    float screenHeight = Gdx.graphics.getHeight();
-		    float cellWidth = screenWidth / 12f;
-		    float cellHeight = screenHeight / 12f;
 
 		    // Adjust X position slightly to center the duck
-		    float offsetX = (cellWidth - CHARACTER_SIZE) / 2f;
-		    float offsetY = (cellHeight - CHARACTER_SIZE) / 2f;
+		    float offsetX = (CELL_WIDTH - CHARACTER_WIDTH) / 2f;
+		    float offsetY = (CELL_HEIGHT - CHARACTER_HEIGHT) / 2f;
 
 		    batch.begin();
-		    batch.draw(this.getTex(), super.getX() + offsetX + 2, super.getY() + offsetY, CHARACTER_SIZE, CHARACTER_SIZE); 
+		    batch.draw(this.getTex(), super.getX() + offsetX + 2, super.getY() + offsetY, CHARACTER_WIDTH, CHARACTER_HEIGHT); 
 		    batch.end();
 		    shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 	        shapeRenderer.setColor(1, 0, 0, 1); // Red color
-	        shapeRenderer.rect(this.getX(), this.getY(), CHARACTER_SIZE, CHARACTER_SIZE);
+	        shapeRenderer.rect(this.getX(), this.getY(), CHARACTER_WIDTH, CHARACTER_HEIGHT);
 	        shapeRenderer.end();
 
 		    setRectangle();
@@ -55,14 +54,10 @@ public class Character extends Entity implements iMovable, iCollidable {
 	
 	@Override
 	public void movement() {
-	    float screenWidth = Gdx.graphics.getWidth();
-	    float screenHeight = Gdx.graphics.getHeight();
-	    float cellWidth = screenWidth / 12f;
-	    float cellHeight = screenHeight / 12f;
 
 	    // Calculate current grid position
-	    int gridX = Math.round(super.getX() / cellWidth);
-	    int gridY = Math.round(super.getY() / cellHeight);
+	    int gridX = Math.round(super.getX() / CELL_WIDTH);
+	    int gridY = Math.round(super.getY() / CELL_HEIGHT);
 
 	    boolean moved = false;
 
@@ -92,12 +87,12 @@ public class Character extends Entity implements iMovable, iCollidable {
 	    gridX = Math.max(0, Math.min(gridX, 11));
 	    gridY = Math.max(0, Math.min(gridY, 11));
 
-	    float maxWidth = screenWidth - CHARACTER_SIZE;
-	    float maxHeight = screenHeight - CHARACTER_SIZE;
+	    float maxWidth = Gdx.graphics.getWidth() - CHARACTER_WIDTH;
+	    float maxHeight = Gdx.graphics.getHeight() - CHARACTER_HEIGHT;
 
 	    // Calculate the target grid position based on input
-	    float targetX = Math.min(Math.round(gridX * cellWidth), maxWidth);
-	    float targetY = Math.min(Math.round(gridY * cellHeight), maxHeight);
+	    float targetX = Math.min(Math.round(gridX * CELL_WIDTH), maxWidth);
+	    float targetY = Math.min(Math.round(gridY * CELL_HEIGHT), maxHeight);
 
 	    // Apply continuous downward movement to the current position
 	    float deltaTime = Gdx.graphics.getDeltaTime();
@@ -114,7 +109,7 @@ public class Character extends Entity implements iMovable, iCollidable {
 	    super.setY(newY);
 	    
 	 // Check if character has fallen below screen by more than one cell height
-	    if (super.getY() < -cellHeight) {
+	    if (super.getY() < - CELL_HEIGHT) {
 	    	System.out.println("You fell below the screen!");
 	        SceneManager.getInstance().setScene("GameOver");
 	    }
