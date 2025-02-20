@@ -15,7 +15,8 @@ public class Terrain extends Entity implements iMovable, iCollidable{
     private static final float TERRAIN_HEIGHT = CELL_HEIGHT;
 	private float currentxPos;
 	private float currentyPos;
-    private static final float SPEED = 33;
+    private static final float SPEED = PlayScene.getScrollSpeed();
+    
 	
     public Terrain() {
 		super();

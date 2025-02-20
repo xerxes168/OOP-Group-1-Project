@@ -9,8 +9,15 @@ public class Character extends Entity implements iMovable, iCollidable {
 	
 	private ShapeRenderer shapeRenderer; // Only for debugging purposes
 	private SoundManager soundManager;
-		
+    private static final int GRID_COLS = 12;
+    private static final int GRID_ROWS = 12;
+    private static final float CELL_WIDTH = Gdx.graphics.getWidth() / 12f;
+    private static final float CELL_HEIGHT = Gdx.graphics.getHeight() / 12f;
+    private static final float SPEED = PlayScene.getScrollSpeed();
     private static final float CHARACTER_SIZE = Gdx.graphics.getWidth() / 12f;
+    private int baseGridX = 5; // Initialize to a starting grid cell (for example, 5)
+    private int baseGridY = 5; // Adjust as needed for your starting position.
+    private float dropOffset = 0;
         
  // Default constructor with no predefined values
     public Character() {
@@ -26,14 +33,9 @@ public class Character extends Entity implements iMovable, iCollidable {
 	}
 	
 	public void draw(SpriteBatch batch) {
-		 float screenWidth = Gdx.graphics.getWidth();
-		    float screenHeight = Gdx.graphics.getHeight();
-		    float cellWidth = screenWidth / 12f;
-		    float cellHeight = screenHeight / 12f;
-
 		    // Adjust X position slightly to center the duck
-		    float offsetX = (cellWidth - CHARACTER_SIZE) / 2f;
-		    float offsetY = (cellHeight - CHARACTER_SIZE) / 2f;
+		    float offsetX = (CELL_WIDTH - CHARACTER_SIZE) / 2f;
+		    float offsetY = (CELL_HEIGHT - CHARACTER_SIZE) / 2f;
 
 		    batch.begin();
 		    batch.draw(this.getTex(), super.getX() + offsetX + 2, super.getY() + offsetY, CHARACTER_SIZE, CHARACTER_SIZE); 
@@ -44,46 +46,55 @@ public class Character extends Entity implements iMovable, iCollidable {
 	        shapeRenderer.end();
 
 		    setRectangle();
-		    
-
 	}
 	
 	@Override
 	public void movement() {
-		// Get screen dimensions dynamically
-		float screenWidth = Gdx.graphics.getWidth();
-	    float screenHeight = Gdx.graphics.getHeight();
-
-	    float cellWidth = screenWidth / 12f;
-	    float cellHeight = screenHeight / 12f;
-
-	    int gridX = Math.round(super.getX() / cellWidth);
-	    int gridY = Math.round(super.getY() / cellHeight);
-
-	    if (Gdx.input.isKeyJustPressed(Keys.UP)) {gridY++;
-	    	soundManager.playSound("move");
-	    }
-	    if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {gridY--;
-	    	soundManager.playSound("move");
-	    }
-	    if (Gdx.input.isKeyJustPressed(Keys.LEFT)) {gridX--;
-	    	soundManager.playSound("move");
-	    }
-	    if (Gdx.input.isKeyJustPressed(Keys.RIGHT)) {gridX++;
-	    	soundManager.playSound("move");
-	    }
-
-	    gridX = Math.max(0, Math.min(gridX, 11));
-	    gridY = Math.max(0, Math.min(gridY, 11));
-
-	    float maxWidth = screenWidth - CHARACTER_SIZE;
-	    float maxHeight = screenHeight - CHARACTER_SIZE;
+	    float deltaTime = Gdx.graphics.getDeltaTime();
+	    boolean moved = false;
 	    
+	    // Process key input: update the base grid coordinates and reset drop offset.
+	    if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+	        baseGridY = Math.min(baseGridY + 1, GRID_ROWS - 1);
+	        dropOffset = 0;
+	        moved = true;
+	        soundManager.playSound("move");
+	    }
+	    if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+	        baseGridY = Math.max(baseGridY - 1, 0);
+	        dropOffset = 0;
+	        moved = true;
+	        soundManager.playSound("move");
+	    }
+	    if (Gdx.input.isKeyJustPressed(Keys.LEFT)) {
+	        baseGridX = Math.max(baseGridX - 1, 0);
+	        dropOffset = 0;
+	        moved = true;
+	        soundManager.playSound("move");
+	    }
+	    if (Gdx.input.isKeyJustPressed(Keys.RIGHT)) {
+	        baseGridX = Math.min(baseGridX + 1, GRID_COLS - 1);
+	        dropOffset = 0;
+	        moved = true;
+	        soundManager.playSound("move");
+	    }
 	    
-
-	    super.setX(Math.min(Math.round(gridX * cellWidth), maxWidth));
-	    super.setY(Math.min(Math.round(gridY * cellHeight), maxHeight));
-		
+	    // Compute the base (centered) position for the grid cell from the stored base grid coordinates.
+	    float baseX = baseGridX * CELL_WIDTH + (CELL_WIDTH / 2f) - (CHARACTER_SIZE / 2f);
+	    float baseY = baseGridY * CELL_HEIGHT + (CELL_HEIGHT / 2f) - (CHARACTER_SIZE / 2f);
+	    
+	    // If no key input occurred, accumulate the drop offset.
+	    if (!moved) {
+	        dropOffset += SPEED * deltaTime;
+	    }
+	    
+	    // Compute the final position by applying the drop offset to the base Y position.
+	    float finalX = baseX;
+	    float finalY = baseY - dropOffset;
+	    
+	    // Update the character's position.
+	    super.setX(finalX);
+	    super.setY(finalY);
 	}
 	
 	@Override

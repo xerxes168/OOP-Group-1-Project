@@ -19,7 +19,7 @@ public class Object2 extends Entity implements iMovable, iCollidable{
     private static final float CELL_HEIGHT = Gdx.graphics.getHeight() / 12f;
     private static final float OBJECT_WIDTH = CELL_WIDTH;
     private static final float OBJECT_HEIGHT = CELL_HEIGHT;
-    private static final float SPEED = 33;
+    private static final float SPEED = PlayScene.getScrollSpeed();
 	
 	public Object2() 
 	{
@@ -73,7 +73,7 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 //	    currentyPos = super.getY();
 //		float dynamicSpeed = PlayScene.getScrollSpeed();
 //		currentyPos -= dynamicSpeed * deltaTime;
-	    // Check if the lily has moved off the bottom of the screens.
+	    // Check if the object has moved off the bottom of the screens.
 	    if (currentyPos <= -OBJECT_HEIGHT) {
 	        // Reset y to the top of the screen.
 	    	reset();

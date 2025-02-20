@@ -13,14 +13,14 @@ public class Object1 extends Entity implements iMovable, iCollidable{
     private static final float CELL_HEIGHT = Gdx.graphics.getHeight() / 12f;
     private static final float OBJECT_WIDTH = CELL_WIDTH;
     private static final float OBJECT_HEIGHT = CELL_HEIGHT;
-	private static final float SPEED = 33;
-		
+	private static final float SPEED = PlayScene.getScrollSpeed();
+
 	public Object1(){
-		
+
 	}
 	
 	public Object1(float x, float y, float speed, String imgName, float width, float height){
-		super(x, y, speed, imgName, OBJECT_WIDTH, OBJECT_HEIGHT);
+		super(x, y, speed, imgName, width, height);
 		this.shapeRenderer = new ShapeRenderer();
 
 	}
