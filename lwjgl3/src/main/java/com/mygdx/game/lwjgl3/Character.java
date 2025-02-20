@@ -109,12 +109,15 @@ public class Character extends Entity implements iMovable, iCollidable {
 	        newY = targetY;
 	    }
 
-	    // Ensure character doesn't go below bottom of screen
-	    newY = Math.max(0, newY);
-
 	    // Set final positions
 	    super.setX(targetX);
 	    super.setY(newY);
+	    
+	 // Check if character has fallen below screen by more than one cell height
+	    if (super.getY() < -cellHeight) {
+	    	System.out.println("You fell below the screen!");
+	        SceneManager.getInstance().setScene("GameOver");
+	    }
 	}
 	
 
