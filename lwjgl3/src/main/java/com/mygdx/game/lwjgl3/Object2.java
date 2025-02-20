@@ -19,7 +19,7 @@ public class Object2 extends Entity implements iMovable, iCollidable{
     private static final float CELL_HEIGHT = Gdx.graphics.getHeight() / 12f;
     private static final float OBJECT_WIDTH = CELL_WIDTH;
     private static final float OBJECT_HEIGHT = CELL_HEIGHT;
-    private static final float SPEED = PlayScene.getScrollSpeed();
+    private static final float SPEED = 33;
 	
 	public Object2() 
 	{

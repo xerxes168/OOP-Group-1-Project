@@ -13,7 +13,7 @@ public class Character extends Entity implements iMovable, iCollidable {
     private static final int GRID_ROWS = 12;
     private static final float CELL_WIDTH = Gdx.graphics.getWidth() / 12f;
     private static final float CELL_HEIGHT = Gdx.graphics.getHeight() / 12f;
-    private static final float SPEED = PlayScene.getScrollSpeed();
+    private static final float SPEED = 33;
     private static final float CHARACTER_SIZE = Gdx.graphics.getWidth() / 12f;
     private int baseGridX = 5; // Initialize to a starting grid cell (for example, 5)
     private int baseGridY = 5; // Adjust as needed for your starting position.
