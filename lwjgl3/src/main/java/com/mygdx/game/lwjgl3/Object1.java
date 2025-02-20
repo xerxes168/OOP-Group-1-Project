@@ -9,7 +9,10 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 	private float currentxPos;
 	private float currentyPos;
 	private ShapeRenderer shapeRenderer; // Only for debugging purposes
-	private static final float OBJECT_SIZE = 100;
+	private static final float CELL_WIDTH = Gdx.graphics.getWidth() / 12f;
+    private static final float CELL_HEIGHT = Gdx.graphics.getHeight() / 12f;
+    private static final float OBJECT_WIDTH = CELL_WIDTH;
+    private static final float OBJECT_HEIGHT = CELL_HEIGHT;
 	private static final float SPEED = 33;
 		
 	public Object1(){
@@ -28,7 +31,7 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 		currentxPos = super.getX();
         currentxPos -= SPEED * deltaTime;
                 
-        if(currentxPos <= -OBJECT_SIZE) {
+        if(currentxPos <= -OBJECT_WIDTH) {
         	currentxPos = Gdx.graphics.getWidth();;
         }
         super.setX(currentxPos);
@@ -36,7 +39,7 @@ public class Object1 extends Entity implements iMovable, iCollidable{
         currentyPos = super.getY();
 		currentyPos -= SPEED * deltaTime;
                 
-		if(currentyPos <= -OBJECT_SIZE) {
+		if(currentyPos <= -OBJECT_HEIGHT) {
         	currentyPos = Gdx.graphics.getHeight();
         }
         super.setY(currentyPos);
@@ -48,12 +51,12 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 	@Override
 	public void draw(SpriteBatch batch) {
 		batch.begin();
-			batch.draw(this.getTex(),this.getX(),this.getY(), OBJECT_SIZE, OBJECT_SIZE);		
+			batch.draw(this.getTex(),this.getX(),this.getY(), OBJECT_WIDTH, OBJECT_HEIGHT);		
 		batch.end();
 		
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 	        shapeRenderer.setColor(1, 0, 0, 1); // Red color
-	        shapeRenderer.rect(this.getX(), this.getY(), OBJECT_SIZE, OBJECT_SIZE);
+	        shapeRenderer.rect(this.getX(), this.getY(), OBJECT_WIDTH, OBJECT_HEIGHT);
         shapeRenderer.end();
         setRectangle();
 
