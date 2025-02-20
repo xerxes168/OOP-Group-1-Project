@@ -55,39 +55,69 @@ public class Character extends Entity implements iMovable, iCollidable {
 	
 	@Override
 	public void movement() {
-		// Get screen dimensions dynamically
-		float screenWidth = Gdx.graphics.getWidth();
+	    float screenWidth = Gdx.graphics.getWidth();
 	    float screenHeight = Gdx.graphics.getHeight();
-
 	    float cellWidth = screenWidth / 12f;
 	    float cellHeight = screenHeight / 12f;
 
+	    // Calculate current grid position
 	    int gridX = Math.round(super.getX() / cellWidth);
 	    int gridY = Math.round(super.getY() / cellHeight);
 
-	    if (Gdx.input.isKeyJustPressed(Keys.UP)) {gridY++;
-	    	soundManager.playSound("move");
+	    boolean moved = false;
+
+	    // Handle grid-based input movement
+	    if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+	        gridY++;
+	        moved = true;
 	    }
-	    if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {gridY--;
-	    	soundManager.playSound("move");
+	    if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+	        gridY--;
+	        moved = true;
 	    }
-	    if (Gdx.input.isKeyJustPressed(Keys.LEFT)) {gridX--;
-	    	soundManager.playSound("move");
+	    if (Gdx.input.isKeyJustPressed(Keys.LEFT)) {
+	        gridX--;
+	        moved = true;
 	    }
-	    if (Gdx.input.isKeyJustPressed(Keys.RIGHT)) {gridX++;
-	    	soundManager.playSound("move");
+	    if (Gdx.input.isKeyJustPressed(Keys.RIGHT)) {
+	        gridX++;
+	        moved = true;
 	    }
 
+	    if (moved) {
+	        soundManager.playSound("move");
+	    }
+
+	    // Keep the character within the grid boundaries
 	    gridX = Math.max(0, Math.min(gridX, 11));
 	    gridY = Math.max(0, Math.min(gridY, 11));
 
 	    float maxWidth = screenWidth - CHARACTER_SIZE;
 	    float maxHeight = screenHeight - CHARACTER_SIZE;
 
-	    super.setX(Math.min(Math.round(gridX * cellWidth), maxWidth));
-	    super.setY(Math.min(Math.round(gridY * cellHeight), maxHeight));
-		
+	    // Calculate the target grid position based on input
+	    float targetX = Math.min(Math.round(gridX * cellWidth), maxWidth);
+	    float targetY = Math.min(Math.round(gridY * cellHeight), maxHeight);
+
+	    // Apply continuous downward movement to the current position
+	    float deltaTime = Gdx.graphics.getDeltaTime();
+	    float downwardSpeed = 33f;
+	    float newY = super.getY() - (downwardSpeed * deltaTime);
+
+	    // Use the grid-based Y position when input is detected, otherwise use current position with downward movement
+	    if (Gdx.input.isKeyJustPressed(Keys.UP) || Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+	        newY = targetY;
+	    }
+
+	    // Ensure character doesn't go below bottom of screen
+	    newY = Math.max(0, newY);
+
+	    // Set final positions
+	    super.setX(targetX);
+	    super.setY(newY);
 	}
+	
+
 	
 	@Override
 	public boolean isCollided(iCollidable object) {
