@@ -85,9 +85,7 @@ public class GameOverScene extends AbstractScene implements Screen{
 	                    && y >= QUIT_BTN_Y && y <= (QUIT_BTN_Y + BUTTON_HEIGHT)) {
 	                System.exit(0);
 	            }
-	        }
-
-	        
+	        }   
 	    }
 
 	    @Override

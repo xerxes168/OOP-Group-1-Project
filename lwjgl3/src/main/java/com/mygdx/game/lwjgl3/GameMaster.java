@@ -7,7 +7,6 @@ public class GameMaster extends Game {
 	@Override
 	public void create() {
 		
-
         // Initialize SceneManager and SoundManager
 		SoundManager soundManager = new SoundManager();
 		SceneManager.initialize(this);

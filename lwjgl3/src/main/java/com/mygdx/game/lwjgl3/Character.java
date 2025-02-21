@@ -20,9 +20,9 @@ public class Character extends Entity implements iMovable, iCollidable {
     private static final float CHARACTER_HEIGHT = Gdx.graphics.getWidth() / 12f;
     private static final float SPEED = 200;
     
- // Default constructor with no predefined values
+ 	// Default constructor
     public Character() {
-        super(); // Calls the default Entity constructor
+        super(); // Calls default Entity constructor
         this.shapeRenderer = new ShapeRenderer();
     }
 	
@@ -48,8 +48,6 @@ public class Character extends Entity implements iMovable, iCollidable {
 	        shapeRenderer.end();
 
 		    setRectangle();
-		    
-
 	}
 	
 	@Override
@@ -111,6 +109,7 @@ public class Character extends Entity implements iMovable, iCollidable {
 	 // Check if character has fallen below screen by more than one cell height
 	    if (super.getY() < - CELL_HEIGHT) {
 	    	System.out.println("You fell below the screen!");
+			soundManager.playSound("collision");
 	        SceneManager.getInstance().setScene("GameOver");
 	    }
 	}

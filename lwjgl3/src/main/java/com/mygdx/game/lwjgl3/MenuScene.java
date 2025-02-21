@@ -86,9 +86,7 @@ public class MenuScene extends AbstractScene implements Screen {
                     && y >= SETTING_BTN_Y && y <= (SETTING_BTN_Y + BUTTON_HEIGHT)) {
                 SceneManager.getInstance().setScene("Setting");
             }
-        }
-
-        
+        }    
     }
 
     @Override

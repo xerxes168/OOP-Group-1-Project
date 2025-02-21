@@ -101,7 +101,6 @@ public class PlayScene extends AbstractScene implements Screen {
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
             SceneManager.getInstance().setScene("Menu");
         }
-        
     }
 
     // Grid scrolling functions
@@ -115,9 +114,7 @@ public class PlayScene extends AbstractScene implements Screen {
         // For a typical grid of 8 cells
         if (scrollOffset <= -cellHeight) {
             scrollOffset = 0;
-        }
-        
-        
+        }  
     }
 
     // Draw grid that scrolls upward
@@ -162,7 +159,6 @@ public class PlayScene extends AbstractScene implements Screen {
             float newY = Math.max(player1.getY(), viewport.getWorldHeight() / 6f);
             player1.setPosition(player1.getX(), newY);
         }
-      
     }
     
 
@@ -176,7 +172,5 @@ public class PlayScene extends AbstractScene implements Screen {
         if (scrollingBackground != null) {
             scrollingBackground.dispose();
         }
-
-
     }
 }
