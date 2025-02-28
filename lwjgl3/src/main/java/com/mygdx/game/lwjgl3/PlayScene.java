@@ -83,9 +83,22 @@ public class PlayScene extends AbstractScene implements Screen {
 
     @Override // Similar to Render() in GameMaster
     protected void draw(float delta) {
-        ScreenUtils.clear(0, 0, 0.2f, 1);
+        
+        
+        entityManager.movement();
+        
+        camera.position.set(
+                player1.getX() + player1.getWidth() * 0.5f,
+                player1.getY() + player1.getHeight() * 0.5f,
+                0
+            );
 
         camera.update();
+        
+        ScreenUtils.clear(0, 0, 0.2f, 1);
+        
+        shapeRenderer.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.combined);
 
         // Grid scrolling
         updateGridScroll(delta);
@@ -93,7 +106,7 @@ public class PlayScene extends AbstractScene implements Screen {
 
         // Draw and update entities
         entityManager.draw(batch);
-        entityManager.movement();
+
 
         // Check collisions
         collisionManager.checkCollisions(entityManager.entityList);
@@ -147,7 +160,7 @@ public class PlayScene extends AbstractScene implements Screen {
         super.resize(width, height);
                 
         viewport.update(width, height, true); // Updates viewport and centers camera
-        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+//        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
         camera.update();       
         
        

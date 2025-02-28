@@ -103,6 +103,14 @@ public class GameOverScene extends AbstractScene implements Screen{
 	        quitButtonTexture.dispose();
 	    }
 	
+	// Future Development
+	/*
+	+ displayScore(): void
+	+ checkHighScore(): void
+	+ handleInput(input: string): void
+	+ updateScene(deltaTime: float): void
 
+	PauseScene
+	*/
 
 }
