@@ -88,7 +88,8 @@ public class PlayScene extends AbstractScene implements Screen {
         entityManager.movement();
         
         camera.position.set(
-                player1.getX() + player1.getWidth() * 0.5f,
+                // player1.getX() + player1.getWidth() * 0.5f
+                viewport.getWorldWidth()/2,
                 player1.getY() + player1.getHeight() * 0.5f,
                 0
             );
