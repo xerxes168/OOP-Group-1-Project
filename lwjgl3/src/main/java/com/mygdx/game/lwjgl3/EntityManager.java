@@ -37,17 +37,11 @@ public class EntityManager {
 	}
 	
 	void addLists() {
-//		allLists.add(entityList);
 		allLists.add(characterList);
 		allLists.add(object1List);
 		allLists.add(object2List);
 		allLists.add(terrain);
 	}
-	
-//	void addEntities(Entity entityName) {
-//		entityList.add(entityName);
-//		System.out.println("" + entityList);
-//	}
 	void addCharacters(Entity entityName) {
 		characterList.add(entityName);
 	}
@@ -69,8 +63,6 @@ public class EntityManager {
             }
         }
     }
-
-
     // Movement for all entities
     public void movement() {
     	for (List<Entity> list : getAllLists()) {
@@ -79,6 +71,7 @@ public class EntityManager {
             }
         }
     }
+    
 	
 	
 }

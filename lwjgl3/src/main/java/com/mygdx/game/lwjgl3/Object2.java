@@ -12,6 +12,7 @@ import java.util.Random;
 public class Object2 extends Entity implements iMovable, iCollidable{
 	private float currentyPos;
 	private float currentxPos;
+	private float coinCount = 0;
 	private ShapeRenderer shapeRenderer; // Only for debugging purposes
     private static final int GRID_COLS = 12;
     private static final int GRID_ROWS = 12;
@@ -129,6 +130,7 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	public void onCollision(iCollidable object) {
 		// for any class specific collision
 		//System.out.println("Collided with static object!");
+		
 	}
 	
 	public void dispose(){
@@ -136,9 +138,9 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 		if (getTex() != null) {
             getTex().dispose();
         }
-        if (shapeRenderer != null) {
-            shapeRenderer.dispose();
-        }
+	    if (shapeRenderer != null) {
+	    	shapeRenderer.dispose();
+	    }
 	      
 	}
 

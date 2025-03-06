@@ -9,6 +9,7 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 	private float currentxPos;
 	private float currentyPos;
 	private ShapeRenderer shapeRenderer; // Only for debugging purposes
+	private Character character;
 	private static final float CELL_WIDTH = Gdx.graphics.getWidth() / 12f;
     private static final float CELL_HEIGHT = Gdx.graphics.getHeight() / 12f;
     private static final float OBJECT_WIDTH = CELL_WIDTH;
@@ -22,6 +23,7 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 	public Object1(float x, float y, float speed, String imgName, float width, float height){
 		super(x, y, speed, imgName, OBJECT_WIDTH, OBJECT_HEIGHT);
 		this.shapeRenderer = new ShapeRenderer();
+		this.character = new Character();
 
 	}
 	
@@ -80,9 +82,12 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 	
 	
     public void dispose(){
-       getTex().dispose();
-       shapeRenderer.dispose();
-      
+    	if (getTex() != null) {
+            getTex().dispose();
+        }
+        if (shapeRenderer != null) {
+            shapeRenderer.dispose();
+        }
     }
 
 	

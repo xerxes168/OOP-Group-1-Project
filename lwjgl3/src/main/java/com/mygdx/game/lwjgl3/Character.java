@@ -1,10 +1,9 @@
 package com.mygdx.game.lwjgl3;
 
-import java.awt.RenderingHints.Key;
-
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
@@ -12,13 +11,13 @@ public class Character extends Entity implements iMovable, iCollidable {
 	
 	private ShapeRenderer shapeRenderer; // Only for debugging purposes
 	private SoundManager soundManager;
-	private Game game;
     private static final float CELL_WIDTH = Gdx.graphics.getWidth() / 12f;
     private static final float CELL_HEIGHT = Gdx.graphics.getHeight() / 12f;
-	
     private static final float CHARACTER_WIDTH = Gdx.graphics.getWidth() / 12f;
     private static final float CHARACTER_HEIGHT = Gdx.graphics.getWidth() / 12f;
     private static final float SPEED = 200;
+    private static float maxHealth = 100;
+	private float currentHealth = 100;
     
  	// Default constructor
     public Character() {
@@ -38,17 +37,35 @@ public class Character extends Entity implements iMovable, iCollidable {
 		    // Adjust X position slightly to center the duck
 		    float offsetX = (CELL_WIDTH - CHARACTER_WIDTH) / 2f;
 		    float offsetY = (CELL_HEIGHT - CHARACTER_HEIGHT) / 2f;
-
+		    float barWidth = CHARACTER_WIDTH;
+		    float barHeight = 8;
+		    shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+		    
+		    // Drawing of character
 		    batch.begin();
 		    batch.draw(this.getTex(), super.getX() + offsetX + 2, super.getY() + offsetY, CHARACTER_WIDTH, CHARACTER_HEIGHT); 
 		    batch.end();
+		    
+		    // Drawing of collision rectangle
 		    shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 	        shapeRenderer.setColor(1, 0, 0, 1); // Red color
-	        shapeRenderer.rect(this.getX(), this.getY(), CHARACTER_WIDTH, CHARACTER_HEIGHT);
+	        shapeRenderer.rect(super.getX() + offsetX + 2, super.getY() + offsetY, CHARACTER_WIDTH, CHARACTER_HEIGHT);
 	        shapeRenderer.end();
-
-		    setRectangle();
+	        
+	        // Drawing of health bar
+	        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+	        shapeRenderer.setColor(Color.GRAY);
+	        shapeRenderer.rect(getX(), getY() + 50, barWidth, barHeight);
+	        shapeRenderer.setColor(Color.RED.lerp(Color.GREEN, currentHealth / maxHealth));
+	        shapeRenderer.rect(getX(), getY() + 50, (currentHealth/maxHealth) * barWidth, barHeight);
+	        shapeRenderer.end();
+	        
+	        
+	        setRectangle();
+	        
+	       
 	}
+
 	
 	@Override
 	public void movement() {
@@ -133,14 +150,24 @@ public class Character extends Entity implements iMovable, iCollidable {
 		
 		// Collision with other objects
 		if(object instanceof Object1) {
-			//System.out.println("Collided with object 1");
+			System.out.println("Collided with object 1");
 			soundManager.playSound("collision");
-			SceneManager.getInstance().setScene("GameOver");
+			currentHealth = currentHealth - 1;
+			if(currentHealth <= 0) {
+				SceneManager.getInstance().setScene("GameOver");
+			}
+			//((Object1) object).dispose();
+
 		}
 		else if(object instanceof Object2) {
-			//System.out.println("Collided with object 2");
+			System.out.println("Collided with object 2");
 			soundManager.playSound("collision");
-			SceneManager.getInstance().setScene("GameOver");
+			currentHealth = currentHealth + 1;
+			if(currentHealth >= 100) {
+				currentHealth = 100;
+			}
+			//((Object2) object).dispose();
+
 		}
 	}
 
