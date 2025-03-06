@@ -133,12 +133,12 @@ public class Character extends Entity implements iMovable, iCollidable {
 		
 		// Collision with other objects
 		if(object instanceof Object1) {
-			//System.out.println("Collided with object 1");
+			System.out.println("Collided with object 1");
 			soundManager.playSound("collision");
 			SceneManager.getInstance().setScene("GameOver");
 		}
 		else if(object instanceof Object2) {
-			//System.out.println("Collided with object 2");
+			System.out.println("Collided with object 2");
 			soundManager.playSound("collision");
 			SceneManager.getInstance().setScene("GameOver");
 		}

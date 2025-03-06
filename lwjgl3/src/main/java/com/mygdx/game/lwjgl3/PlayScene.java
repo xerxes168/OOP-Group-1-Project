@@ -65,19 +65,19 @@ public class PlayScene extends AbstractScene implements Screen {
         //create Object 2
         List<Object2> objects = Object2.spawnObjects(3, scrollSpeed);
         for (Object2 obj : objects) {
-            entityManager.addObject2Entities(obj);
+            entityManager.addEntities(obj);
         }
             
         // Create the lily
         List<Terrain> terrains = Terrain.spawnTerrains(10, scrollSpeed);
         for (Terrain terrain : terrains) {
-            entityManager.addTerrainEntities(terrain);
+            entityManager.addEntities(terrain);
         }
 
 
         // Add them to entity manager
-		entityManager.addCharacters(player1);
-		entityManager.addObject1Entities(whiteCar);
+		entityManager.addEntities(player1);
+		entityManager.addEntities(whiteCar);
     }
 
 
@@ -110,7 +110,7 @@ public class PlayScene extends AbstractScene implements Screen {
 
 
         // Check collisions
-        collisionManager.checkCollisions(entityManager.getAllEntities());
+        collisionManager.checkCollisions(entityManager.entityList);
         
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
             SceneManager.getInstance().setScene("Menu");
