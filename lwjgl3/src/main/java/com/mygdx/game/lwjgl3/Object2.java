@@ -128,7 +128,7 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	@Override 
 	public void onCollision(iCollidable object) {
 		// for any class specific collision
-		System.out.println("Collided with static object!");
+		//System.out.println("Collided with static object!");
 	}
 	
 	public void dispose(){

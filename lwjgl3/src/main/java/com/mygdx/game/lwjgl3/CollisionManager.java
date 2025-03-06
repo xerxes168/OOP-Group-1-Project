@@ -27,6 +27,5 @@ public class CollisionManager{
 	
 	public void dispose(){
 		
-	      
 	}
 }
