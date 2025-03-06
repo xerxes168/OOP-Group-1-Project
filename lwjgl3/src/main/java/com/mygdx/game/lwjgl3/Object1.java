@@ -75,7 +75,7 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 	@Override 
 	public void onCollision(iCollidable object) {
 		// for any class specific collision
-		System.out.println("Collided with moving object!");
+		//System.out.println("Collided with moving object!");
 	}
 	
 	
