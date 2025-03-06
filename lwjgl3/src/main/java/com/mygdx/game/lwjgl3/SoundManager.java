@@ -25,20 +25,32 @@ public class SoundManager {
 
     public SoundManager() {
         soundMap = new HashMap<>();
-        preloadSound("move", "soundmanager/jump-retro-game-jam.wav");
-        preloadSound("collision", "soundmanager/collision-sound.wav");
-        preloadBackgroundMusic("soundmanager/background-music.mp3");
+        preloadSoundFromFolder("soundmanager/");
+        preloadBackgroundMusic("soundmanager/background-music.mp3");  
     }
 
     // Preload a short sound effect and store it in the HashMap
-    private void preloadSound(String name, String filePath) {
-        Sound sound = Gdx.audio.newSound(Gdx.files.internal(filePath));
-        soundMap.put(name, sound);
-        System.out.println("Preloaded sound: " + name);
+    private void preloadSoundFromFolder(String folderPath) {
+    	FileHandle dirHandle = Gdx.files.internal(folderPath);
+    	
+    	if (dirHandle.isDirectory()) {
+            for (FileHandle file : dirHandle.list()) {
+                if (file.extension().equals("wav") || file.extension().equals("mp3")) {
+                    String soundName = file.nameWithoutExtension();  // Use filename as key
+                    Sound sound = Gdx.audio.newSound(file);
+                    soundMap.put(soundName, sound);
+                    System.out.println("Preloaded sound: " + soundName);
+                }
+            }
+        } else {
+            System.err.println("SoundManager: Folder not found - " + folderPath);
+        }
     }
-
-    // Preload background music
-    private void preloadBackgroundMusic(String filePath) {
+    	
+   
+    
+     //Preload background music
+     private void preloadBackgroundMusic(String filePath) {
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal(filePath));
         backgroundMusic.setLooping(true);  // Make the background music loop
         backgroundMusic.setVolume(0.5f);   // Set volume to 50%
@@ -59,7 +71,7 @@ public class SoundManager {
             backgroundMusic.stop();
             System.out.println("Background music stopped.");
         }
-    }
+    } 
 
     // Play a sound by its name (with cool down for collision sound)
     public void playSound(String name) {
@@ -73,7 +85,7 @@ public class SoundManager {
                 System.err.println("Sound '" + name + "' not found!");
             }
         }
-    }
+    } 
 
     // Play collision sound with 1.5 second cool down
     private void playCollisionSoundWithCooldown() {
@@ -85,16 +97,16 @@ public class SoundManager {
                 lastCollisionTime = currentTime;
             }
         }
-    }
+    } 
 
     // Volume change
     public void setMasterVolume(float volume) {
         masterVolume = volume;
 
-        if (backgroundMusic != null) {
-            backgroundMusic.setVolume(volume); 
-        }
-    }
+       if (backgroundMusic != null) {
+           backgroundMusic.setVolume(volume); 
+       }
+   } 
 
     // Dispose all sounds and music 
     public void dispose() {
