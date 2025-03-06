@@ -15,7 +15,7 @@ public class Character extends Entity implements iMovable, iCollidable {
     private static final float CELL_HEIGHT = Gdx.graphics.getHeight() / 12f;
     private static final float CHARACTER_WIDTH = Gdx.graphics.getWidth() / 12f;
     private static final float CHARACTER_HEIGHT = Gdx.graphics.getWidth() / 12f;
-    private static final float SPEED = 200;
+    private static final float SPEED = 0;
     private static float maxHealth = 100;
 	private float currentHealth = 100;
     

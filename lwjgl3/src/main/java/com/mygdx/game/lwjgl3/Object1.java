@@ -31,18 +31,12 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 	public void movement(){
 		float deltaTime = Gdx.graphics.getDeltaTime();
 		currentxPos = super.getX();
-        currentxPos -= SPEED * deltaTime;
+        //currentxPos -= SPEED * deltaTime;
                 
-        if(currentxPos <= -OBJECT_WIDTH) {
-        	currentxPos = Gdx.graphics.getWidth();;
-        }
-        super.setX(currentxPos);
-        
-        currentyPos = super.getY();
-		currentyPos -= SPEED * deltaTime;
-                
-		if(currentyPos <= -OBJECT_HEIGHT) {
-        	currentyPos = Gdx.graphics.getHeight();
+        currentyPos -= PlayScene.getScrollSpeed() * deltaTime; // Move down with background
+
+        if (currentyPos <= -OBJECT_HEIGHT) {
+            currentyPos = Gdx.graphics.getHeight(); // Reset to top
         }
         super.setY(currentyPos);
 

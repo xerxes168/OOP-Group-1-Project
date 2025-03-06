@@ -69,7 +69,7 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	public void movement(){
 	    float deltaTime = Gdx.graphics.getDeltaTime();
 	    
-	    currentyPos = super.getY() - SPEED * deltaTime;
+	    currentyPos -= PlayScene.getScrollSpeed() * deltaTime; // Move down with background
 //	    // Update the y position by subtracting the movement amount.
 //	    currentyPos = super.getY();
 //		float dynamicSpeed = PlayScene.getScrollSpeed();

@@ -27,7 +27,7 @@ public class PlayScene extends AbstractScene implements Screen {
     // Scrolling Items
 	private ScrollingBackground scrollingBackground;
     private float scrollOffset = 0; // Offset for scrolling effect
-    private static float scrollSpeed = 50; // Pixels per second 
+    private static float scrollSpeed = 5; // Pixels per second 
         
     public static void setScrollSpeed(float speed) {
         scrollSpeed = speed;
@@ -42,8 +42,8 @@ public class PlayScene extends AbstractScene implements Screen {
         super(game);
         this.soundManager = soundManager;
         camera = new OrthographicCamera();
-        viewport = new FitViewport(1280, 720, camera);
-        camera.position.set(640, 360, 0);
+        viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
+        camera.position.set(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, 0);
         camera.update();
     }
 
@@ -51,6 +51,8 @@ public class PlayScene extends AbstractScene implements Screen {
     @Override   // Similar to Create() in GameMaster
     public void show() {
         super.show();
+        
+        scrollingBackground = new ScrollingBackground("background.png", scrollSpeed);
 
         entityManager = new EntityManager();
         batch = new SpriteBatch();
@@ -84,8 +86,8 @@ public class PlayScene extends AbstractScene implements Screen {
     @Override // Similar to Render() in GameMaster
     protected void draw(float delta) {
         
+    	scrollingBackground.update(delta);
         
-        entityManager.movement();
         
         camera.position.set(
                 // player1.getX() + player1.getWidth() * 0.5f
@@ -100,17 +102,22 @@ public class PlayScene extends AbstractScene implements Screen {
         
         shapeRenderer.setProjectionMatrix(camera.combined);
         batch.setProjectionMatrix(camera.combined);
-
+        scrollingBackground.draw(batch);
+        
         // Grid scrolling
-        updateGridScroll(delta);
-        drawGrid(); 
-
+        //updateGridScroll(delta);
+        //drawGrid(); 
+        
+        entityManager.movement();
+        
         // Draw and update entities
         entityManager.draw(batch);
 
 
         // Check collisions
         collisionManager.checkCollisions(entityManager.getAllEntities());
+        
+        
         
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
             SceneManager.getInstance().setScene("Menu");
@@ -123,7 +130,7 @@ public class PlayScene extends AbstractScene implements Screen {
     	
         float cellHeight = viewport.getWorldHeight() / 12f; // Adjusted dynamically
 
-        scrollOffset -= scrollSpeed * delta;
+        scrollOffset = (scrollOffset - scrollSpeed * delta) % cellHeight;
 
         // For a typical grid of 8 cells
         if (scrollOffset <= -cellHeight) {
@@ -161,13 +168,15 @@ public class PlayScene extends AbstractScene implements Screen {
         super.resize(width, height);
                 
         viewport.update(width, height, true); // Updates viewport and centers camera
-//        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+        camera.position.set(width / 2f, height / 2f, 0);
         camera.update();       
         
        
         float cellHeight = viewport.getWorldHeight()/12f;
         // Ensure the scrolling offset remains proportional to new cell size
         scrollOffset = scrollOffset % cellHeight;
+        
+      
         
         if (player1 != null) {
             float newY = Math.max(player1.getY(), viewport.getWorldHeight() / 6f);
