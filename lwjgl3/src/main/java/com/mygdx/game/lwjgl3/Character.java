@@ -19,7 +19,7 @@ public class Character extends Entity implements iMovable, iCollidable {
     private static float maxHealth = 100;
 	private float currentHealth = 100;
 	protected float points;
-	private float highScore;
+	protected float highScore;
     
  	// Default constructor
     public Character() {
@@ -156,6 +156,11 @@ public class Character extends Entity implements iMovable, iCollidable {
 			soundManager.playSound("collision");
 			currentHealth = currentHealth - 1;
 			if(currentHealth <= 0) {
+				if(points > ScoreManager.highScore) {
+					// update highscore
+					ScoreManager.highScore = Math.round(points);
+					
+				}
 				SceneManager.getInstance().setScene("GameOver");
 			}
 			//((Object1) object).dispose();
@@ -165,9 +170,6 @@ public class Character extends Entity implements iMovable, iCollidable {
 			System.out.println("Collided with object 2");
 			soundManager.playSound("collision");
 			points = points + 1;
-			if(points > highScore) {
-				// update highscore
-			}
 			//((Object2) object).dispose();
 
 		}

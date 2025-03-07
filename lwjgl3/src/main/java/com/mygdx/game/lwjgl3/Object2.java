@@ -12,7 +12,6 @@ import java.util.Random;
 public class Object2 extends Entity implements iMovable, iCollidable{
 	private float currentyPos;
 	private float currentxPos;
-	private float coinCount = 0;
 	private ShapeRenderer shapeRenderer; // Only for debugging purposes
     private static final int GRID_COLS = 12;
     private static final int GRID_ROWS = 12;

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -30,6 +31,8 @@ public class GameOverScene extends AbstractScene implements Screen{
 
 	    private OrthographicCamera camera;
 	    private Viewport viewport;
+	    private Character character;
+	    private BitmapFont font;
 
 	    // Constructor
 	    public GameOverScene(GameMaster game) {
@@ -46,17 +49,25 @@ public class GameOverScene extends AbstractScene implements Screen{
 	        menuTexture = new Texture("menu.png");
 	        playButtonTexture = new Texture("restart.png");
 	        quitButtonTexture = new Texture("quit.png");
+	        character = new Character();
+	        font = new BitmapFont();
+	        font.getData().scale(1.5f);
 	        
 	    }
 
 	    @Override
 	    protected void draw(float delta) {
-
 	        batch.setProjectionMatrix(camera.combined); // Apply camera projection
 
 
 	        // Draw menu background
 	        batch.draw(menuTexture, 0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+	        
+	        // Draw high score text
+	        font.draw(batch, "High Score: " + Math.round(ScoreManager.highScore), Gdx.graphics.getWidth() - 110, Gdx.graphics.getHeight() + 30);
+	        
+	       
+	       
 
 	        // Draw buttons
 	        batch.draw(playButtonTexture, PLAY_BTN_X, PLAY_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT); // Play Button
