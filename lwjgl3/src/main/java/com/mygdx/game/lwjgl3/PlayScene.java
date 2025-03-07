@@ -7,9 +7,11 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class PlayScene extends AbstractScene implements Screen {
     
@@ -28,6 +30,8 @@ public class PlayScene extends AbstractScene implements Screen {
 	private ScrollingBackground scrollingBackground;
     private float scrollOffset = 0; // Offset for scrolling effect
     private static float scrollSpeed = 5; // Pixels per second 
+    private BitmapFont font;
+   
         
     public static void setScrollSpeed(float speed) {
         scrollSpeed = speed;
@@ -42,9 +46,11 @@ public class PlayScene extends AbstractScene implements Screen {
         super(game);
         this.soundManager = soundManager;
         camera = new OrthographicCamera();
+        uiCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
         camera.position.set(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, 0);
         camera.update();
+        font = new BitmapFont();
     }
 
 
@@ -122,6 +128,12 @@ public class PlayScene extends AbstractScene implements Screen {
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
             SceneManager.getInstance().setScene("Menu");
         }
+        uiCamera.update();
+        batch.setProjectionMatrix(uiCamera.combined);
+        batch.begin();
+        font.draw(batch, "Points: " + Math.round(player1.points), Gdx.graphics.getWidth() - 150, Gdx.graphics.getHeight() - 20);
+        batch.end();
+        
     }
 
     // Grid scrolling functions

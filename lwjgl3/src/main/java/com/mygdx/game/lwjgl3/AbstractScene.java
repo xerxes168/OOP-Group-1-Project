@@ -13,12 +13,14 @@ public abstract class AbstractScene extends ScreenAdapter {
     protected GameMaster game;
     protected SpriteBatch batch;
     protected OrthographicCamera camera;
+    protected OrthographicCamera uiCamera;
     protected Viewport viewport;
 
     public AbstractScene(GameMaster game) {
         this.game = game;
         this.batch = new SpriteBatch();
         this.camera = new OrthographicCamera();
+        this.uiCamera = new OrthographicCamera();
         this.viewport = new FitViewport(800, 600, camera);
         camera.position.set(400, 300, 0);
         camera.update();

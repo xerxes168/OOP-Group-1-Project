@@ -18,6 +18,8 @@ public class Character extends Entity implements iMovable, iCollidable {
     private static final float SPEED = 0;
     private static float maxHealth = 100;
 	private float currentHealth = 100;
+	protected float points;
+	private float highScore;
     
  	// Default constructor
     public Character() {
@@ -60,7 +62,7 @@ public class Character extends Entity implements iMovable, iCollidable {
 	        shapeRenderer.rect(getX(), getY() + 50, (currentHealth/maxHealth) * barWidth, barHeight);
 	        shapeRenderer.end();
 	        
-	        
+	        points = points + 0.1f;
 	        setRectangle();
 	        
 	       
@@ -162,9 +164,9 @@ public class Character extends Entity implements iMovable, iCollidable {
 		else if(object instanceof Object2) {
 			System.out.println("Collided with object 2");
 			soundManager.playSound("collision");
-			currentHealth = currentHealth + 1;
-			if(currentHealth >= 100) {
-				currentHealth = 100;
+			points = points + 1;
+			if(points > highScore) {
+				// update highscore
 			}
 			//((Object2) object).dispose();
 
