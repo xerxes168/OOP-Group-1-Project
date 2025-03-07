@@ -35,6 +35,10 @@ public class SceneManager {
     public static SceneManager getInstance() {
         return instance;
     }
+    
+    public Screen getScene(String name) {
+        return scenes.get(name);
+    }
 
     public void addScene(String name, Screen screen) {
         scenes.put(name, screen);

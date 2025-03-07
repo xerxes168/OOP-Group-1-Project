@@ -36,36 +36,34 @@ public class Character extends Entity implements iMovable, iCollidable {
 	
 	public void draw(SpriteBatch batch) {
 
-		    // Adjust X position slightly to center the duck
-		    float offsetX = (CELL_WIDTH - CHARACTER_WIDTH) / 2f;
-		    float offsetY = (CELL_HEIGHT - CHARACTER_HEIGHT) / 2f;
-		    float barWidth = CHARACTER_WIDTH;
-		    float barHeight = 8;
-		    shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-		    
-		    // Drawing of character
-		    batch.begin();
-		    batch.draw(this.getTex(), super.getX() + offsetX + 2, super.getY() + offsetY, CHARACTER_WIDTH, CHARACTER_HEIGHT); 
-		    batch.end();
-		    
-		    // Drawing of collision rectangle
-		    shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-	        shapeRenderer.setColor(1, 0, 0, 1); // Red color
-	        shapeRenderer.rect(super.getX() + offsetX + 2, super.getY() + offsetY, CHARACTER_WIDTH, CHARACTER_HEIGHT);
-	        shapeRenderer.end();
-	        
-	        // Drawing of health bar
-	        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-	        shapeRenderer.setColor(Color.GRAY);
-	        shapeRenderer.rect(getX(), getY() + 50, barWidth, barHeight);
-	        shapeRenderer.setColor(Color.RED.lerp(Color.GREEN, currentHealth / maxHealth));
-	        shapeRenderer.rect(getX(), getY() + 50, (currentHealth/maxHealth) * barWidth, barHeight);
-	        shapeRenderer.end();
-	        
-	        points = points + 0.1f;
-	        setRectangle();
-	        
-	       
+	    // Adjust X position slightly to center the duck
+	    float offsetX = (CELL_WIDTH - CHARACTER_WIDTH) / 2f;
+	    float offsetY = (CELL_HEIGHT - CHARACTER_HEIGHT) / 2f;
+	    float barWidth = CHARACTER_WIDTH;
+	    float barHeight = 8;
+	    shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+	    
+	    // Drawing of character
+	    batch.begin();
+	    batch.draw(this.getTex(), super.getX() + offsetX + 2, super.getY() + offsetY, CHARACTER_WIDTH, CHARACTER_HEIGHT); 
+	    batch.end();
+	    
+	    // Drawing of collision rectangle
+	    shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(1, 0, 0, 1); // Red color
+        shapeRenderer.rect(super.getX() + offsetX + 2, super.getY() + offsetY, CHARACTER_WIDTH, CHARACTER_HEIGHT);
+        shapeRenderer.end();
+        
+        // Drawing of health bar
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.GRAY);
+        shapeRenderer.rect(getX(), getY() + 50, barWidth, barHeight);
+        shapeRenderer.setColor(Color.RED.lerp(Color.GREEN, currentHealth / maxHealth));
+        shapeRenderer.rect(getX(), getY() + 50, (currentHealth/maxHealth) * barWidth, barHeight);
+        shapeRenderer.end();
+        
+        points = points + 0.1f;
+        setRectangle();    
 	}
 
 	
@@ -101,15 +99,16 @@ public class Character extends Entity implements iMovable, iCollidable {
 	    }
 
 	    // Keep the character within the grid boundaries
-	    gridX = Math.max(0, Math.min(gridX, 11));
-	    gridY = Math.max(0, Math.min(gridY, 11));
+//	    gridX = Math.max(0, Math.min(gridX, 11));
+//	    gridY = Math.max(0, Math.min(gridY, 11));
 
 	    float maxWidth = Gdx.graphics.getWidth() - CHARACTER_WIDTH;
-	    float maxHeight = Gdx.graphics.getHeight() - CHARACTER_HEIGHT;
+//	    float maxHeight = Gdx.graphics.getHeight() - CHARACTER_HEIGHT;
 
 	    // Calculate the target grid position based on input
 	    float targetX = Math.min(Math.round(gridX * CELL_WIDTH), maxWidth);
-	    float targetY = Math.min(Math.round(gridY * CELL_HEIGHT), maxHeight);
+//	    float targetY = Math.min(Math.round(gridY * CELL_HEIGHT), maxHeight);
+	    float targetY = Math.round(gridY * CELL_HEIGHT);
 
 	    // Apply continuous downward movement to the current position
 	    float deltaTime = Gdx.graphics.getDeltaTime();

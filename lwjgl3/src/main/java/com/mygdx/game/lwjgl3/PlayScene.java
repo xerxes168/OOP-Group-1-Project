@@ -26,6 +26,10 @@ public class PlayScene extends AbstractScene implements Screen {
 	
 	private SoundManager soundManager;
 	
+	// Pause Variables
+	private boolean isPaused = false;
+	private boolean initialized = false;
+	
     // Scrolling Items
 	private ScrollingBackground scrollingBackground;
     private float scrollOffset = 0; // Offset for scrolling effect
@@ -57,83 +61,108 @@ public class PlayScene extends AbstractScene implements Screen {
     @Override   // Similar to Create() in GameMaster
     public void show() {
         super.show();
-        
-        scrollingBackground = new ScrollingBackground("background.png", scrollSpeed);
-
-        entityManager = new EntityManager();
-        batch = new SpriteBatch();
-        shapeRenderer = new ShapeRenderer();
-        collisionManager = new CollisionManager();
-        soundManager.playBackgroundMusic();
-        
-        // Create entities
-        player1 = new Character(500, 0, 1, "character.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getWidth() / 12f, soundManager);
-        whiteCar = new Object1(400, 0, scrollSpeed, "car1.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getHeight() / 12f);
-                
-        //create Object 2
-        List<Object2> objects = Object2.spawnObjects(3, scrollSpeed);
-        for (Object2 obj : objects) {
-            entityManager.addObject2Entities(obj);
+        if (!initialized) {
+        	// All show logic in here
+	        scrollingBackground = new ScrollingBackground("background.png", scrollSpeed);
+	
+	        entityManager = new EntityManager();
+	        batch = new SpriteBatch();
+	        shapeRenderer = new ShapeRenderer();
+	        collisionManager = new CollisionManager();
+	        soundManager.playBackgroundMusic();
+	        
+	        // Create entities
+	        player1 = new Character(500, 0, 1, "character.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getWidth() / 12f, soundManager);
+	        whiteCar = new Object1(400, 0, scrollSpeed, "car1.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getHeight() / 12f);
+	                
+	        //create Object 2
+	        List<Object2> objects = Object2.spawnObjects(3, scrollSpeed);
+	        for (Object2 obj : objects) {
+	            entityManager.addObject2Entities(obj);
+	        }
+	            
+	        // Create the lily
+	        List<Terrain> terrains = Terrain.spawnTerrains(10, scrollSpeed);
+	        for (Terrain terrain : terrains) {
+	            entityManager.addTerrainEntities(terrain);
+	        }
+	
+	        // Add them to entity manager
+			entityManager.addCharacters(player1);
+			entityManager.addObject1Entities(whiteCar);
+			
+			initialized = true;
         }
-            
-        // Create the lily
-        List<Terrain> terrains = Terrain.spawnTerrains(10, scrollSpeed);
-        for (Terrain terrain : terrains) {
-            entityManager.addTerrainEntities(terrain);
-        }
-
-
-        // Add them to entity manager
-		entityManager.addCharacters(player1);
-		entityManager.addObject1Entities(whiteCar);
     }
 
 
     @Override // Similar to Render() in GameMaster
     protected void draw(float delta) {
+    	
+        if (!isPaused) {
+            // All Game Logic in here
         
-    	scrollingBackground.update(delta);
+	    	scrollingBackground.update(delta);
+	                
+	        camera.position.set(
+		        viewport.getWorldWidth()/2,
+		        player1.getY() + player1.getHeight() * 0.5f,
+		        0
+	        );
+	        
+	        // Camera Y never goes below the bottom of the background
+	        float minY = viewport.getWorldHeight() * 0.5f;
+	        if (camera.position.y < minY) {
+	            camera.position.y = minY;
+	        }
+	
+	        camera.update();
+	        
+	        ScreenUtils.clear(0, 0, 0.2f, 1);
+	        
+	        shapeRenderer.setProjectionMatrix(camera.combined);
+	        batch.setProjectionMatrix(camera.combined);
+	        scrollingBackground.draw(batch);
+	        
+	        // Grid scrolling
+	        //updateGridScroll(delta);
+	        //drawGrid(); 
+	        
+	        entityManager.movement();
+	        
+	        // Draw and update entities
+	        entityManager.draw(batch);
+	
+	
+	        // Check collisions
+	        collisionManager.checkCollisions(entityManager.getAllEntities());
+	        
+        }
         
-        
-        camera.position.set(
-                // player1.getX() + player1.getWidth() * 0.5f
-                viewport.getWorldWidth()/2,
-                player1.getY() + player1.getHeight() * 0.5f,
-                0
-            );
-
-        camera.update();
-        
-        ScreenUtils.clear(0, 0, 0.2f, 1);
-        
-        shapeRenderer.setProjectionMatrix(camera.combined);
-        batch.setProjectionMatrix(camera.combined);
-        scrollingBackground.draw(batch);
-        
-        // Grid scrolling
-        //updateGridScroll(delta);
-        //drawGrid(); 
-        
-        entityManager.movement();
-        
-        // Draw and update entities
+        // Always draw the scene
         entityManager.draw(batch);
-
-
-        // Check collisions
-        collisionManager.checkCollisions(entityManager.getAllEntities());
         
-        
-        
+        // Check for pause
+        if (Gdx.input.isKeyJustPressed(Keys.P)) {
+            isPaused = !isPaused;
+            SceneManager.getInstance().setScene("Pause");
+        }
+                
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
             SceneManager.getInstance().setScene("Menu");
         }
+        
         uiCamera.update();
         batch.setProjectionMatrix(uiCamera.combined);
         batch.begin();
         font.draw(batch, "Points: " + Math.round(player1.points), Gdx.graphics.getWidth() - 150, Gdx.graphics.getHeight() - 20);
         batch.end();
         
+    }
+    
+    // Remove Game Pause after coming back from Menu
+    public void updatePause() {
+    	this.isPaused = false;
     }
 
     // Grid scrolling functions
