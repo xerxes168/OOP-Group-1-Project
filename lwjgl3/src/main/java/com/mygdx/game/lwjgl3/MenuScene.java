@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -52,7 +53,7 @@ public class MenuScene extends AbstractScene implements Screen {
 
     @Override
     protected void draw(float delta) {
-
+        ScreenUtils.clear(0, 0, 0, 1);
         batch.setProjectionMatrix(camera.combined); // Apply camera projection
 
 
@@ -75,7 +76,7 @@ public class MenuScene extends AbstractScene implements Screen {
             float x = touchPos.x;
             float y = touchPos.y;
 
-            // Check if user clicked on "Play" button
+            // Check if user clicked on PLAY button
             if (x >= PLAY_BTN_X && x <= (PLAY_BTN_X + BUTTON_WIDTH)
                     && y >= PLAY_BTN_Y && y <= (PLAY_BTN_Y + BUTTON_HEIGHT)) {
                 SceneManager.getInstance().setScene("Play");
@@ -90,7 +91,7 @@ public class MenuScene extends AbstractScene implements Screen {
                 }
             }
 
-            // Check if user clicked on "Settings" button
+            // Check if user clicked on SETTINGS button
             else if (x >= SETTING_BTN_X && x <= (SETTING_BTN_X + BUTTON_WIDTH)
                     && y >= SETTING_BTN_Y && y <= (SETTING_BTN_Y + BUTTON_HEIGHT)) {
                 SceneManager.getInstance().setScene("Setting");

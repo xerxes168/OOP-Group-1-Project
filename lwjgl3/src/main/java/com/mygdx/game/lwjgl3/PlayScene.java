@@ -57,41 +57,48 @@ public class PlayScene extends AbstractScene implements Screen {
         font = new BitmapFont();
     }
 
+    // All show logic in here
+    public void startGameState() {
+
+        scrollingBackground = new ScrollingBackground("background.png", scrollSpeed);
+
+        entityManager = new EntityManager();
+        batch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
+        collisionManager = new CollisionManager();
+        soundManager.playBackgroundMusic();
+        
+        // Create entities
+        player1 = new Character(500, 0, 1, "character.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getWidth() / 12f, soundManager);
+        whiteCar = new Object1(400, 0, scrollSpeed, "car1.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getHeight() / 12f);
+                
+        //create Object 2
+        List<Object2> objects = Object2.spawnObjects(3, scrollSpeed);
+        for (Object2 obj : objects) {
+            entityManager.addObject2Entities(obj);
+        }
+            
+        // Create the lily
+        List<Terrain> terrains = Terrain.spawnTerrains(10, scrollSpeed);
+        for (Terrain terrain : terrains) {
+            entityManager.addTerrainEntities(terrain);
+        }
+
+        // Add them to entity manager
+        entityManager.addCharacters(player1);
+        entityManager.addObject1Entities(whiteCar);
+        
+        isPaused = false;
+        initialized = true;
+    }
+
 
     @Override   // Similar to Create() in GameMaster
+    // Add code into startGameState() not here
     public void show() {
         super.show();
         if (!initialized) {
-        	// All show logic in here
-	        scrollingBackground = new ScrollingBackground("background.png", scrollSpeed);
-	
-	        entityManager = new EntityManager();
-	        batch = new SpriteBatch();
-	        shapeRenderer = new ShapeRenderer();
-	        collisionManager = new CollisionManager();
-	        soundManager.playBackgroundMusic();
-	        
-	        // Create entities
-	        player1 = new Character(500, 0, 1, "character.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getWidth() / 12f, soundManager);
-	        whiteCar = new Object1(400, 0, scrollSpeed, "car1.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getHeight() / 12f);
-	                
-	        //create Object 2
-	        List<Object2> objects = Object2.spawnObjects(3, scrollSpeed);
-	        for (Object2 obj : objects) {
-	            entityManager.addObject2Entities(obj);
-	        }
-	            
-	        // Create the lily
-	        List<Terrain> terrains = Terrain.spawnTerrains(10, scrollSpeed);
-	        for (Terrain terrain : terrains) {
-	            entityManager.addTerrainEntities(terrain);
-	        }
-	
-	        // Add them to entity manager
-			entityManager.addCharacters(player1);
-			entityManager.addObject1Entities(whiteCar);
-			
-			initialized = true;
+            startGameState();
         }
     }
 
@@ -163,6 +170,12 @@ public class PlayScene extends AbstractScene implements Screen {
     // Remove Game Pause after coming back from Menu
     public void updatePause() {
     	this.isPaused = false;
+    }
+
+    // Restart Game
+    public void restartGame() {
+        initialized = false;
+        startGameState();
     }
 
     // Grid scrolling functions
