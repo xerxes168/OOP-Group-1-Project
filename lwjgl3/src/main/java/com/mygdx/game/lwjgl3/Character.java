@@ -99,7 +99,7 @@ public class Character extends Entity implements iMovable, iCollidable {
 	    }
 
 	    // Keep the character within the grid boundaries
-//	    gridX = Math.max(0, Math.min(gridX, 11));
+	    gridX = Math.max(0, Math.min(gridX, 11));
 //	    gridY = Math.max(0, Math.min(gridY, 11));
 
 	    float maxWidth = Gdx.graphics.getWidth() - CHARACTER_WIDTH;
