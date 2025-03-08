@@ -99,7 +99,7 @@ public class PauseScene extends AbstractScene implements Screen {
         // Retrieve that scene
         Screen screen = SceneManager.getInstance().getScene("Play");
 
-        // Go back to PlayScene and resume the game
+        // Go back to PlayScene and resume/restart the game
         if (screen instanceof PlayScene) {
             PlayScene playScene = (PlayScene) screen;
             if (x == 1) {

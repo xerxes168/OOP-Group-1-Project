@@ -59,7 +59,7 @@ public class Object2 extends Entity implements iMovable, iCollidable{
             float posX = col * CELL_WIDTH + (CELL_WIDTH / 2f) - (OBJECT_WIDTH / 2f);
             float posY = row * CELL_HEIGHT + (CELL_HEIGHT / 2f) - (OBJECT_HEIGHT / 2f);
             
-            objects.add(new Object2(posX, posY, scrollSpeed, "car.png", OBJECT_WIDTH, OBJECT_HEIGHT));
+            objects.add(new Object2(posX, posY, scrollSpeed, "apple.png", OBJECT_WIDTH, OBJECT_HEIGHT));
         }
         return objects;
     }

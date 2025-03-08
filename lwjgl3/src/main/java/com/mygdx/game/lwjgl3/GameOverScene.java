@@ -65,9 +65,6 @@ public class GameOverScene extends AbstractScene implements Screen{
 	        
 	        // Draw high score text
 	        font.draw(batch, "High Score: " + Math.round(ScoreManager.highScore), Gdx.graphics.getWidth() - 110, Gdx.graphics.getHeight() + 30);
-	        
-	       
-	       
 
 	        // Draw buttons
 	        batch.draw(playButtonTexture, PLAY_BTN_X, PLAY_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT); // Play Button
@@ -89,6 +86,16 @@ public class GameOverScene extends AbstractScene implements Screen{
 	            if (x >= PLAY_BTN_X && x <= (PLAY_BTN_X + BUTTON_WIDTH)
 	                    && y >= PLAY_BTN_Y && y <= (PLAY_BTN_Y + BUTTON_HEIGHT)) {
 	            	SceneManager.getInstance().setScene("Play");
+
+					// Retrieve that scene
+					Screen screen = SceneManager.getInstance().getScene("Play");
+
+					// Go back to PlayScene and restart the game
+					if (screen instanceof PlayScene) {
+						PlayScene playScene = (PlayScene) screen;
+						playScene.restartGame(); // Restart
+						
+					}
 	             }
 
 	            // Check click on Settings Button
