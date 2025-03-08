@@ -20,15 +20,19 @@ public class MenuScene extends AbstractScene implements Screen {
     private static final int BUTTON_HEIGHT = 80;
 
     // Play button
-    private static final int PLAY_BTN_X = 550;
-    private static final int PLAY_BTN_Y = 360;
+    private static final int SETTING_BTN_X = 550;
+    private static final int SETTING_BTN_Y = 360;
     // Settings button
-    private static final int SETTING_BTN_X = PLAY_BTN_X;
-    private static final int SETTING_BTN_Y = PLAY_BTN_Y - 150;
+    private static final int PLAY_BTN_X = SETTING_BTN_X;
+    private static final int PLAY_BTN_Y = SETTING_BTN_Y + 150;
+    // Instructions button
+    private static final int INSTRUCT_BTN_X = SETTING_BTN_X;
+    private static final int INSTRUCT_BTN_Y = SETTING_BTN_Y - 150;
 
     private Texture menuTexture;
     private Texture playButtonTexture;
     private Texture settingButtonTexture;
+    private Texture instructButtonTexture;
     private GameMaster game;
 
     private OrthographicCamera camera;
@@ -49,6 +53,7 @@ public class MenuScene extends AbstractScene implements Screen {
         menuTexture = new Texture("menu.png");
         playButtonTexture = new Texture("play.png");
         settingButtonTexture = new Texture("settings.png");
+        instructButtonTexture = new Texture("instructions.png");
     }
 
     @Override
@@ -63,6 +68,7 @@ public class MenuScene extends AbstractScene implements Screen {
         // Draw buttons
         batch.draw(playButtonTexture, PLAY_BTN_X, PLAY_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT); // Play Button
         batch.draw(settingButtonTexture, SETTING_BTN_X, SETTING_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT); // Settings Button
+        batch.draw(instructButtonTexture, INSTRUCT_BTN_X, INSTRUCT_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT); // Instructions Button
 
         handleInput();
 
@@ -95,6 +101,12 @@ public class MenuScene extends AbstractScene implements Screen {
             else if (x >= SETTING_BTN_X && x <= (SETTING_BTN_X + BUTTON_WIDTH)
                     && y >= SETTING_BTN_Y && y <= (SETTING_BTN_Y + BUTTON_HEIGHT)) {
                 SceneManager.getInstance().setScene("Setting");
+            }
+
+            // Check if user clicked on INSTRUCTIONS button
+            else if (x >= INSTRUCT_BTN_X && x <= (INSTRUCT_BTN_X + BUTTON_WIDTH)
+                    && y >= INSTRUCT_BTN_Y && y <= (INSTRUCT_BTN_Y + BUTTON_HEIGHT)) {
+                SceneManager.getInstance().setScene("Instructions");
             }
         }    
     }

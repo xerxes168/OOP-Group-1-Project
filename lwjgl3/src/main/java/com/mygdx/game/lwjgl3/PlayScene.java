@@ -69,7 +69,7 @@ public class PlayScene extends AbstractScene implements Screen {
         soundManager.playBackgroundMusic();
         
         // Create entities
-        player1 = new Character(500, 0, 1, "character.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getWidth() / 12f, soundManager);
+        player1 = new Character(500, 50, 1, "character.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getWidth() / 12f, soundManager);
         whiteCar = new Object1(400, 0, scrollSpeed, "fries.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getHeight() / 12f);
                 
         //create Object 2

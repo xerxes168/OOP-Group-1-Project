@@ -17,6 +17,7 @@ public class GameMaster extends Game {
 		SceneManager.getInstance().addScene("Setting", new SettingsScene(this, soundManager));
 		SceneManager.getInstance().addScene("GameOver", new GameOverScene(this));
 		SceneManager.getInstance().addScene("Pause", new PauseScene(this));
+		SceneManager.getInstance().addScene("Instructions", new InstructionsScene(this));
 
         // Start at Menu Screen
         SceneManager.getInstance().setScene("Menu");
