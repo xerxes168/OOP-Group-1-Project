@@ -73,7 +73,7 @@ public class PlayScene extends AbstractScene implements Screen {
         whiteCar = new Object1(400, 0, scrollSpeed, "fries.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getHeight() / 12f);
                 
         //create Object 2
-        List<Object2> objects = Object2.spawnObjects(3, scrollSpeed);
+        List<Object2> objects = Object2.spawnObjects(10, scrollSpeed);
         for (Object2 obj : objects) {
             entityManager.addObject2Entities(obj);
         }

@@ -35,7 +35,7 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	}
 	
     public static ArrayList<Object2> spawnObjects(int numberOfObjects, float scrollSpeed) {
-    	ArrayList<Object2> objects = new ArrayList<Object2>();
+    	ArrayList<Object2> objects = new ArrayList<>();
         boolean[][] usedCells = new boolean[GRID_COLS][GRID_ROWS];
 
         for (int j = 0; j < numberOfObjects; j++) {
@@ -68,7 +68,7 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	public void movement(){
 	    float deltaTime = Gdx.graphics.getDeltaTime();
 	    
-	    currentyPos -= PlayScene.getScrollSpeed() * deltaTime; // Move down with background
+	    currentyPos = super.getY() - SPEED * deltaTime; // Move down with background
 //	    // Update the y position by subtracting the movement amount.
 //	    currentyPos = super.getY();
 //		float dynamicSpeed = PlayScene.getScrollSpeed();
