@@ -128,6 +128,11 @@ public class Character extends Entity implements iMovable, iCollidable {
 	    if (super.getY() < - CELL_HEIGHT) {
 	    	System.out.println("You fell below the screen!");
 			soundManager.playSound("collision");
+			if(points > ScoreManager.highScore) {
+				// update highscore
+				ScoreManager.highScore = Math.round(points);
+				
+			}
 	        SceneManager.getInstance().setScene("GameOver");
 	    }
 	}
@@ -154,7 +159,7 @@ public class Character extends Entity implements iMovable, iCollidable {
 			System.out.println("Collided with object 1");
 			soundManager.playSound("collision");
 			currentHealth = currentHealth - 1;
-			if(currentHealth <= 0) {
+						if(currentHealth <= 0) {
 				if(points > ScoreManager.highScore) {
 					// update highscore
 					ScoreManager.highScore = Math.round(points);
@@ -169,8 +174,11 @@ public class Character extends Entity implements iMovable, iCollidable {
 			System.out.println("Collided with object 2");
 			soundManager.playSound("collision");
 			points = points + 1;
-			//((Object2) object).dispose();
-
+			
+		}
+		
+		else if(object instanceof Terrain) {
+			System.out.println("Collided with terrain");
 		}
 	}
 

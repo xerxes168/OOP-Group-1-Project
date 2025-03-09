@@ -79,9 +79,9 @@ public class Object1 extends Entity implements iMovable, iCollidable{
     	if (getTex() != null) {
             getTex().dispose();
         }
-        if (shapeRenderer != null) {
-            shapeRenderer.dispose();
-        }
+//        if (shapeRenderer != null) {
+//            shapeRenderer.dispose();
+//        }
     }
 
 	
