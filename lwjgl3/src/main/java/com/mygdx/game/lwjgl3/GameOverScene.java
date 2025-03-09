@@ -64,7 +64,7 @@ public class GameOverScene extends AbstractScene implements Screen{
 	        batch.draw(menuTexture, 0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 	        
 	        // Draw high score text
-	        font.draw(batch, "High Score: " + Math.round(ScoreManager.highScore), Gdx.graphics.getWidth() - 110, Gdx.graphics.getHeight() + 30);
+	        font.draw(batch, "High Score: " + Math.round(ScoreManager.highScore), Gdx.graphics.getWidth() - 120, Gdx.graphics.getHeight() + 30);
 
 	        // Draw buttons
 	        batch.draw(playButtonTexture, PLAY_BTN_X, PLAY_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT); // Play Button

@@ -46,6 +46,9 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 	
 	@Override
 	public void draw(SpriteBatch batch) {
+		if(getRemovalBoolean() == true) {
+			return;
+		}
 		batch.begin();
 			batch.draw(this.getTex(),this.getX(),this.getY(), OBJECT_WIDTH, OBJECT_HEIGHT);		
 		batch.end();
@@ -60,7 +63,7 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 	
 	@Override
 	public boolean isCollided(iCollidable object) {
-		if (object instanceof Entity) {
+		if (object instanceof Entity && this.getRectangle().width == 0 && this.getRectangle().height == 0) {
             return this.getRectangle().overlaps(((Entity) object).getRectangle());
         }
 		else {
@@ -72,6 +75,9 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 	public void onCollision(iCollidable object) {
 		// for any class specific collision
 		//System.out.println("Collided with moving object!");
+		getRectangle().setSize(0, 0);
+		getRectangle().setPosition(-1000, -1000);
+		setRemovalBoolean();
 	}
 	
 	

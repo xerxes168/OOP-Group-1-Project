@@ -1,5 +1,6 @@
 package com.mygdx.game.lwjgl3;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -71,8 +72,18 @@ public class EntityManager {
             }
         }
     }
-    
-	
-	
+//    public void cleanupEntities() {
+//        Iterator<Entity> iterator = getAllEntities().iterator();
+//        while (iterator.hasNext()) {
+//            Entity entity = iterator.next();
+//            if (entity.getRemovalBoolean()) { // ✅ If marked for removal
+//                //entity.dispose();  // ✅ Free memory
+//                iterator.remove(); // ✅ Remove safely using Iterator
+//                System.out.println("Object removed!");
+//            }
+//        }
+//    }
+
+
 }
 

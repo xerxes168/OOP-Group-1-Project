@@ -165,6 +165,7 @@ public class PlayScene extends AbstractScene implements Screen {
         font.draw(batch, "Points: " + Math.round(player1.points), Gdx.graphics.getWidth() - 150, Gdx.graphics.getHeight() - 20);
         batch.end();
         
+        
     }
     
     // Remove Game Pause after coming back from Menu

@@ -12,7 +12,8 @@ public abstract class Entity {
 	private float width;
 	private float height;
 	private Texture tex;
-	private Rectangle rectangle;	
+	private Rectangle rectangle;
+	private boolean removeAfterCollision;
 	
 	Entity() {
 		
@@ -23,7 +24,6 @@ public abstract class Entity {
 		this.yPosition = y; 
 		this.speed = speed;
 		this.tex = new Texture(Gdx.files.internal(imgName));
-		this.rectangle = new Rectangle(xPosition, yPosition, width, height);
 	}
 	
 	Entity(float x, float y, float speed, String imgName, float width, float height) {
@@ -91,6 +91,12 @@ public abstract class Entity {
 	public float getHeight() {
 		return height;
 	}
+	public void setRemovalBoolean() {
+		removeAfterCollision = true;
+	}
+	public boolean getRemovalBoolean() {
+		return removeAfterCollision;
+	}
 
 
     public void draw(SpriteBatch batch) {
@@ -100,6 +106,5 @@ public abstract class Entity {
     public void movement() {	
     	// Child Class will override
     }
-
 	
 }
