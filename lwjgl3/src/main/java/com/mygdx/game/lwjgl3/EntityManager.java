@@ -12,7 +12,7 @@ public class EntityManager {
 	protected List<Entity> characterList;
 	protected List<Entity> object1List;
 	protected List<Entity> object2List;
-	protected List<Entity> terrain;
+	protected List<Entity> terrainList;
 	
 	
 	// Default Constructor
@@ -21,7 +21,7 @@ public class EntityManager {
 		characterList = new ArrayList<>();
 		object1List = new ArrayList<>();
 		object2List = new ArrayList<>();
-		terrain = new ArrayList<>();
+		terrainList = new ArrayList<>();
 		addLists();
 	}
 	
@@ -37,23 +37,43 @@ public class EntityManager {
 		return allEntities;
 	}
 	
-	void addLists() {
+	public void addLists() {
 		allLists.add(characterList);
 		allLists.add(object1List);
 		allLists.add(object2List);
-		allLists.add(terrain);
+		allLists.add(terrainList);
 	}
-	void addCharacters(Entity entityName) {
+	public void addCharacters(Entity entityName) {
 		characterList.add(entityName);
 	}
-	void addObject1Entities(Entity entityName) {
+	public void addObject1Entities(Entity entityName) {
 		object1List.add(entityName);
 	}
-	void addObject2Entities(Entity entityName) {
+	public void addObject2Entities(Entity entityName) {
 		object2List.add(entityName);
 	}
-	void addTerrainEntities(Entity entityName) {
-		terrain.add(entityName);
+	
+	public void addTerrainEntities(Entity entityName) {
+		terrainList.add(entityName);
+	}
+	
+	public void spawnObject1Entities(int count, float scrollSpeed) {
+	    List<Object1> object1 = Object1.spawnObject1(count, scrollSpeed);
+	    for (Object1 obj : object1) {
+	        addObject1Entities(obj);
+	    }
+	}
+	
+	public void removeObject1(Entity entity) {
+	    object1List.remove(entity);
+	}
+	
+	public void removeObject2(Entity entity) {
+	    object2List.remove(entity);
+	}
+	
+	public void removeTerrain(Entity entity) {
+		terrainList.remove(entity);
 	}
 	
     // Draw all entities

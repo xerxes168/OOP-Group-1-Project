@@ -18,7 +18,6 @@ public class PlayScene extends AbstractScene implements Screen {
     // Entities
     private SpriteBatch batch;
 	private Character player1;
-	private Object1 whiteCar;
 	
 	private EntityManager entityManager;
 	private ShapeRenderer shapeRenderer;
@@ -69,12 +68,14 @@ public class PlayScene extends AbstractScene implements Screen {
         soundManager.playBackgroundMusic();
         
         // Create entities
-        player1 = new Character(500, 50, 1, "character.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getWidth() / 12f, soundManager);
-        whiteCar = new Object1(400, 0, scrollSpeed, "fries.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getHeight() / 12f);
-                
+        player1 = new Character(500, 50, 1, "character.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getWidth() / 12f, soundManager, entityManager);
+        
+        //create Object 1
+        entityManager.spawnObject1Entities(3, scrollSpeed);
+        
         //create Object 2
-        List<Object2> objects = Object2.spawnObjects(10, scrollSpeed);
-        for (Object2 obj : objects) {
+        List<Object2> object2 = Object2.spawnObject2(10, scrollSpeed);
+        for (Object2 obj : object2) {
             entityManager.addObject2Entities(obj);
         }
             
@@ -86,7 +87,6 @@ public class PlayScene extends AbstractScene implements Screen {
 
         // Add them to entity manager
         entityManager.addCharacters(player1);
-        entityManager.addObject1Entities(whiteCar);
         
         isPaused = false;
         initialized = true;

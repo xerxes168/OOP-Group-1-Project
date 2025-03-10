@@ -34,8 +34,8 @@ public class Object2 extends Entity implements iMovable, iCollidable{
         currentyPos = y;	
 	}
 	
-    public static ArrayList<Object2> spawnObjects(int numberOfObjects, float scrollSpeed) {
-    	ArrayList<Object2> objects = new ArrayList<>();
+    public static ArrayList<Object2> spawnObject2(int numberOfObjects, float scrollSpeed) {
+    	ArrayList<Object2> object2 = new ArrayList<Object2>();
         boolean[][] usedCells = new boolean[GRID_COLS][GRID_ROWS];
 
         for (int j = 0; j < numberOfObjects; j++) {
@@ -59,9 +59,9 @@ public class Object2 extends Entity implements iMovable, iCollidable{
             float posX = col * CELL_WIDTH + (CELL_WIDTH / 2f) - (OBJECT_WIDTH / 2f);
             float posY = row * CELL_HEIGHT + (CELL_HEIGHT / 2f) - (OBJECT_HEIGHT / 2f);
             
-            objects.add(new Object2(posX, posY, scrollSpeed, "apple.png", OBJECT_WIDTH, OBJECT_HEIGHT));
+            object2.add(new Object2(posX, posY, scrollSpeed, "apple.png", OBJECT_WIDTH, OBJECT_HEIGHT));
         }
-        return objects;
+        return object2;
     }
 	
 	@Override

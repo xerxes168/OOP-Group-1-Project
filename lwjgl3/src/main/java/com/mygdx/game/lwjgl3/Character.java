@@ -20,6 +20,7 @@ public class Character extends Entity implements iMovable, iCollidable {
 	private float currentHealth = 100;
 	protected float points;
 	protected float highScore;
+	private EntityManager entityManager;
     
  	// Default constructor
     public Character() {
@@ -28,10 +29,11 @@ public class Character extends Entity implements iMovable, iCollidable {
     }
 	
 	
-    public Character(float x, float y, float speed, String imgName, float width, float height, SoundManager soundManager) {
+    public Character(float x, float y, float speed, String imgName, float width, float height, SoundManager soundManager, EntityManager entityManager) {
 		super(x, y, speed, imgName, width, height);
 		this.soundManager = soundManager;
 		this.shapeRenderer = new ShapeRenderer();
+		this.entityManager = entityManager;
 	}
 	
 	public void draw(SpriteBatch batch) {
@@ -162,6 +164,8 @@ public class Character extends Entity implements iMovable, iCollidable {
 			System.out.println("Collided with object 1");
 			soundManager.playSound("collision");
 			currentHealth = currentHealth - 20;
+	        entityManager.removeObject1((Entity) object);
+	        entityManager.spawnObject1Entities(1, PlayScene.getScrollSpeed());
 			if(currentHealth <= 0) {
 				if(points > ScoreManager.highScore) {
 					ScoreManager.highScore = Math.round(points);
