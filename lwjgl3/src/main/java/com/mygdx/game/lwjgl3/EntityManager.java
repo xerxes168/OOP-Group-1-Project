@@ -64,6 +64,19 @@ public class EntityManager {
 	    }
 	}
 	
+	public void spawnObject2Entities(int count, float scrollSpeed) {
+	    List<Object2> object2 = Object2.spawnObject2(count, scrollSpeed);
+	    for (Object2 obj : object2) {
+	        addObject2Entities(obj);
+	    }
+	}
+	public void spawnTerrainEntities(int count, float scrollSpeed) {
+	    List<Terrain> terrains = Terrain.spawnTerrains(count, scrollSpeed);
+	    for (Terrain terrain : terrains) {
+	        addTerrainEntities(terrain);
+	    }
+	}
+	
 	public void removeObject1(Entity entity) {
 	    object1List.remove(entity);
 	}

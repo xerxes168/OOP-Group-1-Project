@@ -19,6 +19,7 @@ public class Object1 extends Entity implements iMovable, iCollidable{
     private static final float OBJECT_WIDTH = CELL_WIDTH;
     private static final float OBJECT_HEIGHT = CELL_HEIGHT;
 	private static final float SPEED = 33;
+	private static int lastCol = -1;
 
 	public Object1(){
 
@@ -30,51 +31,49 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 
 	}
 	
-	   public static ArrayList<Object1> spawnObject1(int numberOfFries, float scrollSpeed) {
-	        ArrayList<Object1> object1 = new ArrayList<>();
-	        // Track which grid cells have been used so each cell is unique.
-	        boolean[][] usedCells = new boolean[GRID_COLS][GRID_ROWS];
+	public static ArrayList<Object1> spawnObject1(int numberOfFries, float scrollSpeed) {
+	    ArrayList<Object1> object1List = new ArrayList<Object1>();
 
-	        for (int j = 0; j < numberOfFries; j++) {
-	            int attempts = 0;
-	            int col, row;
-	            // Try to find an unused cell (up to 100 attempts)
-	            do {
-	                col = MathUtils.random(0, GRID_COLS - 1);
-	                row = MathUtils.random(0, GRID_ROWS - 1);
-	                attempts++;
-	            } while (usedCells[col][row] && attempts < 100);
+	    for (int i = 0; i < numberOfFries; i++) {
+	        int col;
+	        do {
+	            col = MathUtils.random(0, GRID_COLS - 1);
 	            
-	            // If we exceed attempts, break out of the loop.
-	            if (attempts >= 100) {
-	                break;
-	            }
-	            
-	            usedCells[col][row] = true; // Mark this cell as used
-	            
-	            // Calculate the center position for the cell, then adjust so the Terrain is centered.
-	            float posX = col * CELL_WIDTH + (CELL_WIDTH / 2f) - (OBJECT_WIDTH / 2f);
-	            float posY = row * CELL_HEIGHT + (CELL_HEIGHT / 2f) - (OBJECT_HEIGHT / 2f);
-	            
-	            object1.add(new Object1(posX, posY, scrollSpeed, "fries.png", OBJECT_WIDTH, OBJECT_HEIGHT));
-	        }
-	        return object1;
+	        // Avoid spawning Object in the same column
+	        } while (col == lastCol);
+	        lastCol = col;
+
+	        float posX = col * CELL_WIDTH;
+	        float posY = Gdx.graphics.getHeight() + MathUtils.random(0, 200);
+
+	        object1List.add(new Object1(posX, posY, scrollSpeed, "fries.png", OBJECT_WIDTH, OBJECT_HEIGHT));
 	    }
+
+	    return object1List;
+	}
 	
 	   
 	@Override
 	public void movement(){
 		float deltaTime = Gdx.graphics.getDeltaTime();
 		currentxPos = super.getX();
-        //currentxPos -= SPEED * deltaTime;
-                
-        currentyPos -= PlayScene.getScrollSpeed() * deltaTime; // Move down with background
+		currentyPos = super.getY();
+        currentyPos -=  5 * PlayScene.getScrollSpeed() * deltaTime; // Move down with background
 
         if (currentyPos <= -OBJECT_HEIGHT) {
-            currentyPos = Gdx.graphics.getHeight(); // Reset to top
-        }
-        super.setY(currentyPos);
+            currentyPos = Gdx.graphics.getHeight() + MathUtils.random(0, 200);
 
+            int newCol;
+            do {
+                newCol = MathUtils.random(0, GRID_COLS - 1);
+            } while (newCol == lastCol);
+            lastCol = newCol;
+
+            currentxPos = newCol * CELL_WIDTH;
+
+        }
+        super.setX(currentxPos);
+        super.setY(currentyPos);
 	}
 
 	

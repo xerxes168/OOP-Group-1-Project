@@ -20,6 +20,11 @@ public class Object2 extends Entity implements iMovable, iCollidable{
     private static final float OBJECT_WIDTH = CELL_WIDTH;
     private static final float OBJECT_HEIGHT = CELL_HEIGHT;
     private static final float SPEED = 33;
+    
+    // Local flag and timer for respawn
+    private boolean isActive = true;
+    private float respawnTimer = 0f;
+    private static final float RESPAWN_DELAY = 8f; // seconds before respawn
 	
 	public Object2() 
 	{
@@ -39,20 +44,12 @@ public class Object2 extends Entity implements iMovable, iCollidable{
         boolean[][] usedCells = new boolean[GRID_COLS][GRID_ROWS];
 
         for (int j = 0; j < numberOfObjects; j++) {
-            int attempts = 0;
             int col, row;
             // Try to find an unused cell (up to 100 attempts)
             do {
                 col = MathUtils.random(0, GRID_COLS - 1);
                 row = MathUtils.random(0, GRID_ROWS - 1);
-                attempts++;
-            } while (usedCells[col][row] && attempts < 100);
-            
-            // If we exceed attempts, break out of the loop.
-            if (attempts >= 100) {
-                break;
-            }
-            
+            } while (usedCells[col][row]);            
             usedCells[col][row] = true; // Mark this cell as used
             
             // Calculate the center position for the cell, then adjust so the Terrain is centered.
@@ -63,29 +60,40 @@ public class Object2 extends Entity implements iMovable, iCollidable{
         }
         return object2;
     }
+    
+
 	
 	@Override
 	public void movement(){
 	    float deltaTime = Gdx.graphics.getDeltaTime();
 	    
-	    currentyPos = super.getY() - SPEED * deltaTime; // Move down with background
-//	    // Update the y position by subtracting the movement amount.
-//	    currentyPos = super.getY();
-//		float dynamicSpeed = PlayScene.getScrollSpeed();
-//		currentyPos -= dynamicSpeed * deltaTime;
-	    // Check if the object has moved off the bottom of the screens.
+	    // If the apple is inactive (after collision), update the respawn timer.
+	    if (!isActive) {
+	        respawnTimer += deltaTime;
+	        if (respawnTimer >= RESPAWN_DELAY) {
+	            reset();
+	            respawnTimer = 0f;
+	            isActive = true; // Reactivate the apple
+	        }
+	        return; // Skip normal movement while inactive.
+	    }
+	    
+	    // Normal movement: move downward with background scroll speed.
+	    currentyPos = super.getY() - PlayScene.getScrollSpeed() * deltaTime;
+	    
+	    // If the apple has moved off the bottom of the screen, reset its position.
 	    if (currentyPos <= -OBJECT_HEIGHT) {
-	        // Reset y to the top of the screen.
-	    	reset();
+	        reset();
 	    } else {
-            // Otherwise, just update the y position.
-            super.setY(currentyPos);
-        }
-    }
-
+	        super.setY(currentyPos);
+	        // Update the collision rectangle with the new position.
+	        setRectangle();
+	    }
+	}
+	
     private void reset() {
-        // Reset y to the top.
-        currentyPos = Gdx.graphics.getHeight();
+    	// Reset y to a position above the current top boundary
+    	currentyPos = PlayScene.getTopBoundary() + MathUtils.random(0, 200);
 
         // Choose a random column.
         int col = MathUtils.random(0, GRID_COLS - 1);
@@ -96,13 +104,16 @@ public class Object2 extends Entity implements iMovable, iCollidable{
         // Update the entity's position.
         super.setX(currentxPos);
         super.setY(currentyPos);
+        // Update the collision rectangle.
+        setRectangle();
     }
 
 	
 	@Override
 	public void draw(SpriteBatch batch) {
-		if(getRemovalBoolean() == true) {
-			return;
+        // Draw the apple only if it is active.
+        if (!isActive) {
+            return;
 		}
 		batch.begin();
 			batch.draw(this.getTex(),this.getX(),this.getY(), OBJECT_WIDTH, OBJECT_HEIGHT);
@@ -119,7 +130,7 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	
 	@Override
 	public boolean isCollided(iCollidable object) {
-		
+        if (!isActive) return false;
 		if (object instanceof Entity && this.getRectangle().width == 0 && this.getRectangle().height == 0) {
             return this.getRectangle().overlaps(((Entity) object).getRectangle());
         }
@@ -132,9 +143,10 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	public void onCollision(iCollidable object) {
 		// for any class specific collision
 		//System.out.println("Collided with static object!");
-		getRectangle().setSize(0, 0);
-		getRectangle().setPosition(-1000, -1000);
-		setRemovalBoolean();
+//		getRectangle().setSize(0, 0);
+//		getRectangle().setPosition(-1000, -1000);
+        isActive = false;
+        respawnTimer = 0f;
 	}
 	
 	public void dispose(){

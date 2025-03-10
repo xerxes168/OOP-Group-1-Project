@@ -32,9 +32,9 @@ public class PlayScene extends AbstractScene implements Screen {
     // Scrolling Items
 	private ScrollingBackground scrollingBackground;
     private float scrollOffset = 0; // Offset for scrolling effect
-    private static float scrollSpeed = 5; // Pixels per second 
+    private static float scrollSpeed = 40; // Pixels per second 
     private BitmapFont font;
-   
+    private static PlayScene currentInstance;
         
     public static void setScrollSpeed(float speed) {
         scrollSpeed = speed;
@@ -44,6 +44,9 @@ public class PlayScene extends AbstractScene implements Screen {
         return scrollSpeed;
     }
     
+    public static float getTopBoundary() {
+        return currentInstance.camera.position.y + currentInstance.viewport.getWorldHeight() / 2;
+    }
 
     public PlayScene(GameMaster game, SoundManager soundManager) {
         super(game);
@@ -58,7 +61,7 @@ public class PlayScene extends AbstractScene implements Screen {
 
     // All show logic in here
     public void startGameState() {
-
+    	currentInstance = this;
         scrollingBackground = new ScrollingBackground("background.png", scrollSpeed);
 
         entityManager = new EntityManager();
@@ -71,19 +74,11 @@ public class PlayScene extends AbstractScene implements Screen {
         player1 = new Character(500, 50, 1, "character.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getWidth() / 12f, soundManager, entityManager);
         
         //create Object 1
-        entityManager.spawnObject1Entities(3, scrollSpeed);
-        
+        entityManager.spawnObject1Entities(3, scrollSpeed);        
         //create Object 2
-        List<Object2> object2 = Object2.spawnObject2(10, scrollSpeed);
-        for (Object2 obj : object2) {
-            entityManager.addObject2Entities(obj);
-        }
-            
-        // Create the lily
-        List<Terrain> terrains = Terrain.spawnTerrains(10, scrollSpeed);
-        for (Terrain terrain : terrains) {
-            entityManager.addTerrainEntities(terrain);
-        }
+        entityManager.spawnObject2Entities(5, scrollSpeed);            
+        //create the terrain
+        entityManager.spawnTerrainEntities(8, scrollSpeed);
 
         // Add them to entity manager
         entityManager.addCharacters(player1);
