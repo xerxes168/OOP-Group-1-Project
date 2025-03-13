@@ -114,7 +114,14 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 	
 	@Override
 	public boolean isCollided(iCollidable object) {
-		return false;
+	    if (object instanceof Entity) {
+	        int thisGridX = (int)((this.getX() + TERRAIN_WIDTH / 2)/ CELL_WIDTH);
+	        int thisGridY = (int)((this.getY() + TERRAIN_HEIGHT / 2)/ CELL_HEIGHT);
+	        int otherGridX = (int)((((Entity)object).getX()  + TERRAIN_WIDTH / 2) / CELL_WIDTH);
+	        int otherGridY = (int)((((Entity)object).getY()  + TERRAIN_HEIGHT / 2) / CELL_HEIGHT);
+	        return (thisGridX == otherGridX && thisGridY == otherGridY);
+	    }
+	    return false;
 	}
 	
 	@Override

@@ -15,19 +15,24 @@ public class Character extends Entity implements iMovable, iCollidable {
 	private float currentyPos;
     private static final float CELL_WIDTH = Gdx.graphics.getWidth() / 12f;
     private static final float CELL_HEIGHT = Gdx.graphics.getHeight() / 12f;
-    private static final float CHARACTER_WIDTH = Gdx.graphics.getWidth() / 12f;
-    private static final float CHARACTER_HEIGHT = Gdx.graphics.getWidth() / 12f;
+    private static final float CHARACTER_WIDTH = CELL_WIDTH;
+    private static final float CHARACTER_HEIGHT = CELL_HEIGHT;
     private static final float SPEED = 0;
     private static float maxHealth = 100;
 	private float currentHealth = 100;
 	protected float points;
 	protected float highScore;
 	private EntityManager entityManager;
+    private float previousX;
+    private float previousY;
     
  	// Default constructor
     public Character() {
         super(); // Calls default Entity constructor
         this.shapeRenderer = new ShapeRenderer();
+        // Initialize previous position with the starting position
+        this.previousX = super.getX();
+        this.previousY = super.getY();
     }
 	
 	
@@ -36,26 +41,25 @@ public class Character extends Entity implements iMovable, iCollidable {
 		this.soundManager = soundManager;
 		this.shapeRenderer = new ShapeRenderer();
 		this.entityManager = entityManager;
+        this.previousX = x;
+        this.previousY = y;
 	}
 	
 	public void draw(SpriteBatch batch) {
 
-	    // Adjust X position slightly to center the duck
-	    float offsetX = (CELL_WIDTH - CHARACTER_WIDTH) / 2f;
-	    float offsetY = (CELL_HEIGHT - CHARACTER_HEIGHT) / 2f;
 	    float barWidth = CHARACTER_WIDTH;
 	    float barHeight = 8;
 	    shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
 	    
 	    // Drawing of character
 	    batch.begin();
-	    batch.draw(this.getTex(), super.getX() + offsetX + 2, super.getY() + offsetY, CHARACTER_WIDTH, CHARACTER_HEIGHT); 
+	    batch.draw(this.getTex(), super.getX(), super.getY(), CHARACTER_WIDTH, CHARACTER_HEIGHT); 
 	    batch.end();
 	    
 	    // Drawing of collision rectangle
 	    shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(1, 0, 0, 1); // Red color
-        shapeRenderer.rect(super.getX() + offsetX + 2, super.getY() + offsetY, CHARACTER_WIDTH, CHARACTER_HEIGHT);
+        shapeRenderer.rect(super.getX(), super.getY() , CHARACTER_WIDTH, CHARACTER_HEIGHT);
         shapeRenderer.end();
         
         // Drawing of health bar
@@ -73,33 +77,57 @@ public class Character extends Entity implements iMovable, iCollidable {
 	
 	@Override
 	public void movement() {
-
+        previousX = super.getX();
+        previousY = super.getY();
+        
 	    // Calculate current grid position
-	    int currentxPos = Math.round(super.getX() / CELL_WIDTH);
-	    int currentyPos = Math.round(super.getY() / CELL_HEIGHT);
+	    int currentxPos = (int)((super.getX() + CHARACTER_WIDTH / 2)/ CELL_WIDTH);
+	    int currentyPos = (int)((super.getY() + CHARACTER_WIDTH / 2)/ CELL_HEIGHT);
 
+	    int candidateX = currentxPos;
+	    int candidateY = currentyPos;
 	    boolean moved = false;
 
 	    // Handle grid-based input movement
 	    if (Gdx.input.isKeyJustPressed(Keys.UP)) {
-	    	currentyPos++;
+	        candidateY = currentyPos + 1;
 	        moved = true;
 	    }
 	    if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
-	    	currentyPos--;
+	        candidateY = currentyPos - 1;
 	        moved = true;
 	    }
 	    if (Gdx.input.isKeyJustPressed(Keys.LEFT)) {
-	    	currentxPos--;
+	        candidateX = currentxPos - 1;
 	        moved = true;
 	    }
 	    if (Gdx.input.isKeyJustPressed(Keys.RIGHT)) {
-	    	currentxPos++;
+	        candidateX = currentxPos + 1;
 	        moved = true;
 	    }
 
 	    if (moved) {
-	        soundManager.playSound("move");
+	        boolean blocked = false;
+	        // Iterate through all entities and check for Terrain instances
+	        for (Entity entity : entityManager.getAllEntities()) {
+	            if (entity instanceof Terrain) {
+	                // Compute the terrain's cell based on its center
+	                int terrainCellX = (int)((entity.getX() + CELL_WIDTH / 2) / CELL_WIDTH);
+	                int terrainCellY = (int)((entity.getY() + CELL_HEIGHT / 2) / CELL_HEIGHT);
+	                if (terrainCellX == candidateX && terrainCellY == candidateY) {
+	                    blocked = true;
+	                    break;
+	                }
+	            }
+	        }
+	        if (!blocked) {
+	            // Allow movement: update current cell to candidate cell and play sound.
+	            currentxPos = candidateX;
+	            currentyPos = candidateY;
+	            soundManager.playSound("move");
+	        } else {
+	            System.out.println("Movement blocked by terrain!");
+	        }
 	    }
 
 	    // Keep the character within the grid boundaries
@@ -184,9 +212,9 @@ public class Character extends Entity implements iMovable, iCollidable {
 			points = points + 100;
 		}
 		
-		else if(object instanceof Terrain) {
+		else if (object instanceof Terrain) {
 			System.out.println("Collided with terrain");
-		}
+		   }
 	}
 
 	public void setPosition(float x, float y) {
