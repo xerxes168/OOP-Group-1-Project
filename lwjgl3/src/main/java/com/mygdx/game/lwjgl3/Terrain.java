@@ -71,7 +71,7 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 	    float deltaTime = Gdx.graphics.getDeltaTime();
 	    
 	    // Update the y position by subtracting the movement amount.
-	    currentyPos = super.getY() - PlayScene.getScrollSpeed() * deltaTime;
+	    currentyPos = super.getY() - getSpeed() * deltaTime;
 	    
 	    // Check if the lily has moved off the bottom of the screen.
 	    if (currentyPos <= -TERRAIN_HEIGHT) {

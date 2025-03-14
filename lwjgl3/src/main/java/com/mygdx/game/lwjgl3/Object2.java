@@ -65,7 +65,7 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	    float deltaTime = Gdx.graphics.getDeltaTime();
 	    
 	    // Normal movement: move downward with background scroll speed.
-	    currentyPos = super.getY() - PlayScene.getScrollSpeed() * deltaTime;
+	    currentyPos = super.getY() - getSpeed() * deltaTime;
 	    
 	    // If the apple has moved off the bottom of the screen, reset its position.
 	    if (currentyPos <= -OBJECT_HEIGHT) {

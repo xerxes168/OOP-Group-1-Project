@@ -70,6 +70,7 @@ public class PlayScene extends AbstractScene implements Screen {
         collisionManager = new CollisionManager();
         soundManager.playBackgroundMusic();
         
+        
         // Create entities
         player1 = new Character(500, 50, 1, "character.png", Gdx.graphics.getWidth() / 12f, Gdx.graphics.getWidth() / 12f, soundManager, entityManager);
         
@@ -85,6 +86,7 @@ public class PlayScene extends AbstractScene implements Screen {
         
         isPaused = false;
         initialized = true;
+        
     }
 
 
@@ -104,9 +106,12 @@ public class PlayScene extends AbstractScene implements Screen {
         if (!isPaused) {
             // All Game Logic in here
         
+	    	
+	    	
+	    	if (player1.points > 1000) {
+	    	    setScrollSpeed(getScrollSpeed() + 5 * delta); // Gradually increase speed
+	    	}
 	    	scrollingBackground.update(delta);
-	                
-	        
 	        
 	        // Camera Y never goes below the bottom of the background
 	        float minY = viewport.getWorldHeight() * 0.5f;
@@ -127,6 +132,8 @@ public class PlayScene extends AbstractScene implements Screen {
 	        //drawGrid(); 
 	        
 	        entityManager.movement();
+	        
+	        entityManager.updateEntitySpeeds(getScrollSpeed());
 	        
 	        // Draw and update entities
 	        entityManager.draw(batch);
@@ -172,42 +179,10 @@ public class PlayScene extends AbstractScene implements Screen {
 
     // Grid scrolling functions
     // Adjust grid scrolling based on scrollSpeed and delta time
-    private void updateGridScroll(float delta) {
-    	
-        float cellHeight = viewport.getWorldHeight() / 12f; // Adjusted dynamically
-
-        scrollOffset = (scrollOffset - scrollSpeed * delta) % cellHeight;
-
-        // For a typical grid of 8 cells
-        if (scrollOffset <= -cellHeight) {
-            scrollOffset = 0;
-        }  
-    }
+   
 
     // Draw grid that scrolls upward
-    private void drawGrid() {
-        float screenWidth  = viewport.getWorldWidth();  // Get from viewport
-        float screenHeight = viewport.getWorldHeight(); // Get from viewport
-        float cellWidth    = screenWidth  / 12f;
-        float cellHeight   = screenHeight / 12f;        
-
-        shapeRenderer.setProjectionMatrix(camera.combined);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(1, 1, 1, 1); // White grid lines
-
-        // Draw vertical lines
-        for (int i = 0; i <= 12; i++) {
-            float x = i * cellWidth;
-            shapeRenderer.line(x, 0, x, screenHeight);
-        }
-
-        // Draw horizontal lines that scrolls
-        for (int i = -1; i <= 12; i++) {
-            float y = i * cellHeight + scrollOffset;
-            shapeRenderer.line(0, y, screenWidth, y);
-        }
-        shapeRenderer.end();
-    }
+    
 
     @Override
     public void resize(int width, int height) {

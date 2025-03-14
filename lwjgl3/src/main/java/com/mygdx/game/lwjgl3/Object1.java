@@ -58,7 +58,7 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 		float deltaTime = Gdx.graphics.getDeltaTime();
 		currentxPos = super.getX();
 		currentyPos = super.getY();
-        currentyPos -=  5 * PlayScene.getScrollSpeed() * deltaTime; // Move down with background
+        currentyPos -=  5 * getSpeed() * deltaTime; // Move down with background
 
         if (currentyPos <= -OBJECT_HEIGHT) {
             currentyPos = Gdx.graphics.getHeight() + MathUtils.random(0, 200);

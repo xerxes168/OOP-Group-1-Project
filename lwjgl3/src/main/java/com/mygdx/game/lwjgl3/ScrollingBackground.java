@@ -22,8 +22,10 @@ public class ScrollingBackground {
 
     public void update(float deltaTime) {
         // Move both backgrounds down
-        y1 -= speed * deltaTime;
-        y2 -= speed * deltaTime;
+    	float scrollSpeed = PlayScene.getScrollSpeed();
+
+        y1 -= scrollSpeed * deltaTime;
+        y2 -= scrollSpeed * deltaTime;
 
         // If y1 moves off screen, reset it above y2
         if (y1 + screenHeight <= 0) {

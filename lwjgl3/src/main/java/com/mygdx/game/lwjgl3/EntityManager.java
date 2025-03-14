@@ -25,6 +25,7 @@ public class EntityManager {
 		addLists();
 	}
 	
+	
 	public List<List<Entity>> getAllLists() {
 		return allLists;
 	}
@@ -102,6 +103,13 @@ public class EntityManager {
     	for (List<Entity> list : getAllLists()) {
             for (Entity entity : list) {
                 entity.movement();
+            }
+        }
+    }
+    public void updateEntitySpeeds(float newSpeed) {
+        for (List<Entity> list : getAllLists()) {
+            for (Entity entity : list) {
+                entity.setSpeed(newSpeed);
             }
         }
     }
