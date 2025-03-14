@@ -145,9 +145,8 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	public void onCollision(iCollidable object) {
 		// for any class specific collision
 		//System.out.println("Collided with static object!");
-//		getRectangle().setSize(0, 0);
-//		getRectangle().setPosition(-1000, -1000);
-       if(object instanceof Character) {
+		getRectangle().setPosition(-1000, -1000);
+        if(object instanceof Character) {
             isActive = false;
             respawnTimer = 0f;
         }
