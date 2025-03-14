@@ -209,6 +209,8 @@ public class Character extends Entity implements iMovable, iCollidable {
 			}
 			System.out.println("Collided with object 2");
 			soundManager.playSound("collision");
+	        entityManager.removeObject2((Entity) object);
+	        entityManager.spawnObject2Entities(1, PlayScene.getScrollSpeed());
 			points = points + 100;
 		}
 		
