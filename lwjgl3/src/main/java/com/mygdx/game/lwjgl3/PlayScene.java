@@ -107,7 +107,7 @@ public class PlayScene extends AbstractScene implements Screen {
             // All Game Logic in here
 	    	
 	    	if (player1.points > 1000) {
-	    	    setScrollSpeed(getScrollSpeed() + 5 * delta); // Gradually increase speed
+	    	    setScrollSpeed(getScrollSpeed() + 0.5f * delta); // Gradually increase speed
 	    	}
 	    	scrollingBackground.update(delta);
 	        
