@@ -132,15 +132,16 @@ public class Character extends Entity implements iMovable, iCollidable {
 
 	    // Keep the character within the grid boundaries
 	    currentxPos = Math.max(0, Math.min(currentxPos, 11));
+	    currentyPos = Math.max(0, Math.min(currentyPos, 11));
 //	    gridY = Math.max(0, Math.min(gridY, 11));
 
 	    float maxWidth = Gdx.graphics.getWidth() - CHARACTER_WIDTH;
-//	    float maxHeight = Gdx.graphics.getHeight() - CHARACTER_HEIGHT;
+	    float maxHeight = Gdx.graphics.getHeight() - CHARACTER_HEIGHT;
 
 	    // Calculate the target grid position based on input
 	    float targetX = Math.min(Math.round(currentxPos * CELL_WIDTH), maxWidth);
-//	    float targetY = Math.min(Math.round(gridY * CELL_HEIGHT), maxHeight);
-	    float targetY = Math.round(currentyPos * CELL_HEIGHT);
+	    float targetY = Math.min(Math.round(currentyPos * CELL_HEIGHT), maxHeight);
+//		float targetY = Math.round(currentyPos * CELL_HEIGHT);
 
 	    // Apply continuous downward movement to the current position
 	    float deltaTime = Gdx.graphics.getDeltaTime();
