@@ -106,11 +106,7 @@ public class PlayScene extends AbstractScene implements Screen {
         
 	    	scrollingBackground.update(delta);
 	                
-	        camera.position.set(
-		        viewport.getWorldWidth()/2,
-		        player1.getY() + player1.getHeight() * 0.5f,
-		        0
-	        );
+	        
 	        
 	        // Camera Y never goes below the bottom of the background
 	        float minY = viewport.getWorldHeight() * 0.5f;
@@ -118,7 +114,7 @@ public class PlayScene extends AbstractScene implements Screen {
 	            camera.position.y = minY;
 	        }
 	
-	        camera.update();
+	        
 	        
 	        ScreenUtils.clear(0, 0, 0.2f, 1);
 	        
