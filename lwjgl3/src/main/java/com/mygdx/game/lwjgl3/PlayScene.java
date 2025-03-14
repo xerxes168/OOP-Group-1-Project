@@ -105,8 +105,6 @@ public class PlayScene extends AbstractScene implements Screen {
     	
         if (!isPaused) {
             // All Game Logic in here
-        
-	    	
 	    	
 	    	if (player1.points > 1000) {
 	    	    setScrollSpeed(getScrollSpeed() + 5 * delta); // Gradually increase speed
@@ -174,7 +172,9 @@ public class PlayScene extends AbstractScene implements Screen {
     // Restart Game
     public void restartGame() {
         initialized = false;
+        setScrollSpeed(40);
         startGameState();
+        
     }
 
     // Grid scrolling functions
