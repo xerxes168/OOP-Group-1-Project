@@ -9,7 +9,6 @@ buildscript {
     maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
   }
   dependencies {
-  // Only build-time dependencies here, like Gradle plugins
 
 	implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
   	implementation "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
@@ -26,7 +25,6 @@ buildscript {
 }
 
 allprojects {
-  // apply plugin: 'java'
   apply plugin: 'eclipse'
   apply plugin: 'idea'
 
@@ -37,18 +35,6 @@ allprojects {
       testOutputDir file('build/classes/java/test')
     }
   }
-
-  // dependencies {
-  //   implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
-  //   implementation "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
-  //   implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-  //   implementation project(':core')
-
-  //   if(enableGraalNative == 'true') {
-  //     implementation "io.github.berstanio:gdx-svmhelper-backend-lwjgl3:$graalHelperVersion"
-  //     implementation "io.github.berstanio:gdx-svmhelper-extension-box2d:$graalHelperVersion"
-  //   }
-  // }
 }
 
 configure(subprojects) {
