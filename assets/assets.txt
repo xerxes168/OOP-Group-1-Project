@@ -24,3 +24,4 @@ soundmanager/game-over-retro-arcade.wav
 soundmanager/move.wav
 soundmanager/party-balloon-pop.wav
 testbuck.png
+wall.png
