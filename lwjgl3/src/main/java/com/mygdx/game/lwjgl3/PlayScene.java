@@ -37,7 +37,7 @@ public class PlayScene extends AbstractScene implements Screen {
     private static PlayScene currentInstance;
         
     public static void setScrollSpeed(float speed) {
-    	scrollSpeed = speed * DifficultyManager.getScrollSpeedMultiplier();
+        scrollSpeed = speed;
     }
 
     public static float getScrollSpeed() {
@@ -106,13 +106,13 @@ public class PlayScene extends AbstractScene implements Screen {
         if (!isPaused) {
             // All Game Logic in here
 	    	
-	    	/*if (player1.points > 1000) {
+	    	if (player1.points > 1000) {
 	    	    setScrollSpeed(getScrollSpeed() + 3 * delta); // Gradually increase speed
 	    	}
 	    	else if (player1.points > 5000) {
 	    		setScrollSpeed(getScrollSpeed());
 	    	}
-	    	scrollingBackground.update(delta); */
+	    	scrollingBackground.update(delta);
 	        
 	        // Camera Y never goes below the bottom of the background
 	        float minY = viewport.getWorldHeight() * 0.5f;

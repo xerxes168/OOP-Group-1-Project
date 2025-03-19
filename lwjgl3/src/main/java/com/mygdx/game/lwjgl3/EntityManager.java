@@ -59,8 +59,6 @@ public class EntityManager {
 	}
 	
 	public void spawnObject1Entities(int count, float scrollSpeed) {
-		int adjustedCount = (int) (count * DifficultyManager.getEnemySpawnRateMultiplier());
-		
 	    List<Object1> object1 = Object1.spawnObject1(count, scrollSpeed);
 	    for (Object1 obj : object1) {
 	        addObject1Entities(obj);

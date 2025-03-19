@@ -25,7 +25,6 @@ public class Character extends Entity implements iMovable, iCollidable {
 	private EntityManager entityManager;
     private float previousX;
     private float previousY;
-	private float speed;
     
  	// Default constructor
     public Character() {
@@ -44,9 +43,6 @@ public class Character extends Entity implements iMovable, iCollidable {
 		this.entityManager = entityManager;
         this.previousX = x;
         this.previousY = y;
-        
-        this.currentHealth = 100 * DifficultyManager.getPlayerHealthMultiplier();
-        this.speed = speed * DifficultyManager.getScrollSpeedMultiplier();
 	}
 	
 	public void draw(SpriteBatch batch) {
@@ -197,15 +193,9 @@ public class Character extends Entity implements iMovable, iCollidable {
 			}
 			System.out.println("Collided with object 1");
 			soundManager.playSound("collision");
-			
-			int damage = (int) (20 * (1 / DifficultyManager.getPlayerHealthMultiplier()));
-	        currentHealth -= damage;
-			
+			currentHealth = currentHealth - 20;
 	        entityManager.removeObject1((Entity) object);
 	        entityManager.spawnObject1Entities(1, PlayScene.getScrollSpeed());
-	        
-	        DifficultyManager.updateDifficultyBasedOnScore((int) points);
-	        
 			if(currentHealth <= 0) {
 				if(points > ScoreManager.highScore) {
 					ScoreManager.highScore = Math.round(points);
