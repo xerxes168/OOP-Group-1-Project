@@ -106,12 +106,7 @@ public class PlayScene extends AbstractScene implements Screen {
         if (!isPaused) {
             // All Game Logic in here
 	    	
-	    	if (player1.points > 1000) {
-	    	    setScrollSpeed(getScrollSpeed() + 3 * delta); // Gradually increase speed
-	    	}
-	    	else if (player1.points > 5000) {
-	    		setScrollSpeed(getScrollSpeed());
-	    	}
+        	DifficultyManager.updateDifficultyBasedOnScore((int) player1.points, delta);
 	    	scrollingBackground.update(delta);
 	        
 	        // Camera Y never goes below the bottom of the background

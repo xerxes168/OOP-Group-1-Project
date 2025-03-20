@@ -192,7 +192,7 @@ public class Character extends Entity implements iMovable, iCollidable {
 				return;
 			}
 			System.out.println("Collided with object 1");
-			soundManager.playSound("collision");
+			soundManager.playSound("Error");
 			currentHealth = currentHealth - 20;
 	        entityManager.removeObject1((Entity) object);
 	        entityManager.spawnObject1Entities(1, PlayScene.getScrollSpeed());
@@ -209,7 +209,7 @@ public class Character extends Entity implements iMovable, iCollidable {
 				return;
 			}
 			System.out.println("Collided with object 2");
-			soundManager.playSound("collision");
+			soundManager.playSound("Correct");
 	        entityManager.removeObject2((Entity) object);
 	        entityManager.spawnObject2Entities(1, PlayScene.getScrollSpeed());
 			points = points + 100;
@@ -217,6 +217,7 @@ public class Character extends Entity implements iMovable, iCollidable {
 		
 		else if (object instanceof Terrain) {
 			System.out.println("Collided with terrain");
+			soundManager.playSound("collision");
 		   }
 	}
 
