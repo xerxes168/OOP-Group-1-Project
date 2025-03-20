@@ -79,6 +79,7 @@ public class SettingsScene extends AbstractScene implements Screen {
         plusTexture = new Texture("plus.png");
         minusTexture = new Texture("minus.png");
         backButton = new Texture("backButton.png");
+        backgroundTexture = new Texture("menuBlack.png");
         
         // Load textures for scrollspeed
         scrollPlusTexture = new Texture("plus.png");
@@ -91,6 +92,7 @@ public class SettingsScene extends AbstractScene implements Screen {
     protected void draw(float delta) {
 
         batch.setProjectionMatrix(camera.combined);
+        batch.draw(backgroundTexture, 0, 0, 1280, 720);
 
         // Draw background and buttons
         batch.draw(backgroundTexture, 0, 0, 1280, 720);
