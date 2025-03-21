@@ -26,7 +26,7 @@ public class DifficultyManager {
     public static void setDifficulty(Difficulty newDifficulty) {
         if (difficulty != newDifficulty) {
             difficulty = newDifficulty;
-            System.out.println("⚡ Difficulty updated to: " + difficulty);
+            System.out.println("Difficulty updated to: " + difficulty);
         }
     }
 
