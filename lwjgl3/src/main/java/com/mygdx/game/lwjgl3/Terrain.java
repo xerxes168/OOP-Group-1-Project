@@ -115,11 +115,40 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 	@Override
 	public boolean isCollided(iCollidable object) {
 	    if (object instanceof Entity) {
-	        int thisGridX = (int)((this.getX() + TERRAIN_WIDTH / 2)/ CELL_WIDTH);
-	        int thisGridY = (int)((this.getY() + TERRAIN_HEIGHT / 2)/ CELL_HEIGHT);
-	        int otherGridX = (int)((((Entity)object).getX()  + TERRAIN_WIDTH / 2) / CELL_WIDTH);
-	        int otherGridY = (int)((((Entity)object).getY()  + TERRAIN_HEIGHT / 2) / CELL_HEIGHT);
-	        return (thisGridX == otherGridX && thisGridY == otherGridY);
+	        Entity other = (Entity) object;
+	        
+	        // Skip objects that are too far away (optimization)
+	        float dx = Math.abs(this.getX() - other.getX());
+	        float dy = Math.abs(this.getY() - other.getY());
+	        if (dx > CELL_WIDTH || dy > CELL_HEIGHT) {
+	            return false;
+	        }
+	        
+	        // Get the bounds of both objects
+	        float thisLeft = this.getX();
+	        float thisRight = this.getX() + TERRAIN_WIDTH;
+	        float thisTop = this.getY() + TERRAIN_HEIGHT;
+	        float thisBottom = this.getY();
+	        
+	        float otherLeft = other.getX();
+	        float otherRight = other.getX() + other.getWidth();
+	        float otherTop = other.getY() + other.getHeight();
+	        float otherBottom = other.getY();
+	        
+	        // Check for overlap in both X and Y axes
+	        boolean overlapX = (thisLeft < otherRight) && (thisRight > otherLeft);
+	        boolean overlapY = (thisBottom < otherTop) && (thisTop > otherBottom);
+	        
+	        // Calculate overlap amount for debugging
+	        if (overlapX && overlapY) {
+	            float overlapXAmount = Math.min(thisRight - otherLeft, otherRight - thisLeft);
+	            float overlapYAmount = Math.min(thisTop - otherBottom, otherTop - thisBottom);
+	            
+	            // Only count as collision if overlap is significant (prevents invisible collisions)
+	            if (overlapXAmount > 5 && overlapYAmount > 5) {
+	                return true;
+	            }
+	        }
 	    }
 	    return false;
 	}
