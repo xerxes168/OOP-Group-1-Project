@@ -22,7 +22,7 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 	
     public Terrain() {
 		super();
-		super.setTex("lily.png");
+		super.setTex("tree.png");
     }
 	
 	public Terrain(float x, float y, float speed, String imgName, float width, float height) {
@@ -60,7 +60,7 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 	            float posX = col * CELL_WIDTH + (CELL_WIDTH / 2f) - (TERRAIN_WIDTH / 2f);
 	            float posY = row * CELL_HEIGHT + (CELL_HEIGHT / 2f) - (TERRAIN_HEIGHT / 2f);
 	            
-	            terrains.add(new Terrain(posX, posY, scrollSpeed, "lily.png", TERRAIN_WIDTH, TERRAIN_HEIGHT));
+	            terrains.add(new Terrain(posX, posY, scrollSpeed, "tree.png", TERRAIN_WIDTH, TERRAIN_HEIGHT));
 	        }
 	        return terrains;
 	    }
