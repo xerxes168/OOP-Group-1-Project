@@ -20,17 +20,17 @@ public class PauseScene extends AbstractScene implements Screen {
 
     // Button bounds
     private static final int BUTTON_WIDTH = 200;
-    private static final int BUTTON_HEIGHT = 80;
+    private static final int BUTTON_HEIGHT = 200;
 
     //Restart button
     private static final int RESTART_BTN_X = 550;
-    private static final int RESTART_BTN_Y = 360;
+    private static final int RESTART_BTN_Y = 300;
     // Play button
-    private static final int PLAY_BTN_X = RESTART_BTN_X;
-    private static final int PLAY_BTN_Y = RESTART_BTN_Y + 150;
+    private static final int PLAY_BTN_X = RESTART_BTN_X+ 250;
+    private static final int PLAY_BTN_Y = RESTART_BTN_Y;
     // Settings button
-    private static final int MENU_BTN_X = RESTART_BTN_X;
-    private static final int MENU_BTN_Y = RESTART_BTN_Y - 150;
+    private static final int MENU_BTN_X = RESTART_BTN_X- 250;
+    private static final int MENU_BTN_Y = RESTART_BTN_Y;
 
     private Texture menuTexture;
     private Texture playButtonTexture;
@@ -53,10 +53,10 @@ public class PauseScene extends AbstractScene implements Screen {
         // camera.position.set(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, 0);
         camera.update();
 
-        menuTexture = new Texture("menu.png");
-        playButtonTexture = new Texture("resume.png");
-        restartButtonTexture = new Texture("restart.png");
-        menuButtonTexture = new Texture("menuButton.png");
+        menuTexture = new Texture("Shadow.png");
+        playButtonTexture = new Texture("resume1.png");
+        restartButtonTexture = new Texture("restart1.png");
+        menuButtonTexture = new Texture("menu1.png");
     }
 
     // @Override
