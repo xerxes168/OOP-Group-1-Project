@@ -50,10 +50,10 @@ public class MenuScene extends AbstractScene implements Screen {
         camera.position.set(VIRTUAL_WIDTH / 2f, VIRTUAL_HEIGHT / 2f, 0);
         camera.update();
 
-        menuTexture = new Texture("menu.png");
-        playButtonTexture = new Texture("play.png");
-        settingButtonTexture = new Texture("settings.png");
-        instructButtonTexture = new Texture("instructions.png");
+        menuTexture = new Texture("default.png");
+        playButtonTexture = new Texture("play1.png");
+        settingButtonTexture = new Texture("settings1.png");
+        instructButtonTexture = new Texture("instructions1.png");
     }
 
     @Override
