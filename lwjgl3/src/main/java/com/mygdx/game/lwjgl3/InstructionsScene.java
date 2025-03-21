@@ -65,7 +65,7 @@ public class InstructionsScene extends AbstractScene implements Screen {
         // Load images
         friesTexture = new Texture("fries.png");
         appleTexture = new Texture("apple.png");
-        backgroundTexture = new Texture("menuBlack.png");
+        backgroundTexture = new Texture("shadow.png");
         backButton = new Texture("backButton.png");
     }
 

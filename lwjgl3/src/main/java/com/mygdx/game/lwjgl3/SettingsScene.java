@@ -79,7 +79,7 @@ public class SettingsScene extends AbstractScene implements Screen {
         plusTexture = new Texture("plus.png");
         minusTexture = new Texture("minus.png");
         backButton = new Texture("backButton.png");
-        backgroundTexture = new Texture("menuBlack.png");
+        backgroundTexture = new Texture("Shadow.png");
         
         // Load textures for scrollspeed
         scrollPlusTexture = new Texture("plus.png");
