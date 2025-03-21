@@ -20,14 +20,19 @@ public class GameOverScene extends AbstractScene implements Screen{
 
 	    // Play button
 	    private static final int PLAY_BTN_X = 550;
-	    private static final int PLAY_BTN_Y = 360;
+	    private static final int PLAY_BTN_Y = 400;
+	    
+	    private static final int MENU_BTN_X = PLAY_BTN_X;
+	    private static final int MENU_BTN_Y = PLAY_BTN_Y - 150;
+	    
 	    // Settings button
 	    private static final int QUIT_BTN_X = PLAY_BTN_X;
-	    private static final int QUIT_BTN_Y = PLAY_BTN_Y - 150;
+	    private static final int QUIT_BTN_Y = MENU_BTN_Y - 150;
 
 	    private Texture menuTexture;
 	    private Texture playButtonTexture;
 	    private Texture quitButtonTexture;
+	    private Texture menuReturnButtonTexture;
 
 	    private OrthographicCamera camera;
 	    private Viewport viewport;
@@ -48,7 +53,9 @@ public class GameOverScene extends AbstractScene implements Screen{
 
 	        menuTexture = new Texture("Shadow.png");
 	        playButtonTexture = new Texture("restart.png");
-	        quitButtonTexture = new Texture("quit.png");
+	        quitButtonTexture = new Texture("quit.png");	        
+	        menuReturnButtonTexture = new Texture("menuButton.png");
+	        
 	        character = new Character();
 	        font = new BitmapFont();
 	        font.getData().scale(1.5f);
@@ -64,10 +71,11 @@ public class GameOverScene extends AbstractScene implements Screen{
 	        batch.draw(menuTexture, 0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 	        
 	        // Draw high score text
-	        font.draw(batch, "High Score: " + Math.round(ScoreManager.highScore), Gdx.graphics.getWidth() - 120, Gdx.graphics.getHeight() + 30);
+	        font.draw(batch, "High Score: " + Math.round(ScoreManager.highScore), Gdx.graphics.getWidth() - 120, Gdx.graphics.getHeight() + 100);
 
 	        // Draw buttons
 	        batch.draw(playButtonTexture, PLAY_BTN_X, PLAY_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT); // Play Button
+	        batch.draw(menuReturnButtonTexture, MENU_BTN_X, MENU_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
 	        batch.draw(quitButtonTexture, QUIT_BTN_X, QUIT_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT); // Settings Button
 
 	        handleInput();
@@ -103,6 +111,14 @@ public class GameOverScene extends AbstractScene implements Screen{
 	                    && y >= QUIT_BTN_Y && y <= (QUIT_BTN_Y + BUTTON_HEIGHT)) {
 	                System.exit(0);
 	            }
+	            
+	            // Return-to-Menu Button
+	            else if (x >= MENU_BTN_X && x <= (MENU_BTN_X + BUTTON_WIDTH)
+	                    && y >= MENU_BTN_Y && y <= (MENU_BTN_Y + BUTTON_HEIGHT)) {
+
+	                  // Simply switch to "Menu"
+	                  SceneManager.getInstance().setScene("Menu");
+	              }
 	        }   
 	    }
 
