@@ -51,23 +51,11 @@ public class PlayScene extends AbstractScene implements Screen {
     public PlayScene(GameMaster game, SoundManager soundManager) {
         super(game);
         this.soundManager = soundManager;
-        
-        float worldWidth = 800; // Use a fixed world width
-        float worldHeight = 600; // Use a fixed world height
-        
         camera = new OrthographicCamera();
-//        uiCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-//        viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
-//        camera.position.set(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, 0);
-        // -------------------------
-        viewport = new FitViewport(worldWidth, worldHeight, camera);
-        camera.position.set(worldWidth / 2f, worldHeight / 2f, 0);
-        camera.update();
-        // UI camera setup
-        uiCamera = new OrthographicCamera();
         uiCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        // ---------------------------
-        
+        viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
+        camera.position.set(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, 0);
+        camera.update();
         font = new BitmapFont();
     }
 
@@ -115,8 +103,6 @@ public class PlayScene extends AbstractScene implements Screen {
     @Override // Similar to Render() in GameMaster
     protected void draw(float delta) {
     	
-    	ScreenUtils.clear(0, 0, 0.2f, 1);
-    	
         if (!isPaused) {
             // All Game Logic in here
 	    	
@@ -129,28 +115,18 @@ public class PlayScene extends AbstractScene implements Screen {
 	            camera.position.y = minY;
 	        }
 	
-	        // Update camera position if needed based on player
-	        if (player1 != null) {
-	            // Example: camera follows player vertically
-	            camera.position.y = Math.max(
-	                viewport.getWorldHeight() / 2f,
-	                player1.getY()
-	            );
-	            camera.update();
-	        }
 	        
 	        
+	        ScreenUtils.clear(0, 0, 0.2f, 1);
 	        
-	        
-	        batch.setProjectionMatrix(camera.combined);
-	        scrollingBackground.draw(batch);
 	        shapeRenderer.setProjectionMatrix(camera.combined);
 	        batch.setProjectionMatrix(camera.combined);
+	        scrollingBackground.draw(batch);
 	        
 	        // Grid scrolling
 	        //updateGridScroll(delta);
 	        //drawGrid(); 
-
+	        
 	        entityManager.movement();
 	        
 	        entityManager.updateEntitySpeeds(getScrollSpeed());
@@ -177,17 +153,10 @@ public class PlayScene extends AbstractScene implements Screen {
             SceneManager.getInstance().setScene("Menu");
         }
         
-//        uiCamera.update();
-//        batch.setProjectionMatrix(uiCamera.combined);
-//        batch.begin();
-//        font.draw(batch, "Points: " + Math.round(player1.points), Gdx.graphics.getWidth() - 150, Gdx.graphics.getHeight() - 20);
-//        batch.end();
-        
-        // UI elements with UI camera
+        uiCamera.update();
         batch.setProjectionMatrix(uiCamera.combined);
         batch.begin();
-        font.draw(batch, "Points: " + Math.round(player1.points), 
-                  Gdx.graphics.getWidth() - 150, Gdx.graphics.getHeight() - 20);
+        font.draw(batch, "Points: " + Math.round(player1.points), Gdx.graphics.getWidth() - 150, Gdx.graphics.getHeight() - 20);
         batch.end();
         
         
@@ -216,44 +185,21 @@ public class PlayScene extends AbstractScene implements Screen {
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
+                
+        viewport.update(width, height, true); // Updates viewport and centers camera
+        camera.position.set(width / 2f, height / 2f, 0);
+        camera.update();       
         
-        // Update viewport with new dimensions
-        viewport.update(width, height, false); // Don't center camera automatically
-        
-        // If you need to adjust camera position
-        if (player1 != null) {
-            // Keep camera centered on player (with bounds)
-            float cameraY = Math.max(
-                viewport.getWorldHeight() / 2f,
-                Math.min(player1.getY(), Float.MAX_VALUE) // Add upper bound if needed
-            );
-            camera.position.set(camera.position.x, cameraY, 0);
-        } else {
-            // Default position if player doesn't exist yet
-            camera.position.set(viewport.getWorldWidth() / 2f, viewport.getWorldHeight() / 2f, 0);
-        }
-        camera.update();
-        
-        // Update UI camera
-        uiCamera.setToOrtho(false, width, height);
-        uiCamera.update();
-        
-        // Recalculate scroll offset if needed
-        float cellHeight = viewport.getWorldHeight() / 12f;
+       
+        float cellHeight = viewport.getWorldHeight()/12f;
+        // Ensure the scrolling offset remains proportional to new cell size
         scrollOffset = scrollOffset % cellHeight;
         
-        // Ensure player is in valid position after resize
+      
+        
         if (player1 != null) {
-            // Keep player within visible bounds
-            float minX = player1.getWidth() / 2;
-            float maxX = viewport.getWorldWidth() - player1.getWidth() / 2;
-            float minY = player1.getHeight() / 2;
-            float maxY = viewport.getWorldHeight() - player1.getHeight() / 2;
-            
-            float newX = Math.max(minX, Math.min(player1.getX(), maxX));
-            float newY = Math.max(minY, Math.min(player1.getY(), maxY));
-            
-            player1.setPosition(newX, newY);
+            float newY = Math.max(player1.getY(), viewport.getWorldHeight() / 6f);
+            player1.setPosition(player1.getX(), newY);
         }
     }
     
