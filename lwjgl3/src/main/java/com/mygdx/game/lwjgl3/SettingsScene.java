@@ -55,7 +55,8 @@ public class SettingsScene extends AbstractScene implements Screen {
     private static final int BTN_MINUS_Y = 350;
 
     private static final int BTN_BACK_X = 50;
-    private static final int BTN_BACK_Y = 600;
+    private static final int BTN_BACK_Y = 570;
+
     
 
     // Textures
@@ -73,7 +74,8 @@ public class SettingsScene extends AbstractScene implements Screen {
 
         camera.setToOrtho(false, 1280, 720);
         viewport = new FitViewport(1280, 720, camera);
-
+        
+        
         // Load textures
         backgroundTexture = new Texture("menu.png");
         plusTexture = new Texture("plus.png");
@@ -91,8 +93,8 @@ public class SettingsScene extends AbstractScene implements Screen {
     @Override
     protected void draw(float delta) {
 
-        batch.setProjectionMatrix(camera.combined);
-        batch.draw(backgroundTexture, 0, 0, 1280, 720);
+        //batch.setProjectionMatrix(camera.combined);
+        //batch.draw(backgroundTexture, 0, 0, 1280, 720);
 
         // Draw background and buttons
         batch.draw(backgroundTexture, 0, 0, 1280, 720);
@@ -114,6 +116,8 @@ public class SettingsScene extends AbstractScene implements Screen {
 
         // Increase Font Size
         font.getData().setScale(2f);  
+        
+        
 
 
         handleInput();
@@ -146,10 +150,11 @@ public class SettingsScene extends AbstractScene implements Screen {
 
             // Check click on Back Button
             else if (x >= BTN_BACK_X && x <= (BTN_BACK_X + BTN_SIZE_DBL)
-                  && y >= BTN_BACK_Y && y <= (BTN_BACK_Y + BTN_SIZE))
-            {
-                SceneManager.getInstance().setScene("Menu");
-            }
+            	      && y >= BTN_BACK_Y - 50 && y <= (BTN_BACK_Y + BTN_SIZE)) 
+            	{
+            	    SceneManager.getInstance().setScene("Menu");
+            	}
+
             
             //for scroll speed
             if (x >= SCROLL_PLUS_X && x <= SCROLL_PLUS_X + BTN_SIZE
