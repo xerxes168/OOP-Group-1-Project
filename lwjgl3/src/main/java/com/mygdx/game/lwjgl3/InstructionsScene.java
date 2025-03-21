@@ -85,7 +85,7 @@ public class InstructionsScene extends AbstractScene implements Screen {
         
         // Draw your instructions text
         font.draw(batch, "Instructions", BTN_BACK_X + 50, BTN_BACK_Y - 30);
-        font.draw(batch, "In the vibrant and fast-paced world of Apple Dash, players embark on a thrilling journey as a human \nnavigating through a bustling environment. \n\nThe objective is simple yet challenging: Dodge the tempting but unhealthy fries and \ncollect as many nutritious apples as possible to rack up points and achieve the highest score!", BTN_BACK_X + 50, BTN_BACK_Y - 80);
+        font.draw(batch, "In the vibrant and fast-paced world of Fried Up Baby, players embark on a thrilling journey as a baby \nnavigating through a bustling environment. \n\nThe objective is simple yet challenging: Dodge the tempting but unhealthy fries and \ncollect as many nutritious apples as possible to rack up points and achieve the highest score!", BTN_BACK_X + 50, BTN_BACK_Y - 80);
 
         font.draw(batch, "Avoid the fries:", BTN_BACK_X + 50, BTN_BACK_Y - 250);
         batch.draw(friesTexture, BTN_BACK_X + 200, BTN_BACK_Y - 280, 64, 64);
@@ -93,7 +93,8 @@ public class InstructionsScene extends AbstractScene implements Screen {
         font.draw(batch, "Collect the apple to gain points:", BTN_BACK_X + 50, BTN_BACK_Y - 350);
         batch.draw(appleTexture, BTN_BACK_X + 330, BTN_BACK_Y - 380, 64, 64);
 
-        font.draw(batch, "Press ESC Key / Back Button to return to Menu", BTN_BACK_X + 100, 120);
+        font.draw(batch, "Press P Key to Pause the Game\n\nPress ESC Key / Back Button to return to Menu", BTN_BACK_X + 50, 180);
+
         batch.end();
 
         handleInput();
