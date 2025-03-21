@@ -103,13 +103,9 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	
 	@Override
 	public boolean isCollided(iCollidable object) {
-//	    if (!isActive) return false;
 	    if (object instanceof Entity) {
-	        int thisGridX = (int)((this.getX() + OBJECT_WIDTH / 2)/ CELL_WIDTH);
-	        int thisGridY = (int)((this.getY() + OBJECT_HEIGHT / 2)/ CELL_HEIGHT);
-	        int otherGridX = (int)((((Entity)object).getX()  + OBJECT_WIDTH / 2) / CELL_WIDTH);
-	        int otherGridY = (int)((((Entity)object).getY()  + OBJECT_HEIGHT / 2) / CELL_HEIGHT);
-	        return (thisGridX == otherGridX && thisGridY == otherGridY);
+	        // Use your bounding boxes (LibGDX Rectangle objects)
+	        return this.getRectangle().overlaps(((Entity) object).getRectangle());
 	    }
 	    return false;
 	}

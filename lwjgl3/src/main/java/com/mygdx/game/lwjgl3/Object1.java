@@ -98,15 +98,8 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 	@Override
 	public boolean isCollided(iCollidable object) {
 	    if (object instanceof Entity) {
-	        // Calculate grid position for this Object1
-	        int thisGridX = (int)((this.getX() + OBJECT_WIDTH / 2)/ CELL_WIDTH);
-	        int thisGridY = (int)((this.getY() + OBJECT_HEIGHT / 2)/ CELL_HEIGHT);
-
-	        // Calculate grid position for the other object
-	        int otherGridX = (int)((((Entity)object).getX()  + OBJECT_WIDTH / 2) / CELL_WIDTH);
-	        int otherGridY = (int)((((Entity)object).getY()  + OBJECT_HEIGHT / 2) / CELL_HEIGHT);
-	        // Return true only if both objects are in the same grid cell
-	        return (thisGridX == otherGridX && thisGridY == otherGridY);
+	        // Use your bounding boxes (LibGDX Rectangle objects)
+	        return this.getRectangle().overlaps(((Entity) object).getRectangle());
 	    }
 	    return false;
 	}
