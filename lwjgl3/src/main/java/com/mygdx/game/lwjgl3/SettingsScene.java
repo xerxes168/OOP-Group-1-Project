@@ -99,12 +99,12 @@ public class SettingsScene extends AbstractScene implements Screen {
         // Draw background and buttons
         batch.draw(backgroundTexture, 0, 0, 1280, 720);
         batch.draw(plusTexture,  BTN_PLUS_X,  BTN_PLUS_Y,  BTN_SIZE, BTN_SIZE);
-        batch.draw(minusTexture, BTN_MINUS_X, BTN_MINUS_Y, BTN_SIZE, BTN_SIZE_HALF);
+        batch.draw(minusTexture, BTN_MINUS_X, BTN_MINUS_Y, BTN_SIZE, BTN_SIZE);
         batch.draw(backButton, BTN_BACK_X,  BTN_BACK_Y,  BTN_SIZE_DBL, BTN_SIZE);
         
         // Draw existing settings
         batch.draw(scrollPlusTexture, SCROLL_PLUS_X, SCROLL_PLUS_Y, BTN_SIZE, BTN_SIZE);
-        batch.draw(scrollMinusTexture, SCROLL_MINUS_X, SCROLL_MINUS_Y, BTN_SIZE, BTN_SIZE_HALF);
+        batch.draw(scrollMinusTexture, SCROLL_MINUS_X, SCROLL_MINUS_Y, BTN_SIZE, BTN_SIZE);
 
         // Display scroll speed value
         String scrollSpeedText = String.format("Scroll Speed: %.0f", scrollSpeed);
