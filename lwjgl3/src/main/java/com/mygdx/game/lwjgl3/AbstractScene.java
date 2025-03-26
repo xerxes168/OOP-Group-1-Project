@@ -33,7 +33,7 @@ public abstract class AbstractScene extends ScreenAdapter {
     protected final int BTM_BTN_Y = MIDDLE_BTN_Y - 150;
 
     // Hover effect scaling factors
-    protected static final float HOVER_SCALE = 1.2f;
+    protected static final float HOVER_SCALE = 1.3f;
     protected static final float NORMAL_SCALE = 1.0f;
 
     public AbstractScene(GameMaster game) {
@@ -77,6 +77,19 @@ public abstract class AbstractScene extends ScreenAdapter {
         float scale = isHovered ? HOVER_SCALE : NORMAL_SCALE;
         float scaledWidth = BUTTON_WIDTH * scale;
         float scaledHeight = BUTTON_HEIGHT * scale;
+
+        // Adjust x and y to center the scaled button
+        float adjustedX = x - (scaledWidth - BUTTON_WIDTH) / 2;
+        float adjustedY = y - (scaledHeight - BUTTON_HEIGHT) / 2;
+
+        batch.draw(buttonTexture, adjustedX, adjustedY, scaledWidth, scaledHeight);
+    }
+
+    // Overloaded method
+    protected void drawButtonWithHover(Texture buttonTexture, float x, float y, int inputWidth, int inputHeight, boolean isHovered) {
+        float scale = isHovered ? HOVER_SCALE : NORMAL_SCALE;
+        float scaledWidth = inputWidth * scale;
+        float scaledHeight = inputHeight * scale;
 
         // Adjust x and y to center the scaled button
         float adjustedX = x - (scaledWidth - BUTTON_WIDTH) / 2;

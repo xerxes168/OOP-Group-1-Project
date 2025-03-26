@@ -199,8 +199,6 @@ public class PlayScene extends AbstractScene implements Screen {
 
     }
 
-
-
     @Override
     public void dispose() {
         super.dispose();
@@ -211,5 +209,8 @@ public class PlayScene extends AbstractScene implements Screen {
         if (scrollingBackground != null) {
             scrollingBackground.dispose();
         }
+
+        if (batch != null) batch.dispose();
+        if (font != null) font.dispose();
     }
 }

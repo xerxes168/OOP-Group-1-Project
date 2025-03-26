@@ -71,16 +71,11 @@ public class MenuScene extends AbstractScene implements Screen {
         drawButtonWithHover(settingButtonTexture, MIDDLE_BTN_X, MIDDLE_BTN_Y - 40, settingsHovered);
         drawButtonWithHover(instructButtonTexture, BTM_BTN_X, BTM_BTN_Y - 40, instructionsHovered);
 
-        // Draw buttons
-        // batch.draw(playButtonTexture, TOP_BTN_X, TOP_BTN_Y - 40, BUTTON_WIDTH, BUTTON_HEIGHT); // Play Button
-        // batch.draw(settingButtonTexture, MIDDLE_BTN_X, MIDDLE_BTN_Y - 40, BUTTON_WIDTH, BUTTON_HEIGHT); // Settings Button
-        // batch.draw(instructButtonTexture, BTM_BTN_X, BTM_BTN_Y - 40, BUTTON_WIDTH, BUTTON_HEIGHT); // Instructions Button
-
         handleInput();
 
     }
 
-    protected void checkHover() {
+    private void checkHover() {
         Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         camera.unproject(mousePos); // Convert screen to world coordinates
 
@@ -100,7 +95,7 @@ public class MenuScene extends AbstractScene implements Screen {
                 && y >= BTM_BTN_Y-40 && y <= (BTM_BTN_Y - 40 + BUTTON_HEIGHT));
     }
 
-    protected void handleInput() {
+    private void handleInput() {
         if (Gdx.input.justTouched()) {
             Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touchPos); // Convert screen to world coordinates
