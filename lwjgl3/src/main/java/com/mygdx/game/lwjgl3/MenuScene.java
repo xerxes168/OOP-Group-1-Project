@@ -12,10 +12,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class MenuScene extends AbstractScene implements Screen {
 
-    private static final int VIRTUAL_WIDTH = 1280;
-    private static final int VIRTUAL_HEIGHT = 720;
-
     // DEFINED IN ABSTRACT SCENE
+    // protected static final int VIRTUAL_WIDTH = 1280;
+    // protected static final int VIRTUAL_HEIGHT = 720;
     // protected static final int BUTTON_WIDTH = 200;
     // protected static final int BUTTON_HEIGHT = 80;
     // protected final int MIDDLE_BTN_X = 550;
@@ -24,8 +23,8 @@ public class MenuScene extends AbstractScene implements Screen {
     // protected final int TOP_BTN_Y = MIDDLE_BTN_Y + 150;
     // protected final int BTM_BTN_X = MIDDLE_BTN_X;
     // protected final int BTM_BTN_Y = MIDDLE_BTN_Y - 150;
-    // private static final float HOVER_SCALE = 1.2f;
-    // private static final float NORMAL_SCALE = 1.0f;
+    // protected static final float HOVER_SCALE = 1.2f;
+    // protected static final float NORMAL_SCALE = 1.0f;
 
     private Texture menuTexture;
     private Texture playButtonTexture;

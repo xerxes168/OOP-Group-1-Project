@@ -86,19 +86,19 @@ public class Character extends Entity implements iMovable, iCollidable {
         boolean moved = false;
 
         // Handle grid-based input movement
-        if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+        if (Gdx.input.isKeyJustPressed(Keys.UP) || Gdx.input.isKeyJustPressed(Keys.W)) {
             candidateY = currentyPos + 1;
             moved = true;
         }
-        if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+        if (Gdx.input.isKeyJustPressed(Keys.DOWN) || Gdx.input.isKeyJustPressed(Keys.S)) {
             candidateY = currentyPos - 1;
             moved = true;
         }
-        if (Gdx.input.isKeyJustPressed(Keys.LEFT)) {
+        if (Gdx.input.isKeyJustPressed(Keys.LEFT) || Gdx.input.isKeyJustPressed(Keys.A)) {
             candidateX = currentxPos - 1;
             moved = true;
         }
-        if (Gdx.input.isKeyJustPressed(Keys.RIGHT)) {
+        if (Gdx.input.isKeyJustPressed(Keys.RIGHT) || Gdx.input.isKeyJustPressed(Keys.D)) {
             candidateX = currentxPos + 1;
             moved = true;
         }
@@ -115,7 +115,7 @@ public class Character extends Entity implements iMovable, iCollidable {
         float newX = moved ? targetX : super.getX();
         float newY = super.getY();
 
-        if (moved && (Gdx.input.isKeyJustPressed(Keys.UP) || Gdx.input.isKeyJustPressed(Keys.DOWN))) {
+        if (moved && (Gdx.input.isKeyJustPressed(Keys.UP) || Gdx.input.isKeyJustPressed(Keys.DOWN) || Gdx.input.isKeyJustPressed(Keys.W) || Gdx.input.isKeyJustPressed(Keys.S) )) {
             newY = targetY;
         }
 
@@ -157,7 +157,7 @@ public class Character extends Entity implements iMovable, iCollidable {
 
             if (!blocked) {
                 super.setX(newX);
-                if (Gdx.input.isKeyJustPressed(Keys.UP) || Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+                if (Gdx.input.isKeyJustPressed(Keys.UP) || Gdx.input.isKeyJustPressed(Keys.DOWN) || Gdx.input.isKeyJustPressed(Keys.W) || Gdx.input.isKeyJustPressed(Keys.S)) {
                     super.setY(newY);
                 }
                 soundManager.playSound("move");

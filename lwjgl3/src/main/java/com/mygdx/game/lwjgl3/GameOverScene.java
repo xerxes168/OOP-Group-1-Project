@@ -11,23 +11,19 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameOverScene extends AbstractScene implements Screen{
 				
-	 	private static final int VIRTUAL_WIDTH = 1280;
-	    private static final int VIRTUAL_HEIGHT = 720;
-
-	    // Example button bounds
-	    private static final int BUTTON_WIDTH = 200;
-	    private static final int BUTTON_HEIGHT = 80;
-
-	    // Play button
-	    private static final int PLAY_BTN_X = 550;
-	    private static final int PLAY_BTN_Y = 400;
-	    
-	    private static final int MENU_BTN_X = PLAY_BTN_X;
-	    private static final int MENU_BTN_Y = PLAY_BTN_Y - 150;
-	    
-	    // Settings button
-	    private static final int QUIT_BTN_X = PLAY_BTN_X;
-	    private static final int QUIT_BTN_Y = MENU_BTN_Y - 150;
+    // DEFINED IN ABSTRACT SCENE
+    // protected static final int VIRTUAL_WIDTH = 1280;
+    // protected static final int VIRTUAL_HEIGHT = 720;
+    // protected static final int BUTTON_WIDTH = 200;
+    // protected static final int BUTTON_HEIGHT = 80;
+    // protected final int MIDDLE_BTN_X = 550;
+    // protected final int MIDDLE_BTN_Y = 400;   
+    // protected final int TOP_BTN_X = MIDDLE_BTN_X;
+    // protected final int TOP_BTN_Y = MIDDLE_BTN_Y + 150;
+    // protected final int BTM_BTN_X = MIDDLE_BTN_X;
+    // protected final int BTM_BTN_Y = MIDDLE_BTN_Y - 150;
+    // protected static final float HOVER_SCALE = 1.2f;
+    // protected static final float NORMAL_SCALE = 1.0f;
 
 	    private Texture menuTexture;
 	    private Texture playButtonTexture;
@@ -47,7 +43,6 @@ public class GameOverScene extends AbstractScene implements Screen{
 	        camera = new OrthographicCamera();
 	        viewport = new ExtendViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
 
-	        // viewport = new FitViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
 	        camera.position.set(VIRTUAL_WIDTH / 2f, VIRTUAL_HEIGHT / 2f, 0);
 	        camera.update();
 
@@ -66,7 +61,6 @@ public class GameOverScene extends AbstractScene implements Screen{
 	    protected void draw(float delta) {
 	        batch.setProjectionMatrix(camera.combined); // Apply camera projection
 
-
 	        // Draw menu background
 	        batch.draw(menuTexture, 0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 	        
@@ -74,9 +68,9 @@ public class GameOverScene extends AbstractScene implements Screen{
 	        font.draw(batch, "High Score: " + Math.round(ScoreManager.highScore), Gdx.graphics.getWidth() - 120, Gdx.graphics.getHeight() + 100);
 
 	        // Draw buttons
-	        batch.draw(playButtonTexture, PLAY_BTN_X, PLAY_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT); // Play Button
-	        batch.draw(menuReturnButtonTexture, MENU_BTN_X, MENU_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
-	        batch.draw(quitButtonTexture, QUIT_BTN_X, QUIT_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT); // Settings Button
+	        batch.draw(playButtonTexture, TOP_BTN_X, TOP_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT); // Play Button
+	        batch.draw(menuReturnButtonTexture, MIDDLE_BTN_X, MIDDLE_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
+	        batch.draw(quitButtonTexture, BTM_BTN_X, BTM_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT); // Settings Button
 
 	        handleInput();
 
@@ -91,8 +85,8 @@ public class GameOverScene extends AbstractScene implements Screen{
 	            float y = touchPos.y;
 
 	            // Check click on Restart Button
-	            if (x >= PLAY_BTN_X && x <= (PLAY_BTN_X + BUTTON_WIDTH)
-	                    && y >= PLAY_BTN_Y && y <= (PLAY_BTN_Y + BUTTON_HEIGHT)) {
+	            if (x >= TOP_BTN_X && x <= (TOP_BTN_X + BUTTON_WIDTH)
+	                    && y >= TOP_BTN_Y && y <= (TOP_BTN_Y + BUTTON_HEIGHT)) {
 	            	SceneManager.getInstance().setScene("Play");
 
 					// Retrieve that scene
@@ -106,15 +100,15 @@ public class GameOverScene extends AbstractScene implements Screen{
 					}
 	             }
 
-	            // Check click on Settings Button
-	            else if (x >= QUIT_BTN_X && x <= (QUIT_BTN_X + BUTTON_WIDTH)
-	                    && y >= QUIT_BTN_Y && y <= (QUIT_BTN_Y + BUTTON_HEIGHT)) {
+	            // Check click on Quit Button
+	            else if (x >= BTM_BTN_X && x <= (BTM_BTN_X + BUTTON_WIDTH)
+	                    && y >= BTM_BTN_Y && y <= (BTM_BTN_Y + BUTTON_HEIGHT)) {
 	                System.exit(0);
 	            }
 	            
 	            // Return-to-Menu Button
-	            else if (x >= MENU_BTN_X && x <= (MENU_BTN_X + BUTTON_WIDTH)
-	                    && y >= MENU_BTN_Y && y <= (MENU_BTN_Y + BUTTON_HEIGHT)) {
+	            else if (x >= MIDDLE_BTN_X && x <= (MIDDLE_BTN_X + BUTTON_WIDTH)
+	                    && y >= MIDDLE_BTN_Y && y <= (MIDDLE_BTN_Y + BUTTON_HEIGHT)) {
 
 	                  // Simply switch to "Menu"
 	                  SceneManager.getInstance().setScene("Menu");
@@ -137,14 +131,5 @@ public class GameOverScene extends AbstractScene implements Screen{
 	        quitButtonTexture.dispose();
 	    }
 	
-	// Future Development
-	/*
-	+ displayScore(): void
-	+ checkHighScore(): void
-	+ handleInput(input: string): void
-	+ updateScene(deltaTime: float): void
-
-	PauseScene
-	*/
 
 }

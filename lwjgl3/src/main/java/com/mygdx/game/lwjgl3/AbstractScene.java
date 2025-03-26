@@ -17,6 +17,9 @@ public abstract class AbstractScene extends ScreenAdapter {
     protected OrthographicCamera uiCamera;
     protected Viewport viewport;
 
+    protected static final int VIRTUAL_WIDTH = 1280;
+    protected static final int VIRTUAL_HEIGHT = 720;
+
     protected static final int BUTTON_WIDTH = 200;
     protected static final int BUTTON_HEIGHT = 80;
 
