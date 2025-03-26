@@ -12,12 +12,10 @@ import java.util.Random;
 public class Object2 extends Entity implements iMovable, iCollidable{
 	private float currentyPos;
 	private float currentxPos;
-	private ShapeRenderer shapeRenderer; // Only for debugging purposes
     private static final int GRID_COLS = 12;
     private static final int GRID_ROWS = 12;
 	private static final float OBJECT_WIDTH = CELL_WIDTH;
 	private static final float OBJECT_HEIGHT = CELL_HEIGHT;
-    private static final float SPEED = 33;
 	private static int lastCol = -1;
     
 	
@@ -29,7 +27,6 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	
 	public Object2(float x, float y, float speed, String imgName, float width, float height){
 		super(x, y, speed, imgName, width, height);
-		this.shapeRenderer = new ShapeRenderer();
         currentxPos = x;
         currentyPos = y;	
 	}
@@ -90,10 +87,6 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 			batch.draw(this.getTex(),this.getX(),this.getY(), OBJECT_WIDTH, OBJECT_HEIGHT);
 		batch.end();
 		
-		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-	        shapeRenderer.setColor(1, 0, 0, 1); // Red color
-	        shapeRenderer.rect(this.getX(), this.getY(), OBJECT_WIDTH, OBJECT_HEIGHT);
-        shapeRenderer.end();
         setRectangle();
 
 	}
@@ -127,13 +120,7 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 		
 		if (getTex() != null) {
             getTex().dispose();
-        }
-		
-		if (shapeRenderer != null) {
-			shapeRenderer.dispose();
-		}
-
-	      
+        } 
 	}
 
 	

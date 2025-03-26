@@ -11,12 +11,9 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 
 	private float currentxPos;
 	private float currentyPos;
-	private ShapeRenderer shapeRenderer; // Only for debugging purposes
     private static final int GRID_COLS = 12;
-    private static final int GRID_ROWS = 12;
     private static final int OBJECT_WIDTH = CELL_WIDTH;
     private static final int OBJECT_HEIGHT = CELL_HEIGHT;
-	private static final float SPEED = 33;
 	private static int lastCol = -1;
 
 	public Object1(){
@@ -25,8 +22,6 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 
 	public Object1(float x, float y, float speed, String imgName, float width, float height){
 		super(x, y, speed, imgName, OBJECT_WIDTH, OBJECT_HEIGHT);
-		this.shapeRenderer = new ShapeRenderer();
-
 	}
 
 	public static ArrayList<Object1> spawnObject1(int numberOfFries, float scrollSpeed) {
@@ -85,10 +80,6 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 			batch.draw(this.getTex(),this.getX(),this.getY(), OBJECT_WIDTH, OBJECT_HEIGHT);
 		batch.end();
 
-		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-	        shapeRenderer.setColor(1, 0, 0, 1); // Red color
-	        shapeRenderer.rect(this.getX(), this.getY(), OBJECT_WIDTH, OBJECT_HEIGHT);
-        shapeRenderer.end();
         setRectangle();
 
 	}
@@ -119,9 +110,6 @@ public class Object1 extends Entity implements iMovable, iCollidable{
     	if (getTex() != null) {
             getTex().dispose();
         }
-//        if (shapeRenderer != null) {
-//            shapeRenderer.dispose();
-//        }
     }
 
 

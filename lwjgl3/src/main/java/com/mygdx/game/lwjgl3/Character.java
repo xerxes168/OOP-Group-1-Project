@@ -11,26 +11,18 @@ public class Character extends Entity implements iMovable, iCollidable {
 
     private ShapeRenderer shapeRenderer; // Only for debugging purposes
     private SoundManager soundManager;
-    private float currentxPos;
-    private float currentyPos;
     private static final int CHARACTER_WIDTH = CELL_WIDTH;
     private static final int CHARACTER_HEIGHT = CELL_HEIGHT;
-    private static final float SPEED = 0;
     private static float maxHealth = 100;
     private float currentHealth = 100;
     protected float points;
     protected float highScore;
     private EntityManager entityManager;
-    private float previousX;
-    private float previousY;
 
     // Default constructor
     public Character() {
         super(); // Calls default Entity constructor
         this.shapeRenderer = new ShapeRenderer();
-        // Initialize previous position with the starting position
-        this.previousX = super.getX();
-        this.previousY = super.getY();
     }
 
 
@@ -39,8 +31,6 @@ public class Character extends Entity implements iMovable, iCollidable {
         this.soundManager = soundManager;
         this.shapeRenderer = new ShapeRenderer();
         this.entityManager = entityManager;
-        this.previousX = x;
-        this.previousY = y;
     }
 
     public void draw(SpriteBatch batch) {
@@ -53,12 +43,6 @@ public class Character extends Entity implements iMovable, iCollidable {
         batch.begin();
         batch.draw(this.getTex(), super.getX(), super.getY(), CHARACTER_WIDTH, CHARACTER_HEIGHT);
         batch.end();
-
-        // Drawing of collision rectangle
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(1, 0, 0, 1); // Red color
-        shapeRenderer.rect(super.getX(), super.getY(), CHARACTER_WIDTH, CHARACTER_HEIGHT);
-        shapeRenderer.end();
 
         // Drawing of health bar
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -74,8 +58,6 @@ public class Character extends Entity implements iMovable, iCollidable {
 
     @Override
     public void movement() {
-        previousX = super.getX();
-        previousY = super.getY();
 
         // Calculate current grid position
         int currentxPos = (int) ((super.getX() + CHARACTER_WIDTH / 2) / CELL_WIDTH);

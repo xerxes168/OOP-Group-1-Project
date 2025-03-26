@@ -14,9 +14,6 @@ public class Terrain extends Entity implements iMovable, iCollidable{
     private static final float TERRAIN_HEIGHT = CELL_HEIGHT;
 	private float currentxPos;
 	private float currentyPos;
-    private static final float SPEED = 33;
-    private ShapeRenderer shapeRenderer;
-
 
     public Terrain() {
 		super();
@@ -27,7 +24,6 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 		super(x, y, speed, imgName, width, height);
         currentxPos = x;
         currentyPos = y;
-        shapeRenderer = new ShapeRenderer();
 	}
 
 
@@ -98,12 +94,6 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 	    batch.begin();
 	    batch.draw(this.getTex(), getX(), getY(), TERRAIN_WIDTH, TERRAIN_HEIGHT);
 	    batch.end();
-	 // Drawing of collision rectangle
-	    shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(1, 0, 0, 1); // Red color
-        shapeRenderer.rect(super.getX(), super.getY(), TERRAIN_WIDTH, TERRAIN_HEIGHT);
-        shapeRenderer.end();
-
         setRectangle();
 
 	}
