@@ -113,11 +113,11 @@ public class Character extends Entity implements iMovable, iCollidable {
 
         // Calculate the position after user input (if any)
         float newX = moved ? targetX : super.getX();
-        float newY = super.getY();
+        float newY = moved ? targetY: super.getY();
 
-        if (moved && (Gdx.input.isKeyJustPressed(Keys.UP) || Gdx.input.isKeyJustPressed(Keys.DOWN) || Gdx.input.isKeyJustPressed(Keys.W) || Gdx.input.isKeyJustPressed(Keys.S) )) {
-            newY = targetY;
-        }
+//        if (moved && (Gdx.input.isKeyJustPressed(Keys.UP) || Gdx.input.isKeyJustPressed(Keys.DOWN) || Gdx.input.isKeyJustPressed(Keys.W) || Gdx.input.isKeyJustPressed(Keys.S) )) {
+//            newY = targetY;
+//        }
 
         // Check for collisions if moved
         if (moved) {
@@ -129,6 +129,7 @@ public class Character extends Entity implements iMovable, iCollidable {
                             Math.abs(entity.getY() - newY) > CELL_HEIGHT * 2) {
                         continue;
                     }
+                    
 
                     // Create rectangle for the character at new position
                     float charLeft = newX;
