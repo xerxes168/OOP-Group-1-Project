@@ -30,6 +30,7 @@ public class MenuScene extends AbstractScene implements Screen {
     private Texture playButtonTexture;
     private Texture settingButtonTexture;
     private Texture instructButtonTexture;
+    private Texture logoTexture;
     private GameMaster game;
 
     private OrthographicCamera camera;
@@ -54,6 +55,7 @@ public class MenuScene extends AbstractScene implements Screen {
         playButtonTexture = new Texture("play1.png");
         settingButtonTexture = new Texture("settings1.png");
         instructButtonTexture = new Texture("instructions1.png");
+        logoTexture = new Texture("logo1.png");
     }
 
     @Override
@@ -63,6 +65,8 @@ public class MenuScene extends AbstractScene implements Screen {
 
         // Draw menu background
         batch.draw(menuTexture, 0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+        
+        batch.draw(logoTexture, TOP_BTN_X - (24+TOP_BTN_X/4), TOP_BTN_Y + 10);
 
         // Check for Hover
         checkHover();

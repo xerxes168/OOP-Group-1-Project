@@ -24,7 +24,7 @@ public abstract class AbstractScene extends ScreenAdapter {
     protected static final int BUTTON_HEIGHT = 80;
 
     protected final int MIDDLE_BTN_X = 550;
-    protected final int MIDDLE_BTN_Y = 400;   
+    protected final int MIDDLE_BTN_Y = 250;   
 
     protected final int TOP_BTN_X = MIDDLE_BTN_X;
     protected final int TOP_BTN_Y = MIDDLE_BTN_Y + 150;
