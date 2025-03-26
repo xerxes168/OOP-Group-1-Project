@@ -15,19 +15,17 @@ public class MenuScene extends AbstractScene implements Screen {
     private static final int VIRTUAL_WIDTH = 1280;
     private static final int VIRTUAL_HEIGHT = 720;
 
-    // Button bounds
-    private static final int BUTTON_WIDTH = 200;
-    private static final int BUTTON_HEIGHT = 80;
-
-    // Play button
-    private static final int SETTING_BTN_X = 550;
-    private static final int SETTING_BTN_Y = 360;
-    // Settings button
-    private static final int PLAY_BTN_X = SETTING_BTN_X;
-    private static final int PLAY_BTN_Y = SETTING_BTN_Y + 150;
-    // Instructions button
-    private static final int INSTRUCT_BTN_X = SETTING_BTN_X;
-    private static final int INSTRUCT_BTN_Y = SETTING_BTN_Y - 150;
+    // DEFINED IN ABSTRACT SCENE
+    // protected static final int BUTTON_WIDTH = 200;
+    // protected static final int BUTTON_HEIGHT = 80;
+    // protected final int MIDDLE_BTN_X = 550;
+    // protected final int MIDDLE_BTN_Y = 400;   
+    // protected final int TOP_BTN_X = MIDDLE_BTN_X;
+    // protected final int TOP_BTN_Y = MIDDLE_BTN_Y + 150;
+    // protected final int BTM_BTN_X = MIDDLE_BTN_X;
+    // protected final int BTM_BTN_Y = MIDDLE_BTN_Y - 150;
+    // private static final float HOVER_SCALE = 1.2f;
+    // private static final float NORMAL_SCALE = 1.0f;
 
     private Texture menuTexture;
     private Texture playButtonTexture;
@@ -37,6 +35,9 @@ public class MenuScene extends AbstractScene implements Screen {
 
     private OrthographicCamera camera;
     private Viewport viewport;
+
+    // Expand Buttons on Hover
+    private boolean playHovered, settingsHovered, instructionsHovered;
 
     // Constructor
     public MenuScene(GameMaster game) {
@@ -61,20 +62,46 @@ public class MenuScene extends AbstractScene implements Screen {
         ScreenUtils.clear(0, 0, 0, 1);
         batch.setProjectionMatrix(camera.combined); // Apply camera projection
 
-
         // Draw menu background
         batch.draw(menuTexture, 0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 
+        // Check for Hover
+        checkHover();
+    
+        drawButtonWithHover(playButtonTexture, TOP_BTN_X, TOP_BTN_Y - 40, playHovered);
+        drawButtonWithHover(settingButtonTexture, MIDDLE_BTN_X, MIDDLE_BTN_Y - 40, settingsHovered);
+        drawButtonWithHover(instructButtonTexture, BTM_BTN_X, BTM_BTN_Y - 40, instructionsHovered);
+
         // Draw buttons
-        batch.draw(playButtonTexture, PLAY_BTN_X, PLAY_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT); // Play Button
-        batch.draw(settingButtonTexture, SETTING_BTN_X, SETTING_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT); // Settings Button
-        batch.draw(instructButtonTexture, INSTRUCT_BTN_X, INSTRUCT_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT); // Instructions Button
+        // batch.draw(playButtonTexture, TOP_BTN_X, TOP_BTN_Y - 40, BUTTON_WIDTH, BUTTON_HEIGHT); // Play Button
+        // batch.draw(settingButtonTexture, MIDDLE_BTN_X, MIDDLE_BTN_Y - 40, BUTTON_WIDTH, BUTTON_HEIGHT); // Settings Button
+        // batch.draw(instructButtonTexture, BTM_BTN_X, BTM_BTN_Y - 40, BUTTON_WIDTH, BUTTON_HEIGHT); // Instructions Button
 
         handleInput();
 
     }
 
-    private void handleInput() {
+    protected void checkHover() {
+        Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(mousePos); // Convert screen to world coordinates
+
+        float x = mousePos.x;
+        float y = mousePos.y;
+
+        // Check hover for Play button
+        playHovered = (x >= TOP_BTN_X && x <= (TOP_BTN_X + BUTTON_WIDTH)
+                && y >= TOP_BTN_Y-40 && y <= (TOP_BTN_Y - 40 + BUTTON_HEIGHT));
+
+        // Check hover for Settings button
+        settingsHovered = (x >= MIDDLE_BTN_X && x <= (MIDDLE_BTN_X + BUTTON_WIDTH)
+                && y >= MIDDLE_BTN_Y-40 && y <= (MIDDLE_BTN_Y - 40 + BUTTON_HEIGHT));
+
+        // Check hover for Instructions button
+        instructionsHovered = (x >= BTM_BTN_X && x <= (BTM_BTN_X + BUTTON_WIDTH)
+                && y >= BTM_BTN_Y-40 && y <= (BTM_BTN_Y - 40 + BUTTON_HEIGHT));
+    }
+
+    protected void handleInput() {
         if (Gdx.input.justTouched()) {
             Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touchPos); // Convert screen to world coordinates
@@ -83,8 +110,8 @@ public class MenuScene extends AbstractScene implements Screen {
             float y = touchPos.y;
 
             // Check if user clicked on PLAY button
-            if (x >= PLAY_BTN_X && x <= (PLAY_BTN_X + BUTTON_WIDTH)
-                    && y >= PLAY_BTN_Y && y <= (PLAY_BTN_Y + BUTTON_HEIGHT)) {
+            if (x >= TOP_BTN_X && x <= (TOP_BTN_X + BUTTON_WIDTH)
+                    && y >= TOP_BTN_Y-40 && y <= (TOP_BTN_Y - 40 + BUTTON_HEIGHT)) {
                 SceneManager.getInstance().setScene("Play");
                 
                 // Retrieve that scene
@@ -98,14 +125,14 @@ public class MenuScene extends AbstractScene implements Screen {
             }
 
             // Check if user clicked on SETTINGS button
-            else if (x >= SETTING_BTN_X && x <= (SETTING_BTN_X + BUTTON_WIDTH)
-                    && y >= SETTING_BTN_Y && y <= (SETTING_BTN_Y + BUTTON_HEIGHT)) {
+            else if (x >= MIDDLE_BTN_X && x <= (MIDDLE_BTN_X + BUTTON_WIDTH)
+                    && y >= MIDDLE_BTN_Y-40 && y <= (MIDDLE_BTN_Y - 40 + BUTTON_HEIGHT)) {
                 SceneManager.getInstance().setScene("Setting");
             }
 
             // Check if user clicked on INSTRUCTIONS button
-            else if (x >= INSTRUCT_BTN_X && x <= (INSTRUCT_BTN_X + BUTTON_WIDTH)
-                    && y >= INSTRUCT_BTN_Y && y <= (INSTRUCT_BTN_Y + BUTTON_HEIGHT)) {
+            else if (x >= BTM_BTN_X && x <= (BTM_BTN_X + BUTTON_WIDTH)
+                    && y >= BTM_BTN_Y-40 && y <= (BTM_BTN_Y - 40 + BUTTON_HEIGHT)) {
                 SceneManager.getInstance().setScene("Instructions");
             }
         }    
@@ -124,5 +151,6 @@ public class MenuScene extends AbstractScene implements Screen {
         menuTexture.dispose();
         playButtonTexture.dispose();
         settingButtonTexture.dispose();
+        instructButtonTexture.dispose();
     }
 }

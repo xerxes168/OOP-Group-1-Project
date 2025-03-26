@@ -10,69 +10,65 @@ import com.badlogic.gdx.math.MathUtils;
 public class Terrain extends Entity implements iMovable, iCollidable{
     private static final int GRID_COLS = 12;
     private static final int GRID_ROWS = 12;
-    private static final float CELL_WIDTH = Gdx.graphics.getWidth() / 12f;
-    private static final float CELL_HEIGHT = Gdx.graphics.getHeight() / 12f;
     private static final float TERRAIN_WIDTH = CELL_WIDTH;
     private static final float TERRAIN_HEIGHT = CELL_HEIGHT;
 	private float currentxPos;
 	private float currentyPos;
     private static final float SPEED = 33;
     private ShapeRenderer shapeRenderer;
-    
-	
+
+
     public Terrain() {
 		super();
 		super.setTex("tree.png");
     }
-	
+
 	public Terrain(float x, float y, float speed, String imgName, float width, float height) {
 		super(x, y, speed, imgName, width, height);
         currentxPos = x;
         currentyPos = y;
         shapeRenderer = new ShapeRenderer();
 	}
-	
+
 
     // Lily spawning without overlap
-	   public static ArrayList<Terrain> spawnTerrains(int numberOfLily, float scrollSpeed) {
-	        ArrayList<Terrain> terrains = new ArrayList<>();
-	        // Track which grid cells have been used so each cell is unique.
-	        boolean[][] usedCells = new boolean[GRID_COLS][GRID_ROWS];
+	public static ArrayList<Terrain> spawnTerrains(int numberOfLily, float scrollSpeed) {
+		ArrayList<Terrain> terrains = new ArrayList<>();
+		boolean[][] usedCells = new boolean[GRID_COLS][GRID_ROWS];
 
-	        for (int j = 0; j < numberOfLily; j++) {
-	            int attempts = 0;
-	            int col, row;
-	            // Try to find an unused cell (up to 100 attempts)
-	            do {
-	                col = MathUtils.random(0, GRID_COLS - 1);
-	                row = MathUtils.random(0, GRID_ROWS - 1);
-	                attempts++;
-	            } while (usedCells[col][row] && attempts < 100);
-	            
-	            // If we exceed attempts, break out of the loop.
-	            if (attempts >= 100) {
-	                break;
-	            }
-	            
-	            usedCells[col][row] = true; // Mark this cell as used
-	            
-	            // Calculate the center position for the cell, then adjust so the Terrain is centered.
-	            float posX = col * CELL_WIDTH + (CELL_WIDTH / 2f) - (TERRAIN_WIDTH / 2f);
-	            float posY = row * CELL_HEIGHT + (CELL_HEIGHT / 2f) - (TERRAIN_HEIGHT / 2f);
-	            
-	            terrains.add(new Terrain(posX, posY, scrollSpeed, "tree.png", TERRAIN_WIDTH, TERRAIN_HEIGHT));
-	        }
-	        return terrains;
-	    }
-	        
-	    
+		for (int j = 0; j < numberOfLily; j++) {
+			int attempts = 0;
+			int col, row;
+			do {
+				col = MathUtils.random(0, GRID_COLS - 1);
+				row = MathUtils.random(0, GRID_ROWS - 1);
+				attempts++;
+			} while (usedCells[col][row] && attempts < 100);
+
+			if (attempts >= 100) break;
+
+			usedCells[col][row] = true;
+
+			// Snap terrain to the exact grid position
+			float posX = col * CELL_WIDTH;
+			float posY = row * CELL_HEIGHT;
+
+			System.out.println("Terrain added at (" + posX + "," + posY + ")");
+
+			terrains.add(new Terrain(posX, posY, scrollSpeed, "tree.png", TERRAIN_WIDTH, TERRAIN_HEIGHT));
+		}
+		return terrains;
+	}
+
+
+
 	@Override
 	public void movement() {
 	    float deltaTime = Gdx.graphics.getDeltaTime();
-	    
+
 	    // Update the y position by subtracting the movement amount.
 	    currentyPos = super.getY() - getSpeed() * deltaTime;
-	    
+
 	    // Check if the lily has moved off the bottom of the screen.
 	    if (currentyPos <= -TERRAIN_HEIGHT) {
 	        // Reset y to the top of the screen.
@@ -82,7 +78,7 @@ public class Terrain extends Entity implements iMovable, iCollidable{
             super.setY(currentyPos);
         }
     }
-	
+
 	  private void reset() {
 	        // Reset y to the top.
 	        currentyPos = Gdx.graphics.getHeight();
@@ -91,59 +87,59 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 	        int col = MathUtils.random(0, GRID_COLS - 1);
 
 	        // Calculate the centered x position for that column.
-	        currentxPos = col * CELL_WIDTH + (CELL_WIDTH / 2f) - (TERRAIN_WIDTH / 2f);
+	        currentxPos = Math.round((col * CELL_WIDTH) / CELL_WIDTH) * CELL_WIDTH;
 
 	        // Update the entity's position.
 	        super.setX(currentxPos);
 	        super.setY(currentyPos);
 	    }
-	
+
 	public void draw(SpriteBatch batch) {
 	    batch.begin();
-	    batch.draw(this.getTex(), getX(), getY(), TERRAIN_WIDTH, TERRAIN_HEIGHT); 
+	    batch.draw(this.getTex(), getX(), getY(), TERRAIN_WIDTH, TERRAIN_HEIGHT);
 	    batch.end();
 	 // Drawing of collision rectangle
 	    shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(1, 0, 0, 1); // Red color
         shapeRenderer.rect(super.getX(), super.getY(), TERRAIN_WIDTH, TERRAIN_HEIGHT);
         shapeRenderer.end();
-        
+
         setRectangle();
-	
+
 	}
-	
+
 	@Override
 	public boolean isCollided(iCollidable object) {
 	    if (object instanceof Entity) {
 	        Entity other = (Entity) object;
-	        
+
 	        // Skip objects that are too far away (optimization)
 	        float dx = Math.abs(this.getX() - other.getX());
 	        float dy = Math.abs(this.getY() - other.getY());
 	        if (dx > CELL_WIDTH || dy > CELL_HEIGHT) {
 	            return false;
 	        }
-	        
+
 	        // Get the bounds of both objects
 	        float thisLeft = this.getX();
 	        float thisRight = this.getX() + TERRAIN_WIDTH;
 	        float thisTop = this.getY() + TERRAIN_HEIGHT;
 	        float thisBottom = this.getY();
-	        
+
 	        float otherLeft = other.getX();
 	        float otherRight = other.getX() + other.getWidth();
 	        float otherTop = other.getY() + other.getHeight();
 	        float otherBottom = other.getY();
-	        
+
 	        // Check for overlap in both X and Y axes
-	        boolean overlapX = (thisLeft < otherRight) && (thisRight > otherLeft);
-	        boolean overlapY = (thisBottom < otherTop) && (thisTop > otherBottom);
-	        
-	        // Calculate overlap amount for debugging
+			boolean overlapX = (thisLeft + 2 < otherRight) && (thisRight - 2 > otherLeft);
+			boolean overlapY = (thisBottom + 2 < otherTop) && (thisTop - 2 > otherBottom);
+
+			// Calculate overlap amount for debugging
 	        if (overlapX && overlapY) {
 	            float overlapXAmount = Math.min(thisRight - otherLeft, otherRight - thisLeft);
 	            float overlapYAmount = Math.min(thisTop - otherBottom, otherTop - thisBottom);
-	            
+
 	            // Only count as collision if overlap is significant (prevents invisible collisions)
 	            if (overlapXAmount > 5 && overlapYAmount > 5) {
 	                return true;
@@ -152,18 +148,18 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 	    }
 	    return false;
 	}
-	
+
 	@Override
 	public void onCollision(iCollidable object) {
-		
+
 	}
-	
+
 	public void dispose(){
-		
+
 		if (getTex() != null) {
             getTex().dispose();
         }
-	      
+
 	}
 
 

@@ -15,10 +15,8 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	private ShapeRenderer shapeRenderer; // Only for debugging purposes
     private static final int GRID_COLS = 12;
     private static final int GRID_ROWS = 12;
-    private static final float CELL_WIDTH = Gdx.graphics.getWidth() / 12f;
-    private static final float CELL_HEIGHT = Gdx.graphics.getHeight() / 12f;
-    private static final float OBJECT_WIDTH = CELL_WIDTH;
-    private static final float OBJECT_HEIGHT = CELL_HEIGHT;
+	private static final float OBJECT_WIDTH = CELL_WIDTH;
+	private static final float OBJECT_HEIGHT = CELL_HEIGHT;
     private static final float SPEED = 33;
 	private static int lastCol = -1;
     
