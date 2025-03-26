@@ -33,15 +33,11 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 		boolean[][] usedCells = new boolean[GRID_COLS][GRID_ROWS];
 
 		for (int j = 0; j < numberOfLily; j++) {
-			int attempts = 0;
 			int col, row;
 			do {
 				col = MathUtils.random(0, GRID_COLS - 1);
 				row = MathUtils.random(0, GRID_ROWS - 1);
-				attempts++;
-			} while (usedCells[col][row] && attempts < 100);
-
-			if (attempts >= 100) break;
+			} while (usedCells[col][row]);
 
 			usedCells[col][row] = true;
 
