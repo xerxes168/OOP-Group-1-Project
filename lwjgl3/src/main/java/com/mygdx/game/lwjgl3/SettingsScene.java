@@ -25,21 +25,6 @@ public class SettingsScene extends AbstractScene implements Screen {
     // protected static final float NORMAL_SCALE = 1.0f;
 
     private FitViewport viewport; 
-    
-    //scrollSpeed Stuff
-    // private float scrollSpeed = 50f;  // Default scroll speed
-    // private static final float SCROLL_STEP = 10f; // Change rate
-    // private static final float MAX_SCROLL = 150f;
-    // private static final float MIN_SCROLL = 10f;
-
-    // private static final int SCROLL_PLUS_X = 600;
-    // private static final int SCROLL_PLUS_Y = 250;
-
-    // private static final int SCROLL_MINUS_X = 400;
-    // private static final int SCROLL_MINUS_Y = 250;
-
-    // private Texture scrollPlusTexture;
-    // private Texture scrollMinusTexture;
 
     // Volume Stuff
     private static final float MAX_VOLUME = 1f;
@@ -50,25 +35,14 @@ public class SettingsScene extends AbstractScene implements Screen {
 
     private SoundManager soundManager;
 
-    // Volume Text
-    private static final int TEXT_X = 520;
-    private static final int TEXT_Y = 500;
-
     private BitmapFont font;
 
-    // Buttons
-    private static final int BTN_SIZE_DBL = 200;
-    private static final int BTN_SIZE = 80;
-    private static final int BTN_SIZE_HALF = 40;
-
-    private static final int BTN_PLUS_X = 600;
-    private static final int BTN_PLUS_Y = 350;
-
-    private static final int BTN_MINUS_X = 400;
-    private static final int BTN_MINUS_Y = 350;
-
+    // Button Positions
     private static final int BTN_BACK_X = 50;
-    private static final int BTN_BACK_Y = 570;
+    private static final int BTN_BACK_Y = 600;
+
+    private final int MINUS_BTN_X = MIDDLE_BTN_X - 150;
+    private final int PLUS_BTN_X = MIDDLE_BTN_X + 150;
 
     // Textures
     private Texture backgroundTexture;
@@ -76,56 +50,66 @@ public class SettingsScene extends AbstractScene implements Screen {
     private Texture minusTexture;
     private Texture backButton;
 
+    // Expand Buttons on Hover
+    private boolean backHovered, minusHovered, plusHovered;
 
     public SettingsScene(GameMaster game, SoundManager soundManager) {
         super(game);
 
         this.soundManager = soundManager;
-        // this.scrollSpeed = PlayScene.getScrollSpeed();  // Get the current scroll speed
 
         camera.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         viewport = new FitViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
-        
-        
+                
         // Load textures
-        backgroundTexture = new Texture("menu.png");
-        plusTexture = new Texture("plus.png");
-        minusTexture = new Texture("minus.png");
         backButton = new Texture("backButton.png");
+        minusTexture = new Texture("minus.png");
+        plusTexture = new Texture("plus.png");
         backgroundTexture = new Texture("Shadow.png");
-        
-        // Load textures for scrollspeed
-        // scrollPlusTexture = new Texture("plus.png");
-        // scrollMinusTexture = new Texture("minus.png");
 
-        font = new BitmapFont(); 
+        font = new BitmapFont(Gdx.files.internal("ralewayFont/myfont.fnt"), Gdx.files.internal("ralewayFont/myfont.png"), false);
+
     }
 
     @Override
     protected void draw(float delta) {
 
         // Draw background and buttons
-        batch.draw(backgroundTexture, 0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
-        batch.draw(plusTexture,  BTN_PLUS_X,  BTN_PLUS_Y,  BTN_SIZE, BTN_SIZE);
-        batch.draw(minusTexture, BTN_MINUS_X, BTN_MINUS_Y, BTN_SIZE, BTN_SIZE);
-        batch.draw(backButton, BTN_BACK_X,  BTN_BACK_Y,  BTN_SIZE_DBL, BTN_SIZE);
-        
-        // Draw existing settings
-        // batch.draw(scrollPlusTexture, SCROLL_PLUS_X, SCROLL_PLUS_Y, BTN_SIZE, BTN_SIZE);
-        // batch.draw(scrollMinusTexture, SCROLL_MINUS_X, SCROLL_MINUS_Y, BTN_SIZE, BTN_SIZE);
-
-        // Display scroll speed value
-        // String scrollSpeedText = String.format("Scroll Speed: %.0f", scrollSpeed);
-        // font.draw(batch, scrollSpeedText, 520, 200);
+        batch.draw(backgroundTexture, 0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);     
 
         // Current Volume Text
         String volumeText = String.format("Volume: %.0f%%", volume * 100);
-        font.draw(batch, volumeText, TEXT_X, TEXT_Y);
+        font.getData().setScale(2f); 
+        font.draw(batch, volumeText, MIDDLE_BTN_X-30, TOP_BTN_Y);
 
-        // Increase Font Size
-        font.getData().setScale(2f);  
+        // Check for Hover
+        checkHover();
+
+        drawButtonWithHover(backButton, BTN_BACK_X, BTN_BACK_Y, backHovered);
+        drawButtonWithHover(minusTexture, MINUS_BTN_X, MIDDLE_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT, minusHovered);
+        drawButtonWithHover(plusTexture, PLUS_BTN_X, MIDDLE_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT, plusHovered);
 
         handleInput();
+    }
+
+    private void checkHover() {
+        Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(mousePos); // Convert screen to world coordinates
+
+        float x = mousePos.x;
+        float y = mousePos.y;
+
+        // Check hover for Back button
+        backHovered = (x >= BTN_BACK_X && x <= (BTN_BACK_X + BUTTON_WIDTH)
+                && y >= BTN_BACK_Y-25 && y <= (BTN_BACK_Y-25 + BUTTON_HEIGHT));
+
+        // Check hover for Minus button
+        minusHovered = (x >= MINUS_BTN_X && x <= (MINUS_BTN_X + BUTTON_WIDTH)
+                && y >= MIDDLE_BTN_Y && y <= (MIDDLE_BTN_Y + BUTTON_HEIGHT));
+
+        // Check hover for Instructions button
+        plusHovered = (x >= PLUS_BTN_X && x <= (PLUS_BTN_X + BUTTON_WIDTH)
+                && y >= MIDDLE_BTN_Y && y <= (MIDDLE_BTN_Y + BUTTON_HEIGHT));
     }
 
     private void handleInput() {
@@ -137,42 +121,25 @@ public class SettingsScene extends AbstractScene implements Screen {
             float x = touchPos.x;
             float y = touchPos.y;
 
+            // Check click on Back Button
+            if (x >= BTN_BACK_X && x <= (BTN_BACK_X + BUTTON_WIDTH)
+                    && y >= BTN_BACK_Y - 50 && y <= (BTN_BACK_Y + BUTTON_HEIGHT)) {
+                SceneManager.getInstance().setScene("Menu");
+            }
+
             // Check click on Plus Button
-            if (x >= BTN_PLUS_X && x <= (BTN_PLUS_X + BTN_SIZE)
-             && y >= BTN_PLUS_Y && y <= (BTN_PLUS_Y + BTN_SIZE)) 
-            {
+            else if (x >= PLUS_BTN_X && x <= (PLUS_BTN_X + BUTTON_WIDTH)
+                    && y >= MIDDLE_BTN_Y && y <= (MIDDLE_BTN_Y + BUTTON_HEIGHT)) {
                 volume = Math.min(MAX_VOLUME, volume + VOLUME_STEP);
                 applyVolume();
             }
 
             // Check click on Minus Button
-            else if (x >= BTN_MINUS_X && x <= (BTN_MINUS_X + BTN_SIZE)
-                  && y >= BTN_MINUS_Y && y <= (BTN_MINUS_Y + BTN_SIZE))
-            {
+            else if (x >= MINUS_BTN_X && x <= (MINUS_BTN_X + BUTTON_WIDTH)
+                    && y >= MIDDLE_BTN_Y && y <= (MIDDLE_BTN_Y + BUTTON_HEIGHT)) {
                 volume = Math.max(MIN_VOLUME, volume - VOLUME_STEP);
                 applyVolume();
             }
-
-            // Check click on Back Button
-            else if (x >= BTN_BACK_X && x <= (BTN_BACK_X + BTN_SIZE_DBL)
-            	      && y >= BTN_BACK_Y - 50 && y <= (BTN_BACK_Y + BTN_SIZE)) 
-            	{
-            	    SceneManager.getInstance().setScene("Menu");
-            	}
-
-            
-            //for scroll speed
-            // if (x >= SCROLL_PLUS_X && x <= SCROLL_PLUS_X + BTN_SIZE
-            //         && y >= SCROLL_PLUS_Y && y <= SCROLL_PLUS_Y + BTN_SIZE) {
-            //            scrollSpeed = Math.min(MAX_SCROLL, scrollSpeed + SCROLL_STEP);
-            //        }
-
-            //        else if (x >= SCROLL_MINUS_X && x <= SCROLL_MINUS_X + BTN_SIZE
-            //              && y >= SCROLL_MINUS_Y && y <= SCROLL_MINUS_Y + BTN_SIZE) {
-            //            scrollSpeed = Math.max(MIN_SCROLL, scrollSpeed - SCROLL_STEP);
-            //        }
-            
-            // PlayScene.setScrollSpeed(scrollSpeed); // Apply the new scroll speed
         }
 
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {

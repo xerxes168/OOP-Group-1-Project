@@ -55,7 +55,7 @@ public class GameOverScene extends AbstractScene implements Screen{
 	        menuReturnButtonTexture = new Texture("menuButton.png");
 	        
 	        character = new Character();
-	        font = new BitmapFont();
+        	font = new BitmapFont(Gdx.files.internal("ralewayFont/myfont.fnt"), Gdx.files.internal("ralewayFont/myfont.png"), false);
 	        font.getData().scale(1.5f);
 	    }
 
@@ -67,7 +67,7 @@ public class GameOverScene extends AbstractScene implements Screen{
 	        batch.draw(menuTexture, 0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 	        
 	        // Draw high score text
-	        font.draw(batch, "High Score: " + Math.round(ScoreManager.highScore), Gdx.graphics.getWidth() - 120, Gdx.graphics.getHeight() + 100);
+	        font.draw(batch, "High Score: " + Math.round(ScoreManager.highScore), TOP_BTN_X-80, TOP_BTN_Y+50);
 
 			// Check for Hover
         	checkHover();
@@ -119,7 +119,6 @@ public class GameOverScene extends AbstractScene implements Screen{
 					if (screen instanceof PlayScene) {
 						PlayScene playScene = (PlayScene) screen;
 						playScene.restartGame(); // Restart
-						
 					}
 	             }
 

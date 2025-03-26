@@ -33,7 +33,7 @@ public class InstructionsScene extends AbstractScene implements Screen {
 
     private static final int TXT_X = 100; 
     private static final int ICON_SIZE = 64;
-    private final int FRIES_X = BTN_BACK_X + 190;
+    private final int FRIES_X = BTN_BACK_X + 160;
     private final int FRIES_Y = BTN_BACK_Y - 290;
     private final int APPLE_X = BTN_BACK_X + 320;
     private final int APPLE_Y = BTN_BACK_Y - 390;
@@ -69,8 +69,7 @@ public class InstructionsScene extends AbstractScene implements Screen {
         super.show();
         // Initialize rendering objects
         batch = new SpriteBatch();
-        font = new BitmapFont(); 
-        font.getData().setScale(1.3f);
+        font = new BitmapFont(Gdx.files.internal("ralewayFont/myfont.fnt"), Gdx.files.internal("ralewayFont/myfont.png"), false);
 
         // Load images
         friesTexture = new Texture("fries.png");
@@ -112,7 +111,6 @@ public class InstructionsScene extends AbstractScene implements Screen {
         drawButtonWithHover(friesTexture, FRIES_X, FRIES_Y, ICON_SIZE, ICON_SIZE, friesHovered);
         drawButtonWithHover(appleTexture, APPLE_X, APPLE_Y, ICON_SIZE, ICON_SIZE, appleHovered);
         
-
         handleInput();
     }
 
