@@ -68,9 +68,9 @@ public class GameOverScene extends AbstractScene implements Screen{
 	        font.draw(batch, "High Score: " + Math.round(ScoreManager.highScore), Gdx.graphics.getWidth() - 120, Gdx.graphics.getHeight() + 100);
 
 	        // Draw buttons
-	        batch.draw(playButtonTexture, TOP_BTN_X, TOP_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT); // Play Button
-	        batch.draw(menuReturnButtonTexture, MIDDLE_BTN_X, MIDDLE_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
-	        batch.draw(quitButtonTexture, BTM_BTN_X, BTM_BTN_Y, BUTTON_WIDTH, BUTTON_HEIGHT); // Settings Button
+	        batch.draw(playButtonTexture, TOP_BTN_X, TOP_BTN_Y-150, BUTTON_WIDTH, BUTTON_HEIGHT); // Play Button
+	        batch.draw(menuReturnButtonTexture, MIDDLE_BTN_X, MIDDLE_BTN_Y-150, BUTTON_WIDTH, BUTTON_HEIGHT);
+	        batch.draw(quitButtonTexture, BTM_BTN_X, BTM_BTN_Y-150, BUTTON_WIDTH, BUTTON_HEIGHT); // Settings Button
 
 	        handleInput();
 
@@ -86,7 +86,7 @@ public class GameOverScene extends AbstractScene implements Screen{
 
 	            // Check click on Restart Button
 	            if (x >= TOP_BTN_X && x <= (TOP_BTN_X + BUTTON_WIDTH)
-	                    && y >= TOP_BTN_Y && y <= (TOP_BTN_Y + BUTTON_HEIGHT)) {
+	                    && y >= TOP_BTN_Y-150 && y <= (TOP_BTN_Y-150 + BUTTON_HEIGHT)) {
 	            	SceneManager.getInstance().setScene("Play");
 
 					// Retrieve that scene
@@ -102,13 +102,13 @@ public class GameOverScene extends AbstractScene implements Screen{
 
 	            // Check click on Quit Button
 	            else if (x >= BTM_BTN_X && x <= (BTM_BTN_X + BUTTON_WIDTH)
-	                    && y >= BTM_BTN_Y && y <= (BTM_BTN_Y + BUTTON_HEIGHT)) {
+	                    && y >= BTM_BTN_Y-150 && y <= (BTM_BTN_Y-150 + BUTTON_HEIGHT)) {
 	                System.exit(0);
 	            }
 	            
 	            // Return-to-Menu Button
 	            else if (x >= MIDDLE_BTN_X && x <= (MIDDLE_BTN_X + BUTTON_WIDTH)
-	                    && y >= MIDDLE_BTN_Y && y <= (MIDDLE_BTN_Y + BUTTON_HEIGHT)) {
+	                    && y >= MIDDLE_BTN_Y-150 && y <= (MIDDLE_BTN_Y-150 + BUTTON_HEIGHT)) {
 
 	                  // Simply switch to "Menu"
 	                  SceneManager.getInstance().setScene("Menu");
