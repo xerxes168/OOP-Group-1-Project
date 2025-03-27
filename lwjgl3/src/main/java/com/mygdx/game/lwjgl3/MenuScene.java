@@ -66,14 +66,14 @@ public class MenuScene extends AbstractScene implements Screen {
         // Draw menu background
         batch.draw(menuTexture, 0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         
-        batch.draw(logoTexture, TOP_BTN_X - (24+TOP_BTN_X/4), TOP_BTN_Y + 10);
+        batch.draw(logoTexture, TOP_BTN_X - (24+TOP_BTN_X/4), TOP_BTN_Y - 140);
 
         // Check for Hover
         checkHover();
     
-        drawButtonWithHover(playButtonTexture, TOP_BTN_X, TOP_BTN_Y - 40, playHovered);
-        drawButtonWithHover(settingButtonTexture, MIDDLE_BTN_X, MIDDLE_BTN_Y - 40, settingsHovered);
-        drawButtonWithHover(instructButtonTexture, BTM_BTN_X, BTM_BTN_Y - 40, instructionsHovered);
+        drawButtonWithHover(playButtonTexture, TOP_BTN_X, TOP_BTN_Y - 190, playHovered);
+        drawButtonWithHover(settingButtonTexture, MIDDLE_BTN_X, MIDDLE_BTN_Y - 190, settingsHovered);
+        drawButtonWithHover(instructButtonTexture, BTM_BTN_X, BTM_BTN_Y - 190, instructionsHovered);
 
         handleInput();
 
@@ -88,15 +88,15 @@ public class MenuScene extends AbstractScene implements Screen {
 
         // Check hover for Play button
         playHovered = (x >= TOP_BTN_X && x <= (TOP_BTN_X + BUTTON_WIDTH)
-                && y >= TOP_BTN_Y-40 && y <= (TOP_BTN_Y - 40 + BUTTON_HEIGHT));
+                && y >= TOP_BTN_Y-190 && y <= (TOP_BTN_Y - 190 + BUTTON_HEIGHT));
 
         // Check hover for Settings button
         settingsHovered = (x >= MIDDLE_BTN_X && x <= (MIDDLE_BTN_X + BUTTON_WIDTH)
-                && y >= MIDDLE_BTN_Y-40 && y <= (MIDDLE_BTN_Y - 40 + BUTTON_HEIGHT));
+                && y >= MIDDLE_BTN_Y-190 && y <= (MIDDLE_BTN_Y - 190 + BUTTON_HEIGHT));
 
         // Check hover for Instructions button
         instructionsHovered = (x >= BTM_BTN_X && x <= (BTM_BTN_X + BUTTON_WIDTH)
-                && y >= BTM_BTN_Y-40 && y <= (BTM_BTN_Y - 40 + BUTTON_HEIGHT));
+                && y >= BTM_BTN_Y-190 && y <= (BTM_BTN_Y - 190 + BUTTON_HEIGHT));
     }
 
     private void handleInput() {
@@ -109,7 +109,7 @@ public class MenuScene extends AbstractScene implements Screen {
 
             // Check if user clicked on PLAY button
             if (x >= TOP_BTN_X && x <= (TOP_BTN_X + BUTTON_WIDTH)
-                    && y >= TOP_BTN_Y-40 && y <= (TOP_BTN_Y - 40 + BUTTON_HEIGHT)) {
+                    && y >= TOP_BTN_Y-190 && y <= (TOP_BTN_Y - 190 + BUTTON_HEIGHT)) {
                 SceneManager.getInstance().setScene("Play");
                 
                 // Retrieve that scene
@@ -124,13 +124,13 @@ public class MenuScene extends AbstractScene implements Screen {
 
             // Check if user clicked on SETTINGS button
             else if (x >= MIDDLE_BTN_X && x <= (MIDDLE_BTN_X + BUTTON_WIDTH)
-                    && y >= MIDDLE_BTN_Y-40 && y <= (MIDDLE_BTN_Y - 40 + BUTTON_HEIGHT)) {
+                    && y >= MIDDLE_BTN_Y-190 && y <= (MIDDLE_BTN_Y - 190 + BUTTON_HEIGHT)) {
                 SceneManager.getInstance().setScene("Setting");
             }
 
             // Check if user clicked on INSTRUCTIONS button
             else if (x >= BTM_BTN_X && x <= (BTM_BTN_X + BUTTON_WIDTH)
-                    && y >= BTM_BTN_Y-40 && y <= (BTM_BTN_Y - 40 + BUTTON_HEIGHT)) {
+                    && y >= BTM_BTN_Y-190 && y <= (BTM_BTN_Y - 190 + BUTTON_HEIGHT)) {
                 SceneManager.getInstance().setScene("Instructions");
             }
         }    
