@@ -17,19 +17,18 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	private static final float OBJECT_WIDTH = CELL_WIDTH;
 	private static final float OBJECT_HEIGHT = CELL_HEIGHT;
 	private static int lastCol = -1;
-    
 	
 	public Object2() 
 	{
 		super();
 	}
 	
-	
 	public Object2(float x, float y, float speed, String imgName, float width, float height){
 		super(x, y, speed, imgName, width, height);
         currentxPos = x;
         currentyPos = y;	
 	}
+
 	
     public static ArrayList<Object2> spawnObject2(int numberOfObjects, float scrollSpeed) {
     	ArrayList<Object2> object2 = new ArrayList<Object2>();
@@ -54,7 +53,6 @@ public class Object2 extends Entity implements iMovable, iCollidable{
     }
     
 
-	
 	@Override
 	public void movement(){
 	    float deltaTime = Gdx.graphics.getDeltaTime();
@@ -64,7 +62,6 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	    
 	    // If the apple has moved off the bottom of the screen, reset its position.
 	    if (currentyPos <= -OBJECT_HEIGHT) {
-//	        reset();
             currentyPos = Gdx.graphics.getHeight() + MathUtils.random(0, 200);
             int newCol;
             do {
@@ -78,7 +75,7 @@ public class Object2 extends Entity implements iMovable, iCollidable{
         super.setX(currentxPos);
         super.setY(currentyPos);
 	}
-	
+
 	@Override
 	public void draw(SpriteBatch batch) {
 		batch.begin();
@@ -88,7 +85,6 @@ public class Object2 extends Entity implements iMovable, iCollidable{
         setRectangle();
 	}
 
-	
 	@Override
 	public boolean isCollided(iCollidable object) {
 	    if (object instanceof Entity) {

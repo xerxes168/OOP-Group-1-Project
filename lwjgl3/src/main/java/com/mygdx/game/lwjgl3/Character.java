@@ -33,6 +33,7 @@ public class Character extends Entity implements iMovable, iCollidable {
         this.entityManager = entityManager;
     }
 
+
     public void draw(SpriteBatch batch) {
 
         float barWidth = CHARACTER_WIDTH;
@@ -97,10 +98,6 @@ public class Character extends Entity implements iMovable, iCollidable {
         float newX = moved ? targetX : super.getX();
         float newY = moved ? targetY: super.getY();
 
-//        if (moved && (Gdx.input.isKeyJustPressed(Keys.UP) || Gdx.input.isKeyJustPressed(Keys.DOWN) || Gdx.input.isKeyJustPressed(Keys.W) || Gdx.input.isKeyJustPressed(Keys.S) )) {
-//            newY = targetY;
-//        }
-
         // Check for collisions if moved
         if (moved) {
             boolean blocked = false;
@@ -112,7 +109,6 @@ public class Character extends Entity implements iMovable, iCollidable {
                         continue;
                     }
                     
-
                     // Create rectangle for the character at new position
                     float charLeft = newX;
                     float charRight = newX + CHARACTER_WIDTH;
@@ -231,7 +227,6 @@ public class Character extends Entity implements iMovable, iCollidable {
         setRectangle();
     }
 
-
     @Override
     public boolean isCollided(iCollidable object) {
         if (object instanceof Entity) {
@@ -239,12 +234,10 @@ public class Character extends Entity implements iMovable, iCollidable {
         } else {
             return false;
         }
-
     }
 
     @Override
     public void onCollision(iCollidable object) {
-        // To be improved
 
         // Collision with other objects
         if (object instanceof Object1) {
