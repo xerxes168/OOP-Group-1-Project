@@ -113,20 +113,6 @@ public class EntityManager {
             }
         }
     }
-//    public void cleanupEntities() {
-//        Iterator<Entity> iterator = getAllEntities().iterator();
-//        while (iterator.hasNext()) {
-//            Entity entity = iterator.next();
-//            if (entity.getRemovalBoolean()) { // ✅ If marked for removal
-//                //entity.dispose();  // ✅ Free memory
-//                iterator.remove(); // ✅ Remove safely using Iterator
-//                System.out.println("Object removed!");
-//            }
-//        }
-//    }
-
-
-
 
 }
 
