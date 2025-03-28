@@ -1,4 +1,5 @@
 package com.mygdx.game.lwjgl3;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -21,7 +22,6 @@ public class GameMaster extends Game {
 
         // Start at Menu Screen
         SceneManager.getInstance().setScene("Menu");
-
 	}
 
 	@Override

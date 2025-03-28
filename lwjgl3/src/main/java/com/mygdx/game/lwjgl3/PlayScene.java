@@ -1,7 +1,5 @@
 package com.mygdx.game.lwjgl3;
 
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
@@ -11,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class PlayScene extends AbstractScene implements Screen {
 
@@ -69,7 +66,6 @@ public class PlayScene extends AbstractScene implements Screen {
         shapeRenderer = new ShapeRenderer();
         collisionManager = new CollisionManager();
         soundManager.playBackgroundMusic();
-
 
         // Create entities
         player1 = new Character(500, 50, 1, "character.png", Character.CELL_WIDTH, Character.CELL_HEIGHT, soundManager, entityManager);
@@ -173,13 +169,7 @@ public class PlayScene extends AbstractScene implements Screen {
         startGameState();
 
     }
-
-    // Grid scrolling functions
-    // Adjust grid scrolling based on scrollSpeed and delta time
-
-
-    // Draw grid that scrolls upward
-
+    
 
     @Override
     public void resize(int width, int height) {

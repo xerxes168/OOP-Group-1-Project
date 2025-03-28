@@ -50,7 +50,6 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 		return terrains;
 	}
 
-
 	@Override
 	public void movement() {
 	    float deltaTime = Gdx.graphics.getDeltaTime();

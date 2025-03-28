@@ -3,7 +3,6 @@ package com.mygdx.game.lwjgl3;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
@@ -187,7 +186,7 @@ public class Character extends Entity implements iMovable, iCollidable {
         }
 
         if (collidedTerrain != null) {
-            // Determine direction of collision (from top or from bottom)
+            // Determine direction of collision from top or from bottom
             float characterCenter = super.getY() + CHARACTER_HEIGHT / 2;
             float terrainCenter = collidedTerrain.getY() + CELL_HEIGHT / 2;
 

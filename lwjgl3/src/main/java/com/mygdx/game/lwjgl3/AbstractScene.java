@@ -98,9 +98,6 @@ public abstract class AbstractScene extends ScreenAdapter {
         batch.draw(buttonTexture, adjustedX, adjustedY, scaledWidth, scaledHeight);
     }
 
-    // protected abstract void checkHover();
-
-
     protected void clearScreen() {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

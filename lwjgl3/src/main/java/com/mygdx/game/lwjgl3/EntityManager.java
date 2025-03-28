@@ -1,10 +1,9 @@
 package com.mygdx.game.lwjgl3;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 
 public class EntityManager {
 	
@@ -13,7 +12,6 @@ public class EntityManager {
 	protected List<Entity> object1List;
 	protected List<Entity> object2List;
 	protected List<Entity> terrainList;
-	
 	
 	// Default Constructor
 	public EntityManager() {

@@ -1,13 +1,9 @@
 package com.mygdx.game.lwjgl3;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
-
 import java.util.ArrayList;
-import java.util.Random;
 	
 public class Object2 extends Entity implements iMovable, iCollidable{
 	private float currentyPos;
@@ -31,7 +27,7 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 
 	
     public static ArrayList<Object2> spawnObject2(int numberOfObjects, float scrollSpeed) {
-    	ArrayList<Object2> object2 = new ArrayList<Object2>();
+    	ArrayList<Object2> object2 = new ArrayList<>();
         boolean[][] usedCells = new boolean[GRID_COLS][GRID_ROWS];
 
         for (int j = 0; j < numberOfObjects; j++) {

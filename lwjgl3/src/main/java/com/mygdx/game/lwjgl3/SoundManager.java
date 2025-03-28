@@ -35,11 +35,9 @@ public class SoundManager {
             System.err.println("SoundManager: Folder not found - " + folderPath);
         }
     }
-    	
-   
-    
-     //Preload background music
-     private void preloadBackgroundMusic(String filePath) {
+    	 
+    //Preload background music
+    private void preloadBackgroundMusic(String filePath) {
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal(filePath));
         backgroundMusic.setLooping(true);  // Make the background music loop
         backgroundMusic.setVolume(0.5f);   // Set volume to 50%

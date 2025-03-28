@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Object1 extends Entity implements iMovable, iCollidable{
@@ -25,7 +24,7 @@ public class Object1 extends Entity implements iMovable, iCollidable{
 	}
 
 	public static ArrayList<Object1> spawnObject1(int numberOfFries, float scrollSpeed) {
-	    ArrayList<Object1> object1List = new ArrayList<Object1>();
+	    ArrayList<Object1> object1List = new ArrayList<>();
 
 	    for (int i = 0; i < numberOfFries; i++) {
 	        int col;
