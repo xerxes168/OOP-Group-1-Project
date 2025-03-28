@@ -115,10 +115,10 @@ public class MenuScene extends AbstractScene implements Screen {
                 // Retrieve that scene
                 Screen screen = SceneManager.getInstance().getScene("Play");
                 
-                // Go back to PlayScene and resume the game
+                // // Go back to PlayScene and resume the game
                 if (screen instanceof PlayScene) {
                     PlayScene playScene = (PlayScene) screen;
-                    playScene.updatePause();
+                    playScene.restartGame();
                 }
             }
 
