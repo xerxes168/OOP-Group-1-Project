@@ -1,7 +1,6 @@
 package com.mygdx.game.lwjgl3;
 
 import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -26,7 +25,7 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 	}
 
 
-    // Lily spawning without overlap
+    // Spawning terrain without overlap
 	public static ArrayList<Terrain> spawnTerrains(int numberOfLily, float scrollSpeed) {
 		ArrayList<Terrain> terrains = new ArrayList<>();
 		boolean[][] usedCells = new boolean[GRID_COLS][GRID_ROWS];
@@ -52,7 +51,6 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 	}
 
 
-
 	@Override
 	public void movement() {
 	    float deltaTime = Gdx.graphics.getDeltaTime();
@@ -70,20 +68,20 @@ public class Terrain extends Entity implements iMovable, iCollidable{
         }
     }
 
-	  private void reset() {
-	        // Reset y to the top.
-	        currentyPos = Gdx.graphics.getHeight();
+	private void reset() {
+		// Reset y to the top.
+		currentyPos = Gdx.graphics.getHeight();
 
-	        // Choose a random column.
-	        int col = MathUtils.random(0, GRID_COLS - 1);
+		// Choose a random column.
+		int col = MathUtils.random(0, GRID_COLS - 1);
 
-	        // Calculate the centered x position for that column.
-	        currentxPos = Math.round((col * CELL_WIDTH) / CELL_WIDTH) * CELL_WIDTH;
+		// Calculate the centered x position for that column.
+		currentxPos = Math.round((col * CELL_WIDTH) / CELL_WIDTH) * CELL_WIDTH;
 
-	        // Update the entity's position.
-	        super.setX(currentxPos);
-	        super.setY(currentyPos);
-	    }
+		// Update the entity's position.
+		super.setX(currentxPos);
+		super.setY(currentyPos);
+	}
 
 	public void draw(SpriteBatch batch) {
 	    batch.begin();

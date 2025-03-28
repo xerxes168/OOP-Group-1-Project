@@ -78,8 +78,6 @@ public class Object2 extends Entity implements iMovable, iCollidable{
         super.setX(currentxPos);
         super.setY(currentyPos);
 	}
-
-
 	
 	@Override
 	public void draw(SpriteBatch batch) {
@@ -88,14 +86,13 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 		batch.end();
 		
         setRectangle();
-
 	}
 
 	
 	@Override
 	public boolean isCollided(iCollidable object) {
 	    if (object instanceof Entity) {
-	        // Use your bounding boxes (LibGDX Rectangle objects)
+	        // Use bounding boxes (Rectangle objects)
 	        return this.getRectangle().overlaps(((Entity) object).getRectangle());
 	    }
 	    return false;
@@ -103,17 +100,14 @@ public class Object2 extends Entity implements iMovable, iCollidable{
 	
 	@Override 
 	public void onCollision(iCollidable object) {
-		// for any class specific collision
-		//System.out.println("Collided with static object!");
 
 		getRectangle().setPosition(-1000, -1000);
+
        if(object instanceof Character) {
-   		getRectangle().setSize(0, 0);
-   		getRectangle().setPosition(-1000, -1000);
-        setRemovalBoolean();
-
-
-        }
+			getRectangle().setSize(0, 0);
+			getRectangle().setPosition(-1000, -1000);
+			setRemovalBoolean();
+		}
     }
 	
 	public void dispose(){
@@ -122,7 +116,5 @@ public class Object2 extends Entity implements iMovable, iCollidable{
             getTex().dispose();
         } 
 	}
-
-	
 
 }

@@ -207,6 +207,13 @@ public class Character extends Entity implements iMovable, iCollidable {
                     collidedTerrain.getX() + "," + collidedTerrain.getY());
         }
 
+
+        // Clamp the upper bound:
+        float screenTop = Gdx.graphics.getHeight();
+        if (newY + CHARACTER_HEIGHT > screenTop) {
+            newY = screenTop - CHARACTER_HEIGHT;
+        }
+
         // Apply resolved position
         super.setY(newY);
 
