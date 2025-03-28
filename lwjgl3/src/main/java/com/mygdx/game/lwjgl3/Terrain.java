@@ -26,11 +26,11 @@ public class Terrain extends Entity implements iMovable, iCollidable{
 
 
     // Spawning terrain without overlap
-	public static ArrayList<Terrain> spawnTerrains(int numberOfLily, float scrollSpeed) {
+	public static ArrayList<Terrain> spawnTerrains(int numberOfTerrain, float scrollSpeed) {
 		ArrayList<Terrain> terrains = new ArrayList<>();
 		boolean[][] usedCells = new boolean[GRID_COLS][GRID_ROWS];
 
-		for (int j = 0; j < numberOfLily; j++) {
+		for (int j = 0; j < numberOfTerrain; j++) {
 			int col, row;
 			do {
 				col = MathUtils.random(0, GRID_COLS - 1);
